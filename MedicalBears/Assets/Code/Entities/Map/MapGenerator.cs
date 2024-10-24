@@ -1,110 +1,116 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.IO;
 
-public class MapGenerator : MonoBehaviour
+public class MapGenerator
 {
-    public int mapWidth = 30;
-    public int mapHeight = 30;
-    public int borderWidth = 2;
-    public int numberOfSpawnPoints = 3;
-    public int seed = 42;
+    private int _width;
+    private int _height;
+    private int _borderWidth;
+    private int _spawnPointsCount;
 
-    private Map map;
+    private Map _map;
     private List<Vector2Int> entryPoints;
     private Vector2Int exitPoint;
     private bool[,] visited;
 
-    private void Start()
+    public Map Generate(int width, int height, int borderWidth, int spawnPointsCount, int seed)
     {
         Random.InitState(seed);
-        map = new Map
+
+        _width = width;
+        _height = height;
+        _borderWidth = borderWidth;
+        _spawnPointsCount = spawnPointsCount;
+
+        return GenerateMap();
+    }
+
+    private Map GenerateMap()
+    {
+        _map = new Map
         {
-            Field = new MapCell[mapWidth, mapHeight],
-            Width = mapWidth,
-            Height = mapHeight
+            Field = new MapCell[_width, _height],
+            Width = _width,
+            Height = _height
         };
 
-        visited = new bool[mapWidth, mapHeight];
-        for (int x = 0; x < mapWidth; x++)
+        visited = new bool[_width, _height];
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < _height; y++)
             {
-                map.Field[x, y] = new MapCell { Type = MapCellType.Walkable, X = x, Y = y };
+                _map.Field[x, y] = new MapCell { Type = MapCellType.Walkable, X = x, Y = y };
                 visited[x, y] = false;
             }
         }
-
-        GenerateMap();
-    }
-
-    private void GenerateMap()
-    {
-        for (int x = 0; x < mapWidth; x++)
+        
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < borderWidth; y++)
+            for (int y = 0; y < _borderWidth; y++)
             {
-                if (y < mapHeight)
+                if (y < _height)
                 {
-                    map.Field[x, y].Type = MapCellType.Border;
-                    map.Field[x, mapHeight - 1 - y].Type = MapCellType.Border;
+                    _map.Field[x, y].Type = MapCellType.Border;
+                    _map.Field[x, _height - 1 - y].Type = MapCellType.Border;
                 }
             }
         }
-        for (int y = 0; y < mapHeight; y++)
+        for (int y = 0; y < _height; y++)
         {
-            for (int x = 0; x < borderWidth; x++)
+            for (int x = 0; x < _borderWidth; x++)
             {
-                if (x < mapWidth)
+                if (x < _width)
                 {
-                    map.Field[x, y].Type = MapCellType.Border;
-                    map.Field[mapWidth - 1 - x, y].Type = MapCellType.Border;
+                    _map.Field[x, y].Type = MapCellType.Border;
+                    _map.Field[_width - 1 - x, y].Type = MapCellType.Border;
                 }
             }
         }
 
         entryPoints = new List<Vector2Int>();
-        for (int i = 0; i < numberOfSpawnPoints; i++)
+        for (int i = 0; i < _spawnPointsCount; i++)
         {
             Vector2Int entryPoint;
             do
             {
-                entryPoint = new Vector2Int(Random.Range(borderWidth, mapWidth - borderWidth), Random.Range(borderWidth, mapHeight - borderWidth));
+                entryPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), Random.Range(_borderWidth, _height - _borderWidth));
             } while (entryPoints.Contains(entryPoint) || !IsFree(entryPoint.x, entryPoint.y));
             entryPoints.Add(entryPoint);
         }
         do
         {
-            exitPoint = new Vector2Int(Random.Range(borderWidth, mapWidth - borderWidth), mapHeight - 1 - borderWidth);
+            exitPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
         } while (entryPoints.Contains(exitPoint) || !IsFree(exitPoint.x, exitPoint.y));
 
-        int numberOfElevationTiles = (mapWidth * mapHeight) / 4;
+        int numberOfElevationTiles = (_width * _height) / 4;
         for (int i = 0; i < numberOfElevationTiles; i++)
         {
             Vector2Int elevationPoint;
             do
             {
-                elevationPoint = new Vector2Int(Random.Range(borderWidth, mapWidth - borderWidth), Random.Range(borderWidth, mapHeight - borderWidth));
+                elevationPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), Random.Range(_borderWidth, _height - _borderWidth));
             } while (!IsFree(elevationPoint.x, elevationPoint.y));
-            map.Field[elevationPoint.x, elevationPoint.y].Type = MapCellType.Wall;
+            _map.Field[elevationPoint.x, elevationPoint.y].Type = MapCellType.Wall;
         }
 
         foreach (var entryPoint in entryPoints)
         {
-            map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Walkable;
+            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Walkable;
         }
-        map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Walkable;
+        _map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Walkable;
 
         BFS();
         FillUnvisitedTiles();
         CheckElevationTilesForNeighbors();
+
+        return _map;
     }
 
     private bool IsFree(int x, int y)
     {
-        if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight)
+        if (x >= 0 && x < _width && y >= 0 && y < _height)
         {
-            if (map.Field[x, y].Type != MapCellType.Walkable)
+            if (_map.Field[x, y].Type != MapCellType.Walkable)
             {
                 return false;
             }
@@ -149,7 +155,7 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Vector2Int neighbor = new Vector2Int(position.x + dx[i], position.y + dy[i]);
-            if (neighbor.x >= 0 && neighbor.x < mapWidth && neighbor.y >= 0 && neighbor.y < mapHeight)
+            if (neighbor.x >= 0 && neighbor.x < _width && neighbor.y >= 0 && neighbor.y < _height)
             {
                 neighbors.Add(neighbor);
             }
@@ -160,18 +166,18 @@ public class MapGenerator : MonoBehaviour
 
     private bool IsWalkable(Vector2Int position)
     {
-        return map.Field[position.x, position.y].Type == MapCellType.Walkable;
+        return _map.Field[position.x, position.y].Type == MapCellType.Walkable;
     }
 
     private void FillUnvisitedTiles()
     {
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < _height; y++)
             {
-                if (!visited[x, y] && map.Field[x, y].Type == MapCellType.Walkable && IsSurroundedByElevation(new Vector2Int(x, y)))
+                if (!visited[x, y] && _map.Field[x, y].Type == MapCellType.Walkable && IsSurroundedByElevation(new Vector2Int(x, y)))
                 {
-                    map.Field[x, y].Type = MapCellType.Wall;
+                    _map.Field[x, y].Type = MapCellType.Wall;
                 }
             }
         }
@@ -185,9 +191,9 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Vector2Int neighbor = new Vector2Int(position.x + dx[i], position.y + dy[i]);
-            if (neighbor.x >= 0 && neighbor.x < mapWidth && neighbor.y >= 0 && neighbor.y < mapHeight)
+            if (neighbor.x >= 0 && neighbor.x < _width && neighbor.y >= 0 && neighbor.y < _height)
             {
-                if (map.Field[neighbor.x, neighbor.y].Type != MapCellType.Wall)
+                if (_map.Field[neighbor.x, neighbor.y].Type != MapCellType.Wall)
                 {
                     return false;
                 }
@@ -199,13 +205,13 @@ public class MapGenerator : MonoBehaviour
 
     private void CheckElevationTilesForNeighbors()
     {
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < _height; y++)
             {
-                if (map.Field[x, y].Type == MapCellType.Wall && !HasNeighbors(new Vector2Int(x, y)))
+                if (_map.Field[x, y].Type == MapCellType.Wall && !HasNeighbors(new Vector2Int(x, y)))
                 {
-                    map.Field[x, y].Type = MapCellType.Walkable;
+                    _map.Field[x, y].Type = MapCellType.Walkable;
                 }
             }
         }
@@ -219,9 +225,9 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Vector2Int neighbor = new Vector2Int(position.x + dx[i], position.y + dy[i]);
-            if (neighbor.x >= 0 && neighbor.x < mapWidth && neighbor.y >= 0 && neighbor.y < mapHeight)
+            if (neighbor.x >= 0 && neighbor.x < _width && neighbor.y >= 0 && neighbor.y < _height)
             {
-                if (map.Field[neighbor.x, neighbor.y].Type == MapCellType.Wall)
+                if (_map.Field[neighbor.x, neighbor.y].Type == MapCellType.Wall)
                 {
                     return true;
                 }
@@ -229,10 +235,5 @@ public class MapGenerator : MonoBehaviour
         }
 
         return false;
-    }
-
-    public Map GetMap()
-    {
-        return map;
     }
 }
