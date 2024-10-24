@@ -51,6 +51,10 @@ public class Enemy : Hero
                 currentWaypointIndex++;
             }
         }
+        else
+        {
+            transform.position += Vector3.down * speed * Time.deltaTime;
+        }
     }
 
     public override void Die()
