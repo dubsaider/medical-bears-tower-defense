@@ -7,7 +7,7 @@ public class Enemy : Hero
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
 
-    public CoinManager coinManager;
+    private CoinManager coinManager;
 
     void Start()
     {
