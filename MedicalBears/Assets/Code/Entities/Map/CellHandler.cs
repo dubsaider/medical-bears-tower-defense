@@ -73,7 +73,7 @@ namespace Code.Entities.Map
             towerBuildHandler.Build();
             towerBuildHandler.transform.position = transform.position;
 
-            _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 0.7f);;
+            _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 1f);
             
             _isEmpty = false;
             return true;
