@@ -5,6 +5,7 @@ public class CoinManager : MonoBehaviour
 {
     public Text coinText; 
     private int coinBalance = 0; 
+
     void Start()
     {
         UpdateCoinText();
@@ -29,5 +30,10 @@ public class CoinManager : MonoBehaviour
     private void UpdateCoinText()
     {
         coinText.text = "Монеты: " + coinBalance;
+    }
+
+    public int GetCoinBalance()
+    {
+        return coinBalance;
     }
 }
