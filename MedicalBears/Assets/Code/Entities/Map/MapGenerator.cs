@@ -39,7 +39,7 @@ public class MapGenerator
         {
             for (int y = 0; y < _height; y++)
             {
-                _map.Field[x, y] = new MapCell { Type = MapCellType.Walkable, X = x, Y = y };
+                _map.Field[x, y] = new MapCell { Type = MapCellType.Floor, X = x, Y = y };
                 visited[x, y] = false;
             }
         }
@@ -95,9 +95,9 @@ public class MapGenerator
 
         foreach (var entryPoint in entryPoints)
         {
-            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Walkable;
+            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Floor;
         }
-        _map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Walkable;
+        _map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Floor;
 
         BFS();
         FillUnvisitedTiles();
@@ -110,7 +110,7 @@ public class MapGenerator
     {
         if (x >= 0 && x < _width && y >= 0 && y < _height)
         {
-            if (_map.Field[x, y].Type != MapCellType.Walkable)
+            if (_map.Field[x, y].Type != MapCellType.Floor)
             {
                 return false;
             }
@@ -166,7 +166,7 @@ public class MapGenerator
 
     private bool IsWalkable(Vector2Int position)
     {
-        return _map.Field[position.x, position.y].Type == MapCellType.Walkable;
+        return _map.Field[position.x, position.y].Type == MapCellType.Floor;
     }
 
     private void FillUnvisitedTiles()
@@ -175,7 +175,7 @@ public class MapGenerator
         {
             for (int y = 0; y < _height; y++)
             {
-                if (!visited[x, y] && _map.Field[x, y].Type == MapCellType.Walkable && IsSurroundedByElevation(new Vector2Int(x, y)))
+                if (!visited[x, y] && _map.Field[x, y].Type == MapCellType.Floor && IsSurroundedByElevation(new Vector2Int(x, y)))
                 {
                     _map.Field[x, y].Type = MapCellType.Wall;
                 }
@@ -211,7 +211,7 @@ public class MapGenerator
             {
                 if (_map.Field[x, y].Type == MapCellType.Wall && !HasNeighbors(new Vector2Int(x, y)))
                 {
-                    _map.Field[x, y].Type = MapCellType.Walkable;
+                    _map.Field[x, y].Type = MapCellType.Floor;
                 }
             }
         }

@@ -23,5 +23,5 @@ public enum MapCellType
     /// <summary>
     /// Проход
     /// </summary>
-    Walkable = 2
+    Floor = 2
 }
