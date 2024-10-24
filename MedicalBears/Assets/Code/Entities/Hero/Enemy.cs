@@ -6,8 +6,8 @@ public class Enemy : Hero
 {
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
-
     private CoinManager coinManager;
+    [SerializeField] private int reward;
 
     void Start()
     {
@@ -20,8 +20,7 @@ public class Enemy : Hero
 
         coinManager = Object.FindAnyObjectByType<CoinManager>();
 
-        // Ищем ближайшую башню при старте
-        FindNearestTower();
+        InvokeRepeating("FindNearestTower", 1f, 1f);
     }
 
     public void SetPath(List<Vector3> newPath)
@@ -58,7 +57,7 @@ public class Enemy : Hero
     {
         if (coinManager != null)
         {
-            coinManager.AddCoins(10); 
+            coinManager.AddCoins(reward); 
         }
 
         Destroy(gameObject);
