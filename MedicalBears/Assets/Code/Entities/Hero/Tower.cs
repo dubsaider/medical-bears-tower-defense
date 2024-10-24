@@ -6,14 +6,16 @@ public class Tower : Hero
     public Transform firePoint; 
     private float nextTimeToFire = 0f;
     private LayerMask enemyLayerMask;
+    private bool isBuilded = false; 
 
-     void Start()
+    void Start()
     {
         enemyLayerMask = LayerMask.GetMask("Enemy");
     }
+
     void Update()
     {
-        if (Time.time >= nextTimeToFire)
+        if (isBuilded && Time.time >= nextTimeToFire) 
         {
             Attack();
             nextTimeToFire = Time.time + 1f / attackSpeed;
@@ -76,5 +78,10 @@ public class Tower : Hero
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public void SetBuildStatus(bool buildStatus)
+    {
+        isBuilded = buildStatus;
     }
 }
