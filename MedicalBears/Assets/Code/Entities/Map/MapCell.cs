@@ -14,14 +14,19 @@ public enum MapCellType
     /// Граница (недоступная)
     /// </summary>
     Border = 0,
-    
+
     /// <summary>
     /// Стена, которую обходят челики
     /// </summary>
     Wall = 1,
-    
+
     /// <summary>
     /// Проход
     /// </summary>
-    Floor = 2
+    Floor = 2,
+
+    /// <summary>
+    /// Спавнер мобов
+    /// </summary>
+    Spawner = 3
 }

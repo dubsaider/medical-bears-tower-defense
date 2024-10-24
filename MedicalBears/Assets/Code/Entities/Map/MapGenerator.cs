@@ -43,18 +43,7 @@ public class MapGenerator
                 visited[x, y] = false;
             }
         }
-        
-        for (int x = 0; x < _width; x++)
-        {
-            for (int y = 0; y < _borderWidth; y++)
-            {
-                if (y < _height)
-                {
-                    _map.Field[x, y].Type = MapCellType.Border;
-                    _map.Field[x, _height - 1 - y].Type = MapCellType.Border;
-                }
-            }
-        }
+
         for (int y = 0; y < _height; y++)
         {
             for (int x = 0; x < _borderWidth; x++)
@@ -73,9 +62,10 @@ public class MapGenerator
             Vector2Int entryPoint;
             do
             {
-                entryPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), Random.Range(_borderWidth, _height - _borderWidth));
+                entryPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
             } while (entryPoints.Contains(entryPoint) || !IsFree(entryPoint.x, entryPoint.y));
             entryPoints.Add(entryPoint);
+            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Spawner;
         }
         do
         {
