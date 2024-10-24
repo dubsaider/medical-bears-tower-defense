@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Code.Entities.Map;
 using Extensions;
 using UnityEngine;
 
@@ -50,8 +51,10 @@ namespace Code.Render
 
         private void RenderCell(MapCell cell, Sprite sprite)
         {
-            var newCell = ObjectsManager.CreateObject(_cellPrefab, _parentObject, new Vector3(cell.X, cell.Y, 0));
-            newCell.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+            var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, new Vector3(cell.X, cell.Y, 0));
+            cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+
+            cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
         }
     }
 }

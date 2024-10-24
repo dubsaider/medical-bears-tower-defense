@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 245893767784171034}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.066482544, y: 0.86880493, z: -0.040271718}
+  m_LocalPosition: {x: 0.066482544, y: 2.2, z: -0.040271718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 5175154092988976852}
   - component: {fileID: 5458052966052431987}
   - component: {fileID: 7490579731593163344}
+  - component: {fileID: 1279855218970988075}
   m_Layer: 7
   m_Name: Tower
   m_TagString: Tower
@@ -138,3 +139,15 @@ MonoBehaviour:
   attackSpeed: 1
   arrowPrefab: {fileID: 1458258281887741677, guid: 5cdb835ff89515f4b84d3e1e5920caf2, type: 3}
   firePoint: {fileID: 4710102085287675373}
+--- !u!114 &1279855218970988075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514306237930157611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89de888353ee41d3a99410b882dab540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
