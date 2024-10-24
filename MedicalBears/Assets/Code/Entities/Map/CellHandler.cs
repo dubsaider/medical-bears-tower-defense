@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Core.BuildMode.BuildMode;
+﻿using Code.Core.BuildMode.BuildMode;
 using Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,7 +37,6 @@ namespace Code.Entities.Map
                     spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 0.7f);
                     return;
                 }
-
                 
                 var color = Colors.ColorWithModifiedAlpha(_isAvailable
                     ? Colors.lightGreen
@@ -75,6 +73,8 @@ namespace Code.Entities.Map
             towerBuildHandler.Build();
             towerBuildHandler.transform.position = transform.position;
 
+            _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 0.7f);;
+            
             _isEmpty = false;
             return true;
         }
