@@ -8,9 +8,13 @@ public class Tower : Hero
     private LayerMask enemyLayerMask;
     public bool IsBuilded { get; private set; } 
 
+    private SpriteRenderer spriteRenderer;
+
     void Awake()
     {
         enemyLayerMask = LayerMask.GetMask("Enemy");
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.green;
     }
 
     void Update()
@@ -87,6 +91,17 @@ public class Tower : Hero
         if (IsBuilded)
         {
             gameObject.tag = "Tower";
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = Color.white;
+            }
+        }
+        else
+        {
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = Color.green;
+            }
         }
     }
 }
