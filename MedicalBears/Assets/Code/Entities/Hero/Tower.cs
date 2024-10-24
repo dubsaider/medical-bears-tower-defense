@@ -5,10 +5,17 @@ public class Tower : Hero
     public GameObject arrowPrefab; 
     public Transform firePoint; 
     private float nextTimeToFire = 0f;
+    private LayerMask enemyLayerMask;
+    private bool isBuilded = false; 
+
+    void Start()
+    {
+        enemyLayerMask = LayerMask.GetMask("Enemy");
+    }
 
     void Update()
     {
-        if (Time.time >= nextTimeToFire)
+        if (isBuilded && Time.time >= nextTimeToFire) 
         {
             Attack();
             nextTimeToFire = Time.time + 1f / attackSpeed;
@@ -17,10 +24,23 @@ public class Tower : Hero
 
     public override void Attack()
     {
-        GameObject nearestEnemy = FindNearestEnemy();
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayerMask);
+        Transform nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (var hitCollider in hitColliders)
+        {
+            float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
+            if (distanceToEnemy < shortestDistance)
+            {
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = hitCollider.transform;
+            }
+        }
+
         if (nearestEnemy != null)
         {
-            Shoot(nearestEnemy.transform.position, nearestEnemy.transform);
+            Shoot(nearestEnemy.position, nearestEnemy);
         }
     }
 
@@ -37,25 +57,6 @@ public class Tower : Hero
     public override int GetAttackPriority(Hero target)
     {
         return 0;
-    }
-
-    private GameObject FindNearestEnemy()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject nearestEnemy = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (GameObject enemy in enemies)
-        {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance && distanceToEnemy <= attackRange)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
-        }
-
-        return nearestEnemy;
     }
 
     private void Shoot(Vector3 targetPosition, Transform targetTransform)
@@ -77,5 +78,10 @@ public class Tower : Hero
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public void SetBuildStatus(bool buildStatus)
+    {
+        isBuilded = buildStatus;
     }
 }
