@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapCell : MonoBehaviour
+public class MapCell
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public MapCellType Type;
+    public int X, Y;
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum MapCellType
+{
+    /// <summary>
+    /// Граница (недоступная)
+    /// </summary>
+    Border = 0,
+    
+    /// <summary>
+    /// Стена, которую обходят челики
+    /// </summary>
+    Wall = 1,
+    
+    /// <summary>
+    /// Проход
+    /// </summary>
+    Walkable = 2
 }
