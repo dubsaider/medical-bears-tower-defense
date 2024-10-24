@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     public float lifeTime = 2f; 
     public float speed = 10f;
-    private float damage; // Поле для хранения урона
+    private float damage; 
 
     private Transform target;
 

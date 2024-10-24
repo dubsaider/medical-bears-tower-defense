@@ -83,5 +83,10 @@ public class Tower : Hero
     public void SetBuildStatus(bool buildStatus)
     {
         IsBuilded = buildStatus;
+
+        if (IsBuilded)
+        {
+            gameObject.tag = "Tower";
+        }
     }
 }

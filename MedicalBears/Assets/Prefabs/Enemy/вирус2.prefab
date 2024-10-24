@@ -104,4 +104,4 @@ MonoBehaviour:
   damage: 2
   attackRange: 15
   attackSpeed: 1
-  coinManager: {fileID: 0}
+  reward: 5
