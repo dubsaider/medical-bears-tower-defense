@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CoreManager : MonoBehaviour
 {
+    public static CoreManager Instance; 
+    
     [SerializeField] private SceneRenderer sceneRenderer;
 
     private Map _map;
@@ -10,6 +12,7 @@ public class CoreManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _mapGenerator = new();
     }
 
