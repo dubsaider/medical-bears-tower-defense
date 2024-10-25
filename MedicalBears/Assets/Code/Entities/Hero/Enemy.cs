@@ -61,7 +61,8 @@ public class Enemy : Hero
         }
         else
         {
-            navMeshAgent.SetDestination(transform.position + Vector3.down * speed);
+            Vector3 targetPosition = transform.position + Vector3.down * 10f; 
+            navMeshAgent.SetDestination(targetPosition);
         }
     }
 
