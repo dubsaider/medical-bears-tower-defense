@@ -52,7 +52,7 @@ public class Enemy : Hero
         if (path != null && path.Count > 0 && currentWaypointIndex < path.Count)
         {
             Vector3 targetPosition = path[currentWaypointIndex];
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            navMeshAgent.SetDestination(targetPosition);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
@@ -61,7 +61,7 @@ public class Enemy : Hero
         }
         else
         {
-            transform.position += Vector3.down * speed * Time.deltaTime;
+            navMeshAgent.SetDestination(transform.position + Vector3.down * speed);
         }
     }
 

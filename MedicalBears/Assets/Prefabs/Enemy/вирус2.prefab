@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 250
-  speed: 0.5
+  speed: 1.5
   damage: 2
   attackRange: 15
   attackSpeed: 1
@@ -167,7 +167,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.42
-  m_Speed: 2.81
+  m_Speed: 1
   m_Acceleration: 5.8
   avoidancePriority: 50
   m_AngularSpeed: 115.39
