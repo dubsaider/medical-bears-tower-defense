@@ -27,7 +27,7 @@ namespace Code.Render
             foreach (var cell in map.Field)
             {
                 if (cell.Type is MapCellType.Wall)
-                    RenderCell(cell, tiles.GetRandomItem()); //TODO доделать в будущем (красиво формировать большие фигуры тайлами)
+                    RenderCell(cell, tiles.GetRandomItem(), "Wall"); //TODO доделать в будущем (красиво формировать большие фигуры тайлами)
             }
         }
         
@@ -36,7 +36,7 @@ namespace Code.Render
             foreach (var cell in map.Field)
             {
                 if (cell.Type is MapCellType.Floor)
-                    RenderCell(cell, tiles.GetRandomItem());
+                    RenderCell(cell, tiles.GetRandomItem(), "Floor");
             }
         }
 
@@ -45,15 +45,16 @@ namespace Code.Render
             foreach (var cell in map.Field)
             {
                 if (cell.Type is MapCellType.Border)
-                    RenderCell(cell, tiles.GetRandomItem());
+                    RenderCell(cell, tiles.GetRandomItem(), "Wall");
             }
         }
 
-        private void RenderCell(MapCell cell, Sprite sprite)
+        private void RenderCell(MapCell cell, Sprite sprite, string layerName)
         {
             var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, new Vector3(cell.X, cell.Y, 0));
             cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
 
+            cellObj.layer = LayerMask.NameToLayer(layerName);
             cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
         }
     }
