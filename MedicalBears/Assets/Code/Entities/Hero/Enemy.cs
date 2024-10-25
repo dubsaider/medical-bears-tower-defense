@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.AI;
 
 public class Enemy : Hero
 {
@@ -8,9 +10,13 @@ public class Enemy : Hero
     private int currentWaypointIndex = 0;
     private CoinManager coinManager;
     [SerializeField] private int reward;
-
+    
+    [SerializeField] private NavMeshAgent navMeshAgent;
+    
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0f; 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
@@ -27,6 +33,8 @@ public class Enemy : Hero
     {
         path = newPath;
         currentWaypointIndex = 0;
+        
+        navMeshAgent.SetDestination(newPath.Last());
     }
 
     private void Update()

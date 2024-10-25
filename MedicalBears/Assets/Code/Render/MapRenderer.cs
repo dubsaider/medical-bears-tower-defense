@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Code.Entities.Map;
 using Extensions;
+using NavMeshPlus.Components;
 using UnityEngine;
 
 namespace Code.Render
@@ -20,6 +21,8 @@ namespace Code.Render
             RenderWalls(map, wallTiles);
             RenderFloors(map, floorTiles);
             RenderBorders(map, borderTiles);
+            
+            NavMeshBaker.Instance.Bake();
         }
 
         private void RenderWalls(Map map, Sprite[] tiles)
@@ -55,6 +58,23 @@ namespace Code.Render
             cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
 
             cellObj.layer = LayerMask.NameToLayer(layerName);
+
+
+            cellObj.AddComponent<NavMeshModifier>();
+
+            var navMeshModifier = cellObj.GetComponent<NavMeshModifier>();
+            
+            if (cell.Type == MapCellType.Floor)
+            {
+                navMeshModifier.overrideArea = true;
+                navMeshModifier.area = 0;
+            }
+            else
+            {
+                navMeshModifier.overrideArea = true;
+                navMeshModifier.area = 1;
+            }
+
             cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
         }
     }

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6393584491052232829}
   - component: {fileID: 1473284632669832847}
   - component: {fileID: 8304589802571736514}
+  - component: {fileID: 4472600197335991875}
+  - component: {fileID: 5708590135744962098}
   m_Layer: 8
   m_Name: "\u0432\u0438\u0440\u0443\u04411"
   m_TagString: Enemy
@@ -142,3 +144,37 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2.09
+--- !u!195 &4472600197335991875
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896221586093080971}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.42
+  m_Speed: 2.81
+  m_Acceleration: 5.8
+  avoidancePriority: 50
+  m_AngularSpeed: 115.39
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3.9
+  m_BaseOffset: 1.99
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &5708590135744962098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896221586093080971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
