@@ -27,73 +27,107 @@ public class MapGenerator
 
     private Map GenerateMap()
     {
-        _map = new Map
-        {
-            Field = new MapCell[_width, _height],
-            Width = _width,
-            Height = _height
-        };
+        bool pathExists = false;
+        int attempt = 0;
+        const int maxAttempts = 100; 
 
-        visited = new bool[_width, _height];
-        for (int x = 0; x < _width; x++)
+        while (!pathExists && attempt < maxAttempts)
         {
-            for (int y = 0; y < _height; y++)
+            _map = new Map
             {
-                _map.Field[x, y] = new MapCell { Type = MapCellType.Floor, X = x, Y = y };
-                visited[x, y] = false;
-            }
-        }
+                Field = new MapCell[_width, _height],
+                Width = _width,
+                Height = _height
+            };
 
-        for (int y = 0; y < _height; y++)
-        {
-            for (int x = 0; x < _borderWidth; x++)
+            visited = new bool[_width, _height];
+            for (int x = 0; x < _width; x++)
             {
-                if (x < _width)
+                for (int y = 0; y < _height; y++)
                 {
-                    _map.Field[x, y].Type = MapCellType.Border;
-                    _map.Field[_width - 1 - x, y].Type = MapCellType.Border;
+                    _map.Field[x, y] = new MapCell { Type = MapCellType.Floor, X = x, Y = y };
+                    visited[x, y] = false;
                 }
             }
-        }
 
-        entryPoints = new List<Vector2Int>();
-        for (int i = 0; i < _spawnPointsCount; i++)
-        {
-            Vector2Int entryPoint;
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _borderWidth; x++)
+                {
+                    if (x < _width)
+                    {
+                        _map.Field[x, y].Type = MapCellType.Border;
+                        _map.Field[_width - 1 - x, y].Type = MapCellType.Border;
+                    }
+                }
+            }
+
+            entryPoints = new List<Vector2Int>();
+            for (int i = 0; i < _spawnPointsCount; i++)
+            {
+                Vector2Int entryPoint;
+                do
+                {
+                    entryPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
+                } while (entryPoints.Contains(entryPoint) || !IsFree(entryPoint.x, entryPoint.y));
+                entryPoints.Add(entryPoint);
+                _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Spawner;
+            }
             do
             {
-                entryPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
-            } while (entryPoints.Contains(entryPoint) || !IsFree(entryPoint.x, entryPoint.y));
-            entryPoints.Add(entryPoint);
-            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Spawner;
-        }
-        do
-        {
-            exitPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
-        } while (entryPoints.Contains(exitPoint) || !IsFree(exitPoint.x, exitPoint.y));
+                exitPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), _height - 1 - _borderWidth);
+            } while (entryPoints.Contains(exitPoint) || !IsFree(exitPoint.x, exitPoint.y));
 
-        int numberOfElevationTiles = (_width * _height) / 4;
-        for (int i = 0; i < numberOfElevationTiles; i++)
-        {
-            Vector2Int elevationPoint;
-            do
+            int numberOfElevationTiles = (_width * _height) / 4;
+            for (int i = 0; i < numberOfElevationTiles; i++)
             {
-                elevationPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), Random.Range(_borderWidth, _height - _borderWidth));
-            } while (!IsFree(elevationPoint.x, elevationPoint.y));
-            _map.Field[elevationPoint.x, elevationPoint.y].Type = MapCellType.Wall;
+                Vector2Int elevationPoint;
+                do
+                {
+                    elevationPoint = new Vector2Int(Random.Range(_borderWidth, _width - _borderWidth), Random.Range(_borderWidth, _height - _borderWidth));
+                } while (!IsFree(elevationPoint.x, elevationPoint.y));
+                _map.Field[elevationPoint.x, elevationPoint.y].Type = MapCellType.Wall;
+            }
+
+            foreach (var entryPoint in entryPoints)
+            {
+                _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Floor;
+            }
+            _map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Floor;
+
+            BFS();
+            pathExists = CheckPathExists();
+
+            if (!pathExists)
+            {
+                Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+            }
+
+            attempt++;
         }
 
-        foreach (var entryPoint in entryPoints)
+        if (!pathExists)
         {
-            _map.Field[entryPoint.x, entryPoint.y].Type = MapCellType.Floor;
+            Debug.LogWarning("Не удалось сгенерировать карту с проходом после максимального количества попыток.");
         }
-        _map.Field[exitPoint.x, exitPoint.y].Type = MapCellType.Floor;
 
-        BFS();
         FillUnvisitedTiles();
         CheckElevationTilesForNeighbors();
 
         return _map;
+    }
+
+    private bool CheckPathExists()
+    {
+        foreach (var entryPoint in entryPoints)
+        {
+            if (!visited[entryPoint.x, entryPoint.y])
+            {
+                return false;
+            }
+        }
+
+        return visited[exitPoint.x, exitPoint.y];
     }
 
     private bool IsFree(int x, int y)
