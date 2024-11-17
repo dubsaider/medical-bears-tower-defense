@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.AI;
@@ -73,7 +72,7 @@ public class Enemy : Hero
             coinManager.AddCoins(reward); 
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public override int GetAttackPriority(Hero target)
