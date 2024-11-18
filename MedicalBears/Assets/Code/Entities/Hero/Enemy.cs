@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.AI;
 
-public class Enemy : Hero
+public class Enemy : Hero, ICorruptionDealer
 {
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
@@ -101,5 +101,10 @@ public class Enemy : Hero
             List<Vector3> newPath = new List<Vector3> { nearestTower.transform.position };
             SetPath(newPath);
         }
+    }
+
+    public void DealCorruption(Corruption corruption)
+    {
+        // Логика нанесения заражения
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower : Hero
+public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
 {
     public GameObject arrowPrefab; 
     public Transform firePoint; 
@@ -26,41 +26,32 @@ public class Tower : Hero
         }
     }
 
+    public override void ShootSingle()
+    {
+        CommonShootLogic();
+        // Дополнительная логика одиночного выстрела
+    }
+
+    public override void ShootAoE()
+    {
+        CommonAoEShootLogic();
+        // Дополнительная логика выстрела по области
+    }
+
     public override void Attack()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayerMask);
-        Transform nearestEnemy = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (var hitCollider in hitColliders)
-        {
-            float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
-            if (distanceToEnemy < shortestDistance)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = hitCollider.transform;
-            }
-        }
-
-        if (nearestEnemy != null)
-        {
-            Shoot(nearestEnemy.position, nearestEnemy);
-        }
+        CommonAttackLogic();
+        // Дополнительная логика ближнего боя
     }
 
-    public override void Die()
+    public void ToggleTower(bool isEnabled)
     {
-        Destroy(gameObject);
+        // Логика включения/выключения башни
     }
 
-    public override void Move()
+    public void HandleCorruption(Corruption corruption)
     {
-        throw new System.NotImplementedException("Tower cannot move.");
-    }
-
-    public override int GetAttackPriority(Hero target)
-    {
-        return 0;
+        // Логика обработки заражения
     }
 
     private void Shoot(Vector3 targetPosition, Transform targetTransform)
