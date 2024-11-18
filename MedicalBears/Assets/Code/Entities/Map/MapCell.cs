@@ -11,20 +11,17 @@ public class MapCell
 public enum MapCellType
 {
     /// <summary>
-    /// Граница (недоступная)
+    /// Проход
     /// </summary>
-    Border = 0,
-
+    Floor = 0,
     /// <summary>
     /// Стена, которую обходят челики
     /// </summary>
     Wall = 1,
-
     /// <summary>
-    /// Проход
+    /// Граница (недоступная)
     /// </summary>
-    Floor = 2,
-
+    Border = 2,
     /// <summary>
     /// Спавнер мобов
     /// </summary>

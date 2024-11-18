@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class MapGenerator
 {
@@ -13,18 +14,60 @@ public class MapGenerator
     private Vector2Int exitPoint;
     private bool[,] visited;
 
-    public Map Generate(int width, int height, int borderWidth, int spawnPointsCount, int seed)
+    // public Map Generate(int width, int height, int borderWidth, int spawnPointsCount, int seed)
+    // {
+    //     Random.InitState(seed);
+
+    //     _width = width;
+    //     _height = height;
+    //     _borderWidth = borderWidth;
+    //     _spawnPointsCount = spawnPointsCount;
+
+    //     return GenerateMap();
+    // }
+
+     public Map Generate(int matrixIndex)
     {
-        Random.InitState(seed);
-
-        _width = width;
-        _height = height;
-        _borderWidth = borderWidth;
-        _spawnPointsCount = spawnPointsCount;
-
-        return GenerateMap();
+        int[,] selectedMatrix = matrixIndex == 0 ? MapMatrices.Matrix1 : MapMatrices.Matrix2;
+        return ConvertMatrixToMap(selectedMatrix);
     }
 
+    private Map ConvertMatrixToMap(int[,] matrix)
+    {
+        int width = matrix.GetLength(1);
+        int height = matrix.GetLength(0);
+
+        Map map = new Map
+        {
+            Field = new MapCell[width, height],
+            Width = width,
+            Height = height
+        };
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                MapCellType type = MapCellType.Floor;
+                switch (matrix[height - 1 - y, x])
+                {
+                    case 0:
+                        type = MapCellType.Floor;
+                        break;
+                    case 1:
+                        type = MapCellType.Wall;
+                        break;
+                    case 2:
+                        type = MapCellType.Border;
+                        break;
+                }
+
+                map.Field[x, y] = new MapCell { Type = type, X = x, Y = y };
+            }
+        }
+
+        return map;
+    }
     private Map GenerateMap()
     {
         bool pathExists = false;
@@ -113,7 +156,7 @@ public class MapGenerator
 
         FillUnvisitedTiles();
         CheckElevationTilesForNeighbors();
-
+        
         return _map;
     }
 
@@ -259,5 +302,27 @@ public class MapGenerator
         }
 
         return false;
+    }
+
+    public void SaveMapToFile(string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    if (_map.Field[x, y].Type == MapCellType.Floor || _map.Field[x, y].Type == MapCellType.Spawner)
+                    {
+                        writer.Write("0");
+                    }
+                    else if (_map.Field[x, y].Type == MapCellType.Wall)
+                    {
+                        writer.Write("1");
+                    }
+                }
+                writer.WriteLine();
+            }
+        }
     }
 }
