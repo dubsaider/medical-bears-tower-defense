@@ -12,6 +12,9 @@ public class Enemy : Hero, IMeleeAttacker
     
     [SerializeField] private NavMeshAgent navMeshAgent;
     
+    public float Range { get { return attackRange; } }
+    public float Damage { get { return damage; } }
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -117,7 +120,7 @@ public class Enemy : Hero, IMeleeAttacker
         // Логика нанесения заражения
     }
 
-    public void MeleeAttack(Transform target)
+    public void Attack(Transform target)
     {
         if (target == null)
         {
