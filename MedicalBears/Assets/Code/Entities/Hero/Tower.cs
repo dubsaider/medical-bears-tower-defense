@@ -89,11 +89,6 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
     public void HandleCorruption(Corruption corruption)
     {
         // Логика обработки заражения
-        health -= corruption.Damage;
-        if (health <= 0)
-        {
-            Die();
-        }
     }
 
     void OnDrawGizmosSelected()

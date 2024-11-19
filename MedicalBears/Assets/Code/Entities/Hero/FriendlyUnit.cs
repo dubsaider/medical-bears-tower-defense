@@ -7,11 +7,6 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         // Логика лечения заражения
     }
 
-    public override void Attack()
-    {
-        // Логика атаки
-    }
-
     public override void Die()
     {
         // Логика смерти
