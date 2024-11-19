@@ -47,8 +47,11 @@ public class Enemy : Hero, IMeleeAttacker
 
     private void Update()
     {
-        Move();
-        Attack();
+        if (isAlive)
+        {
+            Move();
+            Attack();
+        }
     }
 
     public void Attack()
@@ -72,7 +75,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
-            Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name}");
+            Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
         }
     }
 
@@ -90,7 +93,6 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 currentWaypointIndex++;
             }
-            // Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
         else
         {
@@ -99,7 +101,6 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 navMeshAgent.SetDestination(targetPosition);
             }
-            // Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
     }
 
@@ -109,6 +110,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             coinManager.AddCoins(reward); 
         }
+        isAlive = false;
         Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);
     }
