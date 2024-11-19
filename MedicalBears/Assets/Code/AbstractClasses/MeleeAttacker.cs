@@ -1,9 +1,28 @@
+using UnityEngine;
+
 public abstract class MeleeAttacker
 {
-    public abstract void Attack();
+    public float attackRange;
+    public float damage;
 
-    protected void CommonAttackLogic()
+    public virtual void Attack(Transform target)
     {
-        // Общая логика атаки
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, target.position) <= attackRange)
+        {
+            // Применение урона цели
+            ApplyDamage(target);
+        }
+    }
+
+    protected virtual void ApplyDamage(Transform target)
+    {
+        // Логика применения урона
+        Debug.Log($"Dealing {damage} damage to {target.name}");
     }
 }

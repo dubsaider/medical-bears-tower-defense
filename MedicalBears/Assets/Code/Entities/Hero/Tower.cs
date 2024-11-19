@@ -26,9 +26,9 @@ public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
         }
     }
 
-    public override void ShootSingle()
+    public override void ShootSingle(Transform target)
     {
-        CommonShootLogic();
+        CommonShootLogic(target);
         // Дополнительная логика одиночного выстрела
     }
 

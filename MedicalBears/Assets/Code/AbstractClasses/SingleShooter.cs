@@ -1,12 +1,24 @@
+using UnityEngine;
+
 public abstract class SingleShooter
 {
     public float Range { get; protected set; }
     public float Damage { get; protected set; }
 
-    public abstract void ShootSingle();
+    public abstract void ShootSingle(Transform target);
 
-    protected void CommonShootLogic()
+    protected virtual void CommonShootLogic(Transform target)
     {
-        // Общая логика одиночного выстрела
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, target.position) <= Range)
+        {
+            // Логика одиночного выстрела
+            Debug.Log($"Shooting at {target.name}");
+        }
     }
 }
