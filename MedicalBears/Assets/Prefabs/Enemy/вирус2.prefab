@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1468371026809486130}
   - component: {fileID: 945068598879015437}
-  - component: {fileID: 4423451675732607145}
+  - component: {fileID: 8395259053823478851}
   - component: {fileID: 210067032462490284}
   - component: {fileID: 3133374896674028098}
   - component: {fileID: 6157995055459035388}
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4423451675732607145
+--- !u!114 &8395259053823478851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7202587781741313570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cac72c941fd7224aba14354291e1cea, type: 3}
+  m_Script: {fileID: 11500000, guid: de375947e0af20b4db0efd396e24a1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 250
@@ -110,6 +110,8 @@ MonoBehaviour:
   reward: 5
   anim: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  corruptionRadius: 2
+  corruptedCellType: 4
 --- !u!58 &210067032462490284
 CircleCollider2D:
   m_ObjectHideFlags: 0

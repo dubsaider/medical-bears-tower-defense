@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public class Enemy : Hero, IMeleeAttacker
 {
-    private List<Vector3> path;
-    private int currentWaypointIndex = 0;
+    protected List<Vector3> path;
+    protected int currentWaypointIndex = 0;
     private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
 
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] protected NavMeshAgent navMeshAgent;
     
     public float Range { get { return attackRange; } }
     public float Damage { get { return damage; } }
@@ -56,7 +56,6 @@ public class Enemy : Hero, IMeleeAttacker
 
     public void Attack()
     {
-        // Логика атаки врага
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
         GameObject nearestTower = null;
         float shortestDistance = Mathf.Infinity;
@@ -73,7 +72,6 @@ public class Enemy : Hero, IMeleeAttacker
 
         if (nearestTower != null && Vector3.Distance(transform.position, nearestTower.transform.position) <= attackRange)
         {
-            // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
             Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
         }
@@ -144,9 +142,4 @@ public class Enemy : Hero, IMeleeAttacker
         }
     }
 
-    public void DealCorruption(Corruption corruption)
-    {
-        // Логика нанесения заражения
-        Debug.Log($"Enemy {gameObject.name} deals corruption");
-    }
 }

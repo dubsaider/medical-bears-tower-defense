@@ -25,5 +25,9 @@ public enum MapCellType
     /// <summary>
     /// Спавнер мобов
     /// </summary>
-    Spawner = 3
+    Spawner = 3,
+    /// <summary>
+    /// Зараженная клетка
+    /// </summary>
+    CorruptCell = 4
 }
