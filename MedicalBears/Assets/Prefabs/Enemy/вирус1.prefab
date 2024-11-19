@@ -105,7 +105,7 @@ MonoBehaviour:
   health: 100
   speed: 2
   damage: 5
-  attackRange: 2
+  attackRange: 0.5
   attackSpeed: 1
   reward: 1
   navMeshAgent: {fileID: 0}

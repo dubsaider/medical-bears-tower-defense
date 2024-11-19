@@ -87,7 +87,7 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 currentWaypointIndex++;
             }
-            Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
+            // Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
         else
         {
@@ -96,7 +96,7 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 navMeshAgent.SetDestination(targetPosition);
             }
-            Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
+            // Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
     }
 
