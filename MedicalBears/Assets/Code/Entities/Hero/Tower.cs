@@ -137,7 +137,7 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
     public override void Die()
     {
         Debug.Log($"Tower {gameObject.name} dies");
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public override void Move()
