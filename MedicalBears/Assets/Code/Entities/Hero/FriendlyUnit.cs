@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class FriendlyUnit : Hero, ICorruptionHealer
 {
     public void HealCorruption(Corruption corruption)
