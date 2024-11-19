@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7202587781741313570}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 225.06, y: 248.08502, z: 0}
+  m_LocalPosition: {x: 225.06, y: 248.076, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,6 +108,7 @@ MonoBehaviour:
   attackRange: 15
   attackSpeed: 1
   reward: 5
+  anim: {fileID: 0}
   navMeshAgent: {fileID: 0}
 --- !u!58 &210067032462490284
 CircleCollider2D:
@@ -144,7 +145,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2.31
+  m_Radius: 0.5
 --- !u!114 &3133374896674028098
 MonoBehaviour:
   m_ObjectHideFlags: 0

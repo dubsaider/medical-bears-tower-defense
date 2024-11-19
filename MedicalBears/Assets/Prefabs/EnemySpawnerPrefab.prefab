@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 8896221586093080971, guid: fa7f0bf471e7d68498f83d9f93dfa793, type: 3}
+  - {fileID: 2278399693962715776, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
   - {fileID: 7202587781741313570, guid: 69dd1941408893b46a087800b9ffe0d6, type: 3}
-  numberOfEnemiesPerWave: 5
   enemySpawnInterval: 1
   waveInterval: 5
   spawnRange: 3

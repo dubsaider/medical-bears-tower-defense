@@ -9,11 +9,14 @@ public class Enemy : Hero
     private int currentWaypointIndex = 0;
     private CoinManager coinManager;
     [SerializeField] private int reward;
-    
+    public Animator anim;
+
     [SerializeField] private NavMeshAgent navMeshAgent;
     
     void Start()
     {
+
+	Animator animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
