@@ -1,31 +1,51 @@
-﻿
+﻿using Code.Entities;
+using Code.Spawn.EnemySpawn;
 using UnityEngine;
 
-public class CoreManager : MonoBehaviour
+namespace Code.Core
 {
-    public static CoreManager Instance; 
-    
-    [SerializeField] private SceneRenderer sceneRenderer;
-
-    private Map _map;
-    private MapGenerator _mapGenerator;
-
-    private void Awake()
+    public class CoreManager : MonoBehaviour
     {
-        Instance = this;
-        _mapGenerator = new();
-    }
+        public static CoreManager Instance;
 
-    private void Start()
-    {
-        InitLevel();
-    }
+        public Level CurrentLevel => _levelsSwitcher.CurrentLevel;
+        public Wave CurrentWave => _wavesSwitcher.CurrentWave;
 
-    private void InitLevel()
-    {
-        // _map = _mapGenerator.Generate(13, 20, 1, 3, Random.Range(20,1000));
-        _map = _mapGenerator.Generate(0);
-        // _mapGenerator.SaveMapToFile("map.txt");
-        sceneRenderer.Render(_map);
+        [SerializeField] private SceneRenderer _sceneRenderer;
+
+        private LevelsSwitcher _levelsSwitcher;
+        private WavesSwitcher _wavesSwitcher;
+
+        private Map _map;
+        private MapGenerator _mapGenerator;
+
+        public void Victory()
+        {
+
+        }
+
+        private void Awake()
+        {
+            Instance = this;
+            _mapGenerator = new();
+
+            _levelsSwitcher = GetComponent<LevelsSwitcher>();
+            _wavesSwitcher = GetComponent<WavesSwitcher>();
+        }
+
+        private void Start()
+        {
+            InitLevel();
+        }
+
+        private void InitLevel()
+        {
+            _map = _mapGenerator.Generate(0);
+            _sceneRenderer.Render(_map);
+
+            _levelsSwitcher.Switch();
+
+            EventsProvider.LevelStarted.Invoke();
+        }
     }
 }
