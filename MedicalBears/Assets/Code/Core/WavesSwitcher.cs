@@ -30,9 +30,12 @@ namespace Code.Core
         private void Switch()
         {
             _currentWaveIndex++;
-            
+
             if (_currentWaveIndex == Waves.Length)
+            {
                 CoreManager.Victory();
+                return;
+            }
 
             CurrentWave = Waves[_currentWaveIndex];
             StartTimer(CurrentWave.beforeStartTime);
