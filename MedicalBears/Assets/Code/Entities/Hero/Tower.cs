@@ -32,6 +32,12 @@ public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
         }
     }
 
+    public override void Attack()
+    {
+        // Логика атаки башни
+        Debug.Log("Tower attacks!");
+    }
+
     public void ShootSingle(Transform target)
     {
         if (target == null)
