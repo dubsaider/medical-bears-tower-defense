@@ -32,7 +32,7 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
         }
     }
 
-    public virtual void Attack()
+    public virtual void Attack(Transform target)
     {
         // Логика атаки башни
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
