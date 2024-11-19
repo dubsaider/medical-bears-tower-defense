@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
+public class Tower : Hero, ISingleShooter, IAoEShooter
 {
     public GameObject arrowPrefab; 
     public Transform firePoint; 
@@ -35,7 +35,35 @@ public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
     public override void Attack()
     {
         // Логика атаки башни
-        Debug.Log("Tower attacks!");
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
+        Transform nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (var hitCollider in hitColliders)
+        {
+            float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
+            if (distanceToEnemy < shortestDistance)
+            {
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = hitCollider.transform;
+            }
+        }
+
+        if (nearestEnemy != null)
+        {
+            // Логика выстрела
+            Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            GameObject bullet = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+            Rigidbody2D rb = bullet.AddComponent<Rigidbody2D>();
+            rb.velocity = direction * 10f;
+            CircleCollider2D collider = bullet.AddComponent<CircleCollider2D>();
+            collider.isTrigger = true; 
+
+            Bullet bulletScript = bullet.AddComponent<Bullet>();
+            bulletScript.SetTarget(nearestEnemy); 
+            bulletScript.SetDamage(Damage);
+        }
     }
 
     public void ShootSingle(Transform target)
@@ -59,21 +87,6 @@ public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
         Debug.Log("Performing AoE attack.");
     }
 
-    public void Attack(Transform target)
-    {
-        if (target == null)
-        {
-            Debug.LogWarning("Target is null.");
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, target.position) <= Range)
-        {
-            // Логика ближнего боя
-            Debug.Log($"Dealing {Damage} damage to {target.name}");
-        }
-    }
-
     public void ToggleTower(bool isEnabled)
     {
         // Логика включения/выключения башни
@@ -82,21 +95,6 @@ public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
     public void HandleCorruption(Corruption corruption)
     {
         // Логика обработки заражения
-    }
-
-    private void Shoot(Vector3 targetPosition, Transform targetTransform)
-    {
-        Vector3 direction = (targetPosition - firePoint.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        GameObject bullet = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
-        Rigidbody2D rb = bullet.AddComponent<Rigidbody2D>();
-        rb.velocity = direction * 10f;
-        CircleCollider2D collider = bullet.AddComponent<CircleCollider2D>();
-        collider.isTrigger = true; 
-
-        Bullet bulletScript = bullet.AddComponent<Bullet>();
-        bulletScript.SetTarget(targetTransform); 
-        bulletScript.SetDamage(Damage);
     }
 
     void OnDrawGizmosSelected()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.AI;
 
-public class Enemy : Hero, ICorruptionDealer
+public class Enemy : Hero, IMeleeAttacker
 {
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
@@ -115,5 +115,21 @@ public class Enemy : Hero, ICorruptionDealer
     public void DealCorruption(Corruption corruption)
     {
         // Логика нанесения заражения
+    }
+
+    public void MeleeAttack(Transform target)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, target.position) <= attackRange)
+        {
+            // Логика ближнего боя
+            Debug.Log($"Dealing {damage} damage to {target.name}");
+            target.GetComponent<Hero>().TakeDamage(damage);
+        }
     }
 }
