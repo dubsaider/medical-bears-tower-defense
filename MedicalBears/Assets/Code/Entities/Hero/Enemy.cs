@@ -120,7 +120,7 @@ public class Enemy : Hero, IMeleeAttacker
         // Логика нанесения заражения
     }
 
-    public void Attack(Transform target)
+    public void MeleeAttack(Transform target)
     {
         if (target == null)
         {
