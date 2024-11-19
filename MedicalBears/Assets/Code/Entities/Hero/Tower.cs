@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower : Hero
+public class Tower : Hero, ISingleShooter, IAoEShooter
 {
     public GameObject arrowPrefab; 
     public Transform firePoint; 
@@ -10,25 +10,32 @@ public class Tower : Hero
 
     private SpriteRenderer spriteRenderer;
 
+    public float Range { get; private set; }
+    public float Damage { get; private set; }
+
     void Awake()
     {
         enemyLayerMask = LayerMask.GetMask("Enemy");
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.green;
+
+        Range = attackRange;
+        Damage = damage;
     }
 
     void Update()
     {
         if (IsBuilded && Time.time >= nextTimeToFire) 
         {
-            Attack();
+            ShootSingle();
             nextTimeToFire = Time.time + 1f / attackSpeed;
         }
     }
 
-    public override void Attack()
+    public void ShootSingle()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayerMask);
+        // Логика одиночного выстрела
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
         Transform nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
 
@@ -44,44 +51,60 @@ public class Tower : Hero
 
         if (nearestEnemy != null)
         {
-            Shoot(nearestEnemy.position, nearestEnemy);
+            // Логика выстрела
+            Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            GameObject bullet = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+            Rigidbody2D rb = bullet.AddComponent<Rigidbody2D>();
+            rb.velocity = direction * 10f;
+            CircleCollider2D collider = bullet.AddComponent<CircleCollider2D>();
+            collider.isTrigger = true; 
+
+            Bullet bulletScript = bullet.AddComponent<Bullet>();
+            bulletScript.SetTarget(nearestEnemy); 
+            bulletScript.SetDamage(Damage);
+
+            Debug.Log($"Tower {gameObject.name} shoots single at {nearestEnemy.name}");
         }
     }
 
-    public override void Die()
+    public void ShootAoE()
     {
-        Destroy(gameObject);
+        // Логика выстрела по области
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.TryGetComponent(out Hero enemy))
+            {
+                enemy.TakeDamage(Damage);
+                Debug.Log($"Tower {gameObject.name} performs AoE attack on {enemy.name}");
+            }
+        }
     }
 
-    public override void Move()
+    public void ToggleTower(bool isEnabled)
     {
-        throw new System.NotImplementedException("Tower cannot move.");
+        // Логика включения/выключения башни
+        IsBuilded = isEnabled;
+        spriteRenderer.color = isEnabled ? Color.white : Color.green;
+        Debug.Log($"Tower {gameObject.name} is toggled {(isEnabled ? "on" : "off")}");
     }
 
-    public override int GetAttackPriority(Hero target)
+    public void HandleCorruption(Corruption corruption)
     {
-        return 0;
-    }
-
-    private void Shoot(Vector3 targetPosition, Transform targetTransform)
-    {
-        Vector3 direction = (targetPosition - firePoint.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        GameObject bullet = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
-        Rigidbody2D rb = bullet.AddComponent<Rigidbody2D>();
-        rb.velocity = direction * 10f;
-        CircleCollider2D collider = bullet.AddComponent<CircleCollider2D>();
-        collider.isTrigger = true; 
-
-        Bullet bulletScript = bullet.AddComponent<Bullet>();
-        bulletScript.SetTarget(targetTransform); 
-        bulletScript.SetDamage(damage);
+        // Логика обработки заражения
+        // health -= corruption.Damage;
+        Debug.Log($"Tower {gameObject.name} handles corruption, health reduced to {health}");
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, Range);
     }
 
     public void SetBuildStatus(bool buildStatus)
@@ -103,5 +126,23 @@ public class Tower : Hero
                 spriteRenderer.color = Color.green;
             }
         }
+        Debug.Log($"Tower {gameObject.name} build status set to {buildStatus}");
+    }
+
+    public override int GetAttackPriority(Hero target)
+    {
+        return 0;
+    }
+
+    public override void Die()
+    {
+        Debug.Log($"Tower {gameObject.name} dies");
+        gameObject.SetActive(false);
+    }
+
+    public override void Move()
+    {
+        Debug.Log($"Tower {gameObject.name} cannot move");
+        throw new System.NotImplementedException("Tower cannot move.");
     }
 }
