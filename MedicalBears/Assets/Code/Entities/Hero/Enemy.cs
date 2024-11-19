@@ -49,7 +49,27 @@ public class Enemy : Hero, IMeleeAttacker
 
     public override void Attack()
     {
-        Debug.Log("Enemy attacks!");
+        // Логика атаки врага
+        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
+        GameObject nearestTower = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject tower in towers)
+        {
+            float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
+            if (distanceToTower < shortestDistance)
+            {
+                shortestDistance = distanceToTower;
+                nearestTower = tower;
+            }
+        }
+
+        if (nearestTower != null && Vector3.Distance(transform.position, nearestTower.transform.position) <= attackRange)
+        {
+            // Логика ближнего боя
+            Debug.Log($"Dealing {damage} damage to {nearestTower.name}");
+            nearestTower.GetComponent<Hero>().TakeDamage(damage);
+        }
     }
 
     public override void Move()
@@ -118,21 +138,5 @@ public class Enemy : Hero, IMeleeAttacker
     public void DealCorruption(Corruption corruption)
     {
         // Логика нанесения заражения
-    }
-
-    public void MeleeAttack(Transform target)
-    {
-        if (target == null)
-        {
-            Debug.LogWarning("Target is null.");
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, target.position) <= attackRange)
-        {
-            // Логика ближнего боя
-            Debug.Log($"Dealing {damage} damage to {target.name}");
-            target.GetComponent<Hero>().TakeDamage(damage);
-        }
     }
 }
