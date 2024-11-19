@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
+public class Tower : Hero, ISingleShooter, IAoEShooter, IMeleeAttacker
 {
     public GameObject arrowPrefab; 
     public Transform firePoint; 
@@ -10,11 +10,17 @@ public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
 
     private SpriteRenderer spriteRenderer;
 
+    public float Range { get; private set; }
+    public float Damage { get; private set; }
+
     void Awake()
     {
         enemyLayerMask = LayerMask.GetMask("Enemy");
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.green;
+
+        Range = attackRange;
+        Damage = damage;
     }
 
     void Update()
@@ -26,22 +32,40 @@ public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
         }
     }
 
-    public override void ShootSingle(Transform target)
+    public void ShootSingle(Transform target)
     {
-        CommonShootLogic(target);
-        // Дополнительная логика одиночного выстрела
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, target.position) <= Range)
+        {
+            // Логика одиночного выстрела
+            Debug.Log($"Shooting at {target.name}");
+        }
     }
 
-    public override void ShootAoE()
+    public void ShootAoE()
     {
-        CommonAoEShootLogic();
-        // Дополнительная логика выстрела по области
+        // Логика выстрела по области
+        Debug.Log("Performing AoE attack.");
     }
 
-    public override void Attack()
+    public void Attack(Transform target)
     {
-        CommonAttackLogic();
-        // Дополнительная логика ближнего боя
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, target.position) <= Range)
+        {
+            // Логика ближнего боя
+            Debug.Log($"Dealing {Damage} damage to {target.name}");
+        }
     }
 
     public void ToggleTower(bool isEnabled)
@@ -66,13 +90,13 @@ public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
 
         Bullet bulletScript = bullet.AddComponent<Bullet>();
         bulletScript.SetTarget(targetTransform); 
-        bulletScript.SetDamage(damage);
+        bulletScript.SetDamage(Damage);
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, Range);
     }
 
     public void SetBuildStatus(bool buildStatus)
@@ -94,5 +118,20 @@ public class Tower : Hero, SingleShooter, AoEShooter, MeleeAttacker
                 spriteRenderer.color = Color.green;
             }
         }
+    }
+
+    public override int GetAttackPriority(Hero target)
+    {
+        return 0;
+    }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    public override void Move()
+    {
+        throw new System.NotImplementedException("Tower cannot move.");
     }
 }

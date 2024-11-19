@@ -33,7 +33,10 @@ public class Enemy : Hero, ICorruptionDealer
         path = newPath;
         currentWaypointIndex = 0;
         
-        navMeshAgent.SetDestination(newPath.Last());
+        if (navMeshAgent.isActiveAndEnabled)
+        {
+            navMeshAgent.SetDestination(newPath.Last());
+        }
     }
 
     private void Update()
@@ -51,7 +54,10 @@ public class Enemy : Hero, ICorruptionDealer
         if (path != null && path.Count > 0 && currentWaypointIndex < path.Count)
         {
             Vector3 targetPosition = path[currentWaypointIndex];
-            navMeshAgent.SetDestination(targetPosition);
+            if (navMeshAgent.isActiveAndEnabled)
+            {
+                navMeshAgent.SetDestination(targetPosition);
+            }
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
@@ -61,7 +67,10 @@ public class Enemy : Hero, ICorruptionDealer
         else
         {
             Vector3 targetPosition = transform.position + Vector3.down * 10f; 
-            navMeshAgent.SetDestination(targetPosition);
+            if (navMeshAgent.isActiveAndEnabled)
+            {
+                navMeshAgent.SetDestination(targetPosition);
+            }
         }
     }
 

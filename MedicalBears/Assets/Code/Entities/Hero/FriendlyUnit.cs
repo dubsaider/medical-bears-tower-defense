@@ -4,4 +4,24 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     {
         // Логика лечения заражения
     }
+
+    public override void Attack()
+    {
+        // Логика атаки
+    }
+
+    public override void Die()
+    {
+        // Логика смерти
+    }
+
+    public override void Move()
+    {
+        // Логика движения
+    }
+
+    public override int GetAttackPriority(Hero target)
+    {
+        return 0;
+    }
 }
