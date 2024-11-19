@@ -35,9 +35,9 @@ public class MeleeAttackHandler : MonoBehaviour
         if (attackQueue.Count > 0)
         {
             Hero target = attackQueue.First.Value;
-            if (target.IsAlive)
+            if (target.IsAlive()) // Исправлено: вызов метода IsAlive()
             {
-                enemy.Attack(target.transform);
+                enemy.Attack(); // Исправлено: вызов метода Attack() без аргументов
             }
             else
             {
