@@ -66,19 +66,10 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
         }
     }
 
-    public void ShootSingle(Transform target)
+    public void ShootSingle()
     {
-        if (target == null)
-        {
-            Debug.LogWarning("Target is null.");
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, target.position) <= Range)
-        {
-            // Логика одиночного выстрела
-            Debug.Log($"Shooting at {target.name}");
-        }
+        // Логика одиночного выстрела
+        Debug.Log($"Shooting at ...");
     }
 
     public void ShootAoE()

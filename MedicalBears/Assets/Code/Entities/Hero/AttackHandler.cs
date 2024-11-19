@@ -34,25 +34,17 @@ public class AttackHandler : MonoBehaviour
     {
         if (attackQueue.Count > 0)
         {
-            Hero target = attackQueue.First.Value;
-            if (target.IsAlive())
+            if (hero is IMeleeAttacker meleeAttacker)
             {
-                if (hero is IMeleeAttacker meleeAttacker)
-                {
-                    meleeAttacker.Attack(target.transform);
-                }
-                else if (hero is ISingleShooter singleShooter)
-                {
-                    singleShooter.ShootSingle(target.transform);
-                }
-                else if (hero is IAoEShooter aoeShooter)
-                {
-                    aoeShooter.ShootAoE();
-                }
+                meleeAttacker.Attack();
             }
-            else
+            else if (hero is ISingleShooter singleShooter)
             {
-                attackQueue.RemoveFirst();
+                singleShooter.ShootSingle();
+            }
+            else if (hero is IAoEShooter aoeShooter)
+            {
+                aoeShooter.ShootAoE();
             }
         }
     }
