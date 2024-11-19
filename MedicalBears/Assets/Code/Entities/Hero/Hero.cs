@@ -11,7 +11,7 @@ public abstract class Hero : MonoBehaviour
     protected bool isAlive = true;
     protected bool isAttacking = false;
 
-    public abstract void Attack(Transform target);
+    public abstract void Attack();
     public abstract void Move();
     public abstract void Die();
 

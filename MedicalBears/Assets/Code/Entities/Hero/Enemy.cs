@@ -47,7 +47,7 @@ public class Enemy : Hero, IMeleeAttacker
         Move();
     }
 
-    public override void Attack(Transform target)
+    public override void Attack()
     {
         Debug.Log("Enemy attacks!");
     }
