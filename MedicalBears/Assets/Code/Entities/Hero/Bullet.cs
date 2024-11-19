@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
             if (other.TryGetComponent(out Hero hero))
             {
                 hero.TakeDamage(damage);
+                Debug.Log($"Bullet hits {hero.name}, dealing {damage} damage");
             }
             Destroy(gameObject);
         }

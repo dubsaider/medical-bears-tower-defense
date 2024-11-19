@@ -63,6 +63,8 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
             Bullet bulletScript = bullet.AddComponent<Bullet>();
             bulletScript.SetTarget(nearestEnemy); 
             bulletScript.SetDamage(Damage);
+
+            Debug.Log($"Tower {gameObject.name} shoots single at {nearestEnemy.name}");
         }
     }
 
@@ -75,6 +77,7 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
             if (hitCollider.TryGetComponent(out Hero enemy))
             {
                 enemy.TakeDamage(Damage);
+                Debug.Log($"Tower {gameObject.name} performs AoE attack on {enemy.name}");
             }
         }
     }
@@ -84,11 +87,18 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
         // Логика включения/выключения башни
         IsBuilded = isEnabled;
         spriteRenderer.color = isEnabled ? Color.white : Color.green;
+        Debug.Log($"Tower {gameObject.name} is toggled {(isEnabled ? "on" : "off")}");
     }
 
     public void HandleCorruption(Corruption corruption)
     {
         // Логика обработки заражения
+        // health -= corruption.Damage;
+        Debug.Log($"Tower {gameObject.name} handles corruption, health reduced to {health}");
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -116,6 +126,7 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
                 spriteRenderer.color = Color.green;
             }
         }
+        Debug.Log($"Tower {gameObject.name} build status set to {buildStatus}");
     }
 
     public override int GetAttackPriority(Hero target)
@@ -125,11 +136,13 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
 
     public override void Die()
     {
+        Debug.Log($"Tower {gameObject.name} dies");
         Destroy(gameObject);
     }
 
     public override void Move()
     {
+        Debug.Log($"Tower {gameObject.name} cannot move");
         throw new System.NotImplementedException("Tower cannot move.");
     }
 }

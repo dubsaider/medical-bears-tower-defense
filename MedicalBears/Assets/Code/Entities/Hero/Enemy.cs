@@ -69,6 +69,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
+            Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name}");
         }
     }
 
@@ -86,6 +87,7 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 currentWaypointIndex++;
             }
+            Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
         else
         {
@@ -94,6 +96,7 @@ public class Enemy : Hero, IMeleeAttacker
             {
                 navMeshAgent.SetDestination(targetPosition);
             }
+            Debug.Log($"Enemy {gameObject.name} moves to {targetPosition}");
         }
     }
 
@@ -103,7 +106,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             coinManager.AddCoins(reward); 
         }
-
+        Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);
     }
 
@@ -132,11 +135,13 @@ public class Enemy : Hero, IMeleeAttacker
         {
             List<Vector3> newPath = new List<Vector3> { nearestTower.transform.position };
             SetPath(newPath);
+            Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
         }
     }
 
     public void DealCorruption(Corruption corruption)
     {
         // Логика нанесения заражения
+        Debug.Log($"Enemy {gameObject.name} deals corruption");
     }
 }
