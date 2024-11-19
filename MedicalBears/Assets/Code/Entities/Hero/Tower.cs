@@ -27,14 +27,14 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
     {
         if (IsBuilded && Time.time >= nextTimeToFire) 
         {
-            Attack();
+            ShootSingle();
             nextTimeToFire = Time.time + 1f / attackSpeed;
         }
     }
 
-    public override void Attack()
+    public void ShootSingle()
     {
-        // Логика атаки башни
+        // Логика одиночного выстрела
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
         Transform nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
@@ -66,26 +66,34 @@ public class Tower : Hero, ISingleShooter, IAoEShooter
         }
     }
 
-    public void ShootSingle()
-    {
-        // Логика одиночного выстрела
-        Debug.Log($"Shooting at ...");
-    }
-
     public void ShootAoE()
     {
         // Логика выстрела по области
-        Debug.Log("Performing AoE attack.");
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, Range, enemyLayerMask);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.TryGetComponent(out Hero enemy))
+            {
+                enemy.TakeDamage(Damage);
+            }
+        }
     }
 
     public void ToggleTower(bool isEnabled)
     {
         // Логика включения/выключения башни
+        IsBuilded = isEnabled;
+        spriteRenderer.color = isEnabled ? Color.white : Color.green;
     }
 
     public void HandleCorruption(Corruption corruption)
     {
         // Логика обработки заражения
+        health -= corruption.Damage;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     void OnDrawGizmosSelected()

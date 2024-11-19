@@ -15,7 +15,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (other.TryGetComponent(out Hero target))
         {
-            if (target is FriendlyUnit)
+            if (target is Enemy)
             {
                 attackQueue.AddLast(target);
             }

@@ -45,9 +45,10 @@ public class Enemy : Hero, IMeleeAttacker
     private void Update()
     {
         Move();
+        Attack();
     }
 
-    public override void Attack()
+    public void Attack()
     {
         // Логика атаки врага
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
@@ -67,8 +68,7 @@ public class Enemy : Hero, IMeleeAttacker
         if (nearestTower != null && Vector3.Distance(transform.position, nearestTower.transform.position) <= attackRange)
         {
             // Логика ближнего боя
-            Debug.Log($"Dealing {damage} damage to {nearestTower.name}");
-            nearestTower.GetComponent<Hero>().TakeDamage(damage);
+            nearestTower.GetComponent<Hero>().TakeDamage(Damage);
         }
     }
 
