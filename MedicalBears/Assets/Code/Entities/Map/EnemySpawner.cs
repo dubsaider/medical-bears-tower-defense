@@ -12,7 +12,6 @@ public class EnemySpawner : MonoBehaviour
 {   
     [HideInInspector] public List<Enemy> spawnedEnemies;
 
-    [SerializeField] private GameObject[] enemyPrefabs; 
     [SerializeField] private float spawnInterval = 1f; 
     [SerializeField] private float partitionInterval = 5f;
     [SerializeField] private float spawnRange = 5f;
