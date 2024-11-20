@@ -8,6 +8,10 @@ namespace Code.Entities.Map
     public class CellHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private MapCell _cell;
+
+        private int _maxCorupLevel = 1;
+        private Corruption _corup;
+
         private bool _isEmpty = true;
         private SpriteRenderer _spriteRenderer;
         private bool _isBorder => _cell.Type is MapCellType.Border;
@@ -21,6 +25,10 @@ namespace Code.Entities.Map
         public void SetCell(MapCell cell)
         {
             _cell = cell;
+            _corup = new Corruption()
+            {
+                corruptionLevel = 0
+            };
         }
         
         public void OnPointerEnter(PointerEventData eventData)
@@ -63,7 +71,6 @@ namespace Code.Entities.Map
             //Здесь можно продолжить обрабатывать дропы других объектов
         }
 
-        
         private bool TryBuildTower(PointerEventData eventData)
         {
             var droppedTower = eventData.pointerDrag;
@@ -79,6 +86,37 @@ namespace Code.Entities.Map
             return true;
         }
 
-        
+        public int GetCoruptionLevel()
+        {
+            return _corup.corruptionLevel;
+        }
+        public void CorruptionLevelUp()
+        {
+            if (_corup != null)
+            {
+                if (_corup.corruptionLevel < _maxCorupLevel)
+                {
+                    _corup.corruptionLevel++;
+                    ApplaCorruptionChanges();
+                }
+            }
+        }
+
+        public void CorruptionLevelDown()
+        {
+            if (_corup != null)
+            {
+                if (_corup.corruptionLevel >0)
+                {
+                    _corup.corruptionLevel--;
+                    ApplaCorruptionChanges();
+                }
+            }
+        }
+
+        private void ApplaCorruptionChanges()
+        {
+            GetComponent<SpriteRenderer>().color = new Color(0.3f, 0f, 0.3f);
+        }
     }
 }

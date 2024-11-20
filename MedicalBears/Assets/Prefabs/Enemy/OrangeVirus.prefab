@@ -170,6 +170,7 @@ MonoBehaviour:
   damage: 2
   attackRange: 0.5
   attackSpeed: 1
+  corrupForce: 1
   reward: 5
   anim: {fileID: 7461823155709109931}
   navMeshAgent: {fileID: 0}

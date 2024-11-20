@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapCell
 {
     public MapCellType Type;
+
     public int X, Y;
 }
 

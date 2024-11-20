@@ -62,7 +62,7 @@ public class MapGenerator
                         break;
                 }
 
-                map.Field[x, y] = new MapCell { Type = type, X = x, Y = y };
+                map.Field[x, y] = new MapCell { Type = type, X = x, Y = y};
             }
         }
 

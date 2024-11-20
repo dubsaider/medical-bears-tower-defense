@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.AI;
+using Unity.VisualScripting;
+using System.Collections;
 
 public class Enemy : Hero, IMeleeAttacker
 {
@@ -10,6 +12,11 @@ public class Enemy : Hero, IMeleeAttacker
     private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
+
+    [Header("Уровень заражения")]
+    [Range(0, 1)]
+    [SerializeField] protected int corrupForce;
+    private int m_x, m_y;
 
     [SerializeField] private NavMeshAgent navMeshAgent;
     
@@ -148,9 +155,33 @@ public class Enemy : Hero, IMeleeAttacker
         }
     }
 
-    public void DealCorruption(Corruption corruption)
+    public void DealCorruption()
     {
         // Логика нанесения заражения
+        m_x = Mathf.RoundToInt(transform.position.x);
+        m_y = Mathf.RoundToInt(transform.position.y);
+
+        //FindObjectOfType<SceneRenderer>().
+
         Debug.Log($"Enemy {gameObject.name} deals corruption");
+    }
+
+    //запуск корутины
+    private void OnEnable()
+    {
+        StartCoroutine("DealCorruptionTimeCucle");
+
+    }
+    //таймаут между заражением клеток
+    IEnumerator DealCorruptionTimeCucle()
+    {
+        yield return new WaitForSeconds(1);
+        DealCorruption();
+    }
+
+    //закрытие корутины
+    private void OnDisable()
+    {
+        StopCoroutine("DealCorruptionTimeCucle");
     }
 }
