@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneRenderer: {fileID: 1965721892}
-  _enemySpawnManager: {fileID: 1226813008}
 --- !u!114 &175907776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +295,7 @@ Transform:
   m_GameObject: {fileID: 340233843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 9.5, z: -10}
+  m_LocalPosition: {x: 7, y: 9.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -553,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 411853064}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.23, y: 11.32, z: 0.0009471937}
+  m_LocalPosition: {x: 7, y: 11.32, z: 0.0009471937}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1004,7 +1003,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4813529641862085781, guid: ce232c03df15b9d4e94d8f4773743d9c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.32
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4813529641862085781, guid: ce232c03df15b9d4e94d8f4773743d9c, type: 3}
       propertyPath: m_LocalPosition.y
