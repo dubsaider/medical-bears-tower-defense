@@ -5,5 +5,4 @@ public class Map
     public MapCell[,] Field;
     public int Width, Height;
     public Turn Turn;
-    public Corruption Corruption;
 }

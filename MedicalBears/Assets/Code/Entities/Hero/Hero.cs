@@ -8,6 +8,7 @@ public abstract class Hero : MonoBehaviour
     [SerializeField] protected float attackRange;
     [SerializeField] protected float attackSpeed;
 
+
     protected bool isAlive = true;
     protected bool isAttacking = false;
 

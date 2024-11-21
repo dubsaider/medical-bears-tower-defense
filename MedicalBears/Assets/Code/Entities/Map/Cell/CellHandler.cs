@@ -63,7 +63,6 @@ namespace Code.Entities.Map
             //Здесь можно продолжить обрабатывать дропы других объектов
         }
 
-        
         private bool TryBuildTower(PointerEventData eventData)
         {
             var droppedTower = eventData.pointerDrag;
@@ -78,7 +77,5 @@ namespace Code.Entities.Map
             _isEmpty = false;
             return true;
         }
-
-        
     }
 }

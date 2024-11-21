@@ -2,16 +2,24 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.AI;
+using Unity.VisualScripting;
+using System.Collections;
 
 public class Enemy : Hero, IMeleeAttacker
 {
-    protected List<Vector3> path;
-    protected int currentWaypointIndex = 0;
+    [Header("Уровень заражения")]
+    [Range(0, 1)]
+    [SerializeField] protected int corrupForce;
+
+    private List<Vector3> path;
+    private int currentWaypointIndex = 0;
     private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
 
-    [SerializeField] protected NavMeshAgent navMeshAgent;
+    private CorruptionAttack corruptionAttack;
+
+    [SerializeField] private NavMeshAgent navMeshAgent;
     
     public float Range { get { return attackRange; } }
     public float Damage { get { return damage; } }
@@ -32,6 +40,8 @@ public class Enemy : Hero, IMeleeAttacker
         coinManager = Object.FindAnyObjectByType<CoinManager>();
 
         InvokeRepeating("FindNearestTower", 1f, 1f);
+
+        DealCorruption();
     }
 
     public void SetPath(List<Vector3> newPath)
@@ -56,6 +66,7 @@ public class Enemy : Hero, IMeleeAttacker
 
     public void Attack()
     {
+        // Логика атаки врага
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
         GameObject nearestTower = null;
         float shortestDistance = Mathf.Infinity;
@@ -72,6 +83,7 @@ public class Enemy : Hero, IMeleeAttacker
 
         if (nearestTower != null && Vector3.Distance(transform.position, nearestTower.transform.position) <= attackRange)
         {
+            // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
             Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
         }
@@ -145,5 +157,13 @@ public class Enemy : Hero, IMeleeAttacker
             Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
         }
     }
+
+    public void DealCorruption()
+    {
+        // Логика нанесения заражения
+
+        Debug.Log($"Enemy {gameObject.name} deals corruption");
+    }
+
 
 }

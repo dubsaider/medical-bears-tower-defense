@@ -47,5 +47,10 @@ namespace Code.Core
 
             EventsProvider.LevelStarted.Invoke();
         }
+
+        public GameObject GetCell(int x, int y)
+        {
+            return _map?.Field?[x, y].RenderedObject;
+        }
     }
 }

@@ -56,26 +56,23 @@ namespace Code.Render
         {
             var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, new Vector3(cell.X, cell.Y, 0));
             cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
-
             cellObj.layer = LayerMask.NameToLayer(layerName);
-
-
-            cellObj.AddComponent<NavMeshModifier>();
-
-            var navMeshModifier = cellObj.GetComponent<NavMeshModifier>();
             
-            if (cell.Type == MapCellType.Floor)
-            {
-                navMeshModifier.overrideArea = true;
-                navMeshModifier.area = 0;
-            }
-            else
-            {
-                navMeshModifier.overrideArea = true;
-                navMeshModifier.area = 1;
-            }
+            if (cell.Type is MapCellType.Floor or MapCellType.Wall)
+                cellObj.AddComponent<CellCorruptionHandler>();
+
+            SetupNavMesh(cell, cellObj);
 
             cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
+            cell.RenderedObject = cellObj; //биндинг вьюхи к сущности
+        }
+
+        private void SetupNavMesh(MapCell cell, GameObject cellObj)
+        {
+            var navMeshModifier = cellObj.AddComponent<NavMeshModifier>();
+            navMeshModifier.overrideArea = true;
+            
+            navMeshModifier.area = cell.Type == MapCellType.Floor ? 0 : 1;
         }
     }
 }

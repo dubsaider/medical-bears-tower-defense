@@ -6,6 +6,11 @@ public class MapCell
 {
     public MapCellType Type;
     public int X, Y;
+
+    /// <summary>
+    /// Отрисованная в сцене клетка
+    /// </summary>
+    public GameObject RenderedObject;
 }
 
 public enum MapCellType
