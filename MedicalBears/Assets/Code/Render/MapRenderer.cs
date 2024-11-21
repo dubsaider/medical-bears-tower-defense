@@ -76,6 +76,7 @@ namespace Code.Render
             }
 
             cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
+            cell.RenderedObject = cellObj; //биндинг вьюхи к сущности
         }
     }
 }

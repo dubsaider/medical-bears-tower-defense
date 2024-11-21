@@ -57,5 +57,10 @@ namespace Code.Core
             return _map.Height;
         }
 
+        public GameObject GetCell(int x, int y)
+        {
+            return _map.Field[x, y].RenderedObject;
+        }
+
     }
 }
