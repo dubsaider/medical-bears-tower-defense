@@ -7,25 +7,24 @@ using UnityEngine;
 
 public class CorruptionAttack : MonoBehaviour
 {
+    [Header("—ила заражени€ клеток")]
+    [Range(-5,5)]
+    [SerializeField] protected int corrupForce;
+
     private static CellHandler[,] cellHandlers;
     private Vector2 position;
     private Hero hero;
     private int m_x, m_y;
 
     // инициализатор
-    public void Initialize(Hero _hero)
+    public void Start()
     {
-        hero = _hero;
+        hero = GetComponent<Hero>();
 
         CellFinder();
 
         StartCoroutine("CorupTimeCycle");
     }
-
-    //public void Update()
-    ////{
-    //    DoCorrup();
-    //}
 
     // поиск клеток
     private void CellFinder()
@@ -62,9 +61,11 @@ public class CorruptionAttack : MonoBehaviour
         m_x = Mathf.RoundToInt(hero.transform.position.x);
         m_y = Mathf.RoundToInt(hero.transform.position.y);
 
-        if (cellHandlers !=null)
+        if (cellHandlers != null)
         {
-            cellHandlers[m_y, m_x].CorruptionLevelUp();
+            // cellHandlers[m_y, m_x].CorruptionLevelUp(corrupForce);
+            if (corrupForce >= 0) cellHandlers[m_y, m_x].CorruptionLevelUp(corrupForce);
+            if (corrupForce < 0) cellHandlers[m_y, m_x].CorruptionLevelDown(-corrupForce);
         }
     }
 

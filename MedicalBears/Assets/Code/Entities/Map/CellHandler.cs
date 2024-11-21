@@ -9,7 +9,8 @@ namespace Code.Entities.Map
     {
         private MapCell _cell;
 
-        private int _maxCorupLevel = 1;
+        private int _maxCorupLevel = 5;
+        public int MaxCorupLevel { get { return _maxCorupLevel; } }
         private Corruption _corup;
 
         private bool _isEmpty = true;
@@ -99,35 +100,63 @@ namespace Code.Entities.Map
         {
             return _corup.corruptionLevel;
         }
-        public void CorruptionLevelUp()
+        public void CorruptionLevelUp(int lev)
         {
             if (_corup != null)
             {
-                if (_corup.corruptionLevel < _maxCorupLevel)
+                if (_corup.corruptionLevel + lev <= _maxCorupLevel)
                 {
-                    _corup.corruptionLevel++;
-                    ApplyCorruptionChanges();
+                    _corup.corruptionLevel += lev;
+                    
                 }
+                else
+                {
+                    _corup.corruptionLevel = _maxCorupLevel;
+                }
+                ApplyCorruptionChanges();
             }
         }
-
-        public void CorruptionLevelDown()
+        public void CorruptionLevelDown(int lev)
         {
             if (_corup != null)
             {
-                if (_corup.corruptionLevel >0)
+                if (_corup.corruptionLevel - lev >= 0)
                 {
-                    _corup.corruptionLevel--;
-                    ApplyCorruptionChanges();
+                    _corup.corruptionLevel -= lev;
+                    
                 }
+                else
+                {
+                    _corup.corruptionLevel = 0;
+                }
+                ApplyCorruptionChanges();
             }
         }
 
         private void ApplyCorruptionChanges()
         {
-            if (_corup.corruptionLevel > 0)
+            switch (_corup.corruptionLevel)
             {
-                GetComponent<SpriteRenderer>().color = new Color(0.3f, 0f, 0.3f);
+                case 0:
+                    _spriteRenderer.color = new Color(1,1,1);
+                    break;
+                case 1:
+                    _spriteRenderer.color = new Color(0.9f, 0, 0.9f);
+                    break;
+                case 2:
+                    _spriteRenderer.color = new Color(0.8f, 0, 0.8f);
+                    break;
+                case 3:
+                    _spriteRenderer.color = new Color(0.7f, 0, 0.7f);
+                    break;
+                case 4:
+                    _spriteRenderer.color = new Color(0.6f, 0, 0.6f);
+                    break;
+                case 5:
+                    _spriteRenderer.color = new Color(0.5f, 0, 0.5f);
+                    break;
+
+
             }
         }
     }

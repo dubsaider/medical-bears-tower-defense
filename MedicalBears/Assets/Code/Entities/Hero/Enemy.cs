@@ -162,10 +162,6 @@ public class Enemy : Hero, IMeleeAttacker
     {
         // Логика нанесения заражения
 
-        corruptionAttack = new();
-        corruptionAttack.Initialize(_hero: this);
-
-
         Debug.Log($"Enemy {gameObject.name} deals corruption");
     }
 
