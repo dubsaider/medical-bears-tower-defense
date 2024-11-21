@@ -416,6 +416,14 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 5598784236204607950}
+    - target: {fileID: 5333646848345697977, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: speed
+      value: 54106
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333646848345697977, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: attackRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5691558455887812345, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3554785
