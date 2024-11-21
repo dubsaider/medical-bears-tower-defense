@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CorruptionAttack : MonoBehaviour
 {
-    [Header("Сила заражения клеток")]
+    [Header("РЎРёР»Р° Р·Р°СЂР°Р¶РµРЅРёСЏ РєР»РµС‚РѕРє")]
     [Range(-5,5)]
     [SerializeField] protected int corrupForce;
 
@@ -16,7 +16,7 @@ public class CorruptionAttack : MonoBehaviour
     private Hero hero;
     private int m_x, m_y;
 
-    // инициализатор
+    // РёРЅРёС†РёР°Р»РёР·Р°С‚РѕСЂ
     public void Start()
     {
         hero = GetComponent<Hero>();
@@ -26,7 +26,7 @@ public class CorruptionAttack : MonoBehaviour
         StartCoroutine("CorupTimeCycle");
     }
 
-    // поиск клеток
+    // РїРѕРёСЃРє РєР»РµС‚РѕРє
     private void CellFinder()
     {
         if (cellHandlers == null)
@@ -55,7 +55,7 @@ public class CorruptionAttack : MonoBehaviour
         }
     }
 
-    // логика заражения
+    // Р»РѕРіРёРєР° Р·Р°СЂР°Р¶РµРЅРёСЏ
     private void DoCorrup()
     {
         m_x = Mathf.RoundToInt(hero.transform.position.x);
@@ -69,7 +69,7 @@ public class CorruptionAttack : MonoBehaviour
         }
     }
 
-    //таймаут между заражением клеток
+    //С‚Р°Р№РјР°СѓС‚ РјРµР¶РґСѓ Р·Р°СЂР°Р¶РµРЅРёРµРј РєР»РµС‚РѕРє
     IEnumerator CorupTimeCycle()
     {
         while (true)
@@ -79,7 +79,7 @@ public class CorruptionAttack : MonoBehaviour
         }
     }
 
-    //закрытие корутины
+    //Р·Р°РєСЂС‹С‚РёРµ РєРѕСЂСѓС‚РёРЅС‹
     private void OnDestroy()
     {
         StopCoroutine("CorupTimeCycle");
