@@ -48,19 +48,9 @@ namespace Code.Core
             EventsProvider.LevelStarted.Invoke();
         }
 
-        public int GetWidth()
-        {
-            return _map.Width;
-        }
-        public int GetHeight()
-        {
-            return _map.Height;
-        }
-
         public GameObject GetCell(int x, int y)
         {
-            return _map.Field[x, y].RenderedObject;
+            return _map?.Field?[x, y].RenderedObject;
         }
-
     }
 }
