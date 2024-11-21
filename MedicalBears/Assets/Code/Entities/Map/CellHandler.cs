@@ -86,6 +86,15 @@ namespace Code.Entities.Map
             return true;
         }
 
+        public float GetX()
+        {
+            return _cell.X;
+        }
+        public float GetY()
+        {
+            return _cell.Y;
+        }
+
         public int GetCoruptionLevel()
         {
             return _corup.corruptionLevel;
@@ -97,7 +106,7 @@ namespace Code.Entities.Map
                 if (_corup.corruptionLevel < _maxCorupLevel)
                 {
                     _corup.corruptionLevel++;
-                    ApplaCorruptionChanges();
+                    ApplyCorruptionChanges();
                 }
             }
         }
@@ -109,14 +118,17 @@ namespace Code.Entities.Map
                 if (_corup.corruptionLevel >0)
                 {
                     _corup.corruptionLevel--;
-                    ApplaCorruptionChanges();
+                    ApplyCorruptionChanges();
                 }
             }
         }
 
-        private void ApplaCorruptionChanges()
+        private void ApplyCorruptionChanges()
         {
-            GetComponent<SpriteRenderer>().color = new Color(0.3f, 0f, 0.3f);
+            if (_corup.corruptionLevel > 0)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(0.3f, 0f, 0.3f);
+            }
         }
     }
 }

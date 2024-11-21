@@ -7,16 +7,17 @@ using System.Collections;
 
 public class Enemy : Hero, IMeleeAttacker
 {
+    [Header("Уровень заражения")]
+    [Range(0, 1)]
+    [SerializeField] protected int corrupForce;
+
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
     private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
 
-    [Header("Уровень заражения")]
-    [Range(0, 1)]
-    [SerializeField] protected int corrupForce;
-    private int m_x, m_y;
+    private CorruptionAttack corruptionAttack;
 
     [SerializeField] private NavMeshAgent navMeshAgent;
     
@@ -39,6 +40,8 @@ public class Enemy : Hero, IMeleeAttacker
         coinManager = Object.FindAnyObjectByType<CoinManager>();
 
         InvokeRepeating("FindNearestTower", 1f, 1f);
+
+        DealCorruption();
     }
 
     public void SetPath(List<Vector3> newPath)
@@ -158,30 +161,13 @@ public class Enemy : Hero, IMeleeAttacker
     public void DealCorruption()
     {
         // Логика нанесения заражения
-        m_x = Mathf.RoundToInt(transform.position.x);
-        m_y = Mathf.RoundToInt(transform.position.y);
 
-        //FindObjectOfType<SceneRenderer>().
+        corruptionAttack = new();
+        corruptionAttack.Initialize(_hero: this);
+
 
         Debug.Log($"Enemy {gameObject.name} deals corruption");
     }
 
-    //запуск корутины
-    private void OnEnable()
-    {
-        StartCoroutine("DealCorruptionTimeCucle");
 
-    }
-    //таймаут между заражением клеток
-    IEnumerator DealCorruptionTimeCucle()
-    {
-        yield return new WaitForSeconds(1);
-        DealCorruption();
-    }
-
-    //закрытие корутины
-    private void OnDisable()
-    {
-        StopCoroutine("DealCorruptionTimeCucle");
-    }
 }
