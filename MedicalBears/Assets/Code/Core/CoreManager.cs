@@ -52,5 +52,14 @@ namespace Code.Core
         {
             return _map?.Field?[x, y].RenderedObject;
         }
+
+        public int GetWidth()
+        {
+            return _map.Width;
+        }
+        public int GetHeight()
+        {
+            return _map.Height;
+        }
     }
 }

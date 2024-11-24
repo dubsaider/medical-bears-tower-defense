@@ -25,6 +25,7 @@ public class CorruptionAttack : MonoBehaviour
         if (!cell) 
             return;
         
+        //мы обращаемся к объекту клетки и обращаемся к классу обработчика заражений со запросом на увеличение заражения
         switch (corrupForce)
         {
             case >= 0:
