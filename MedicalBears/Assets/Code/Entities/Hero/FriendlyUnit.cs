@@ -14,10 +14,10 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     [SerializeField] private int healForce;
 
     private Vector3 HomePosition;
-    private GameObject path;
+    private GameObject _path;
 
     // для поиска клетки
-    private GameObject newPath = null;
+    private GameObject _newPath = null;
     private float dist = 0f;
     private float min_dist;
 
@@ -60,7 +60,7 @@ public class FriendlyUnit : Hero, ICorruptionHealer
 
     private void HealCorrup()
     {
-        if (path.GetComponent<CellCorruptionHandler>().GetCorruptionLevel() == 0)
+        if (_path.GetComponent<CellCorruptionHandler>().GetCorruptionLevel() == 0)
         {
             isActive = false;
 
@@ -71,11 +71,11 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         }
         else
         {
-            float dist = Vector3.Distance(transform.position, path.transform.position);
+            float dist = Vector3.Distance(transform.position, _path.transform.position);
 
             if (dist <= attackRange)
             {
-                path.GetComponent<CellCorruptionHandler>().DecreaseCorruptionLevel(healForce);
+                _path.GetComponent<CellCorruptionHandler>().DecreaseCorruptionLevel(healForce);
             }
         }
     }
@@ -106,38 +106,35 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     private void FindNearestCorrupCell()
     {
         min_dist = float.MaxValue;
-        newPath = null;
+        _newPath = null;
 
-        for (int y = (int)HomePosition.y - cellFoundRadius; y <= (int)HomePosition.y+cellFoundRadius; y++)
+        for (int y = (int)HomePosition.y - cellFoundRadius; y <= (int)HomePosition.y + cellFoundRadius; y++)
         {
             for (int x = (int)HomePosition.x - cellFoundRadius; x <= (int)HomePosition.x + cellFoundRadius; x++)
             {
-                if (x > 0 && y > 0 && x < width && y < height)
+                if (CoreManager.Instance.Map.TryGetCorruptedCell(new Vector2Int(x, y), out var cell))
                 {
-                    if (CoreManager.Instance.GetCell(x, y)?.GetComponent<CellCorruptionHandler>()?.GetCorruptionLevel() > 0)
+                    dist = Vector3.Distance(HomePosition, new Vector3(x, y));
+
+                    if (dist < min_dist)
                     {
-                        dist = Vector3.Distance(HomePosition, new Vector3(x, y));
+                        min_dist = dist;
 
-                        if (dist < min_dist)
-                        {
-                            min_dist = dist;
-
-                            newPath = CoreManager.Instance.GetCell(x, y);
-                        }
+                        _newPath = cell.CorruptionHandler.gameObject;
                     }
                 }
             }
         }
 
-        if (newPath)
+        if (_newPath)
         { 
-            SetPath(newPath);
+            SetPath(_newPath);
         }
     }
 
     private void SetPath(GameObject newPath)
     {
-        path = newPath;
+        _path = newPath;
         isActive = true;
 
         if (navMeshAgent.isActiveAndEnabled)
