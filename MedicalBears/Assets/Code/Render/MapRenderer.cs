@@ -54,17 +54,20 @@ namespace Code.Render
 
         private void RenderCell(MapCell cell, Sprite sprite, string layerName)
         {
-            var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, new Vector3(cell.X, cell.Y, 0));
+            var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, (Vector3Int)cell.Position);
             cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
             cellObj.layer = LayerMask.NameToLayer(layerName);
-            
+
             if (cell.Type is MapCellType.Floor or MapCellType.Wall)
-                cellObj.AddComponent<CellCorruptionHandler>();
+            {
+                cell.CorruptionHandler = cellObj.AddComponent<CellCorruptionHandler>();
+                cell.CorruptionHandler.Init(cell);
+            }
+            
+            cell.CellHandler = cellObj.AddComponent<CellHandler>();
+            cell.CellHandler.Init(cell);
 
             SetupNavMesh(cell, cellObj);
-
-            cellObj.GetComponent<CellHandler>().SetCell(cell); //биндинг сущности к вьюхе
-            cell.RenderedObject = cellObj; //биндинг вьюхи к сущности
         }
 
         private void SetupNavMesh(MapCell cell, GameObject cellObj)

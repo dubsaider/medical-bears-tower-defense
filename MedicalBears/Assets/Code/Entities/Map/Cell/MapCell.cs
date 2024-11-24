@@ -1,16 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using Code.Entities.Map;
 using UnityEngine;
 
 public class MapCell
 {
     public MapCellType Type;
-    public int X, Y;
+    public Vector2Int Position;
 
     /// <summary>
-    /// Отрисованная в сцене клетка
+    /// Обработчик строительства на клетке
     /// </summary>
-    public GameObject RenderedObject;
+    public CellHandler CellHandler;
+    
+    /// <summary>
+    /// Обработчик заражения клетки
+    /// </summary>
+    public CellCorruptionHandler CorruptionHandler;
 }
 
 public enum MapCellType
