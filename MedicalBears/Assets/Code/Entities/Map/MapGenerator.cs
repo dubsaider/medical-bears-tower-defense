@@ -62,7 +62,7 @@ public class MapGenerator
                         break;
                 }
 
-                map.Field[x, y] = new MapCell { Type = type, X = x, Y = y};
+                map.Field[x, y] = new MapCell { Type = type, Position = new Vector2Int(x,y)};
             }
         }
 
@@ -88,7 +88,7 @@ public class MapGenerator
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    _map.Field[x, y] = new MapCell { Type = MapCellType.Floor, X = x, Y = y };
+                    _map.Field[x, y] = new MapCell { Type = MapCellType.Floor, Position = new Vector2Int(x,y)};
                     visited[x, y] = false;
                 }
             }

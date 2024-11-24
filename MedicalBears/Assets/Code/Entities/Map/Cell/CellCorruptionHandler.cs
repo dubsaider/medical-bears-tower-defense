@@ -1,4 +1,5 @@
-﻿using Code.Enums;
+﻿using Code.Core;
+using Code.Enums;
 using Code.Interfaces;
 using UnityEngine;
 
@@ -9,12 +10,12 @@ namespace Code.Entities.Map
     {
         public Corruption Corruption { get; private set; }
         
+        private MapCell _cell;
         private SpriteRenderer _spriteRenderer;
 
-        private void Awake()
+        public void Init(MapCell cell)
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            Corruption = new();
+            _cell = cell;
         }
 
         // передаёт классу заражения значение, на которое надо увеличить или уменьшить
@@ -23,12 +24,17 @@ namespace Code.Entities.Map
         {
             Corruption?.IncreaseCorruptionLevel(value);
             RefreshCorruptionView();
+            
+            CellsEventsProvider.CellWasCorrupted(_cell);
         }
 
         public void DecreaseCorruptionLevel(int value)
         {
             Corruption?.DecreaseCorruptionLevel(value);
             RefreshCorruptionView();
+
+            if (Corruption is { IsHealthy: true })
+                CellsEventsProvider.CellWasHealed(_cell);
         }
 
         public int GetCorruptionLevel()
@@ -48,6 +54,12 @@ namespace Code.Entities.Map
                 CorruptionState.Level5 => new Color(0.5f, 0, 0.5f),
                 _ => _spriteRenderer.color
             };
+        }
+        
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            Corruption = new();
         }
     }
 }

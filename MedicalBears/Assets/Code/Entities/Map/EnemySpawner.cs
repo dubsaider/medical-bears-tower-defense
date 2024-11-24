@@ -73,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
             if (IsAllEnemiesSpawned())
             {
                 Debug.Log("All enemies spawned");
-                EventsProvider.AllWaveEnemiesSpawned?.Invoke();
+                CoreEventsProvider.AllWaveEnemiesSpawned?.Invoke();
                 break;
             }
 

@@ -10,6 +10,7 @@ namespace Code.Core
 
         public Level CurrentLevel => _levelsSwitcher.CurrentLevel;
         public Wave CurrentWave => _wavesSwitcher.CurrentWave;
+        public Map Map => _map;
 
         [SerializeField] private SceneRenderer _sceneRenderer;
 
@@ -45,12 +46,7 @@ namespace Code.Core
 
             _levelsSwitcher.Switch();
 
-            EventsProvider.LevelStarted.Invoke();
-        }
-
-        public GameObject GetCell(int x, int y)
-        {
-            return _map?.Field?[x, y].RenderedObject;
+            CoreEventsProvider.LevelStarted.Invoke();
         }
 
         public int GetWidth()

@@ -2,7 +2,7 @@
 
 namespace Code.Core
 {
-    public static class EventsProvider
+    public static class CoreEventsProvider
     {
         /// <summary>
         /// Уровень запущен (инициализирован)
@@ -23,13 +23,5 @@ namespace Code.Core
         /// Все враги волны поражены
         /// </summary>
         public static Action AllWaveEnemiesDied;
-
-
-        public static void UnsubscribeAll()
-        {
-
-        }
-
-
     }
 }

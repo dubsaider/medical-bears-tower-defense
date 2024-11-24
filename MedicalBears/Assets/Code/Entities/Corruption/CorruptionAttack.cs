@@ -20,19 +20,18 @@ public class CorruptionAttack : MonoBehaviour
     {
         var x = Mathf.RoundToInt(transform.position.x);
         var y = Mathf.RoundToInt(transform.position.y);
-
-        var cell = CoreManager.Instance.GetCell(x, y);
-        if (!cell) 
+        
+        if (!CoreManager.Instance.Map.TryGetCell(x, y, out var cell)) 
             return;
         
         //мы обращаемся к объекту клетки и обращаемся к классу обработчика заражений со запросом на увеличение заражения
         switch (corrupForce)
         {
             case >= 0:
-                cell.GetComponent<CellCorruptionHandler>().IncreaseCorruptionLevel(corrupForce);
+                cell.CorruptionHandler.IncreaseCorruptionLevel(corrupForce);
                 break;
             case < 0:
-                cell.GetComponent<CellCorruptionHandler>().DecreaseCorruptionLevel(-corrupForce);
+                cell.CorruptionHandler.DecreaseCorruptionLevel(-corrupForce);
                 break;
         }
     }

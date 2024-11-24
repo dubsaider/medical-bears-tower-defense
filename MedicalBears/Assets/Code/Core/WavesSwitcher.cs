@@ -55,14 +55,14 @@ namespace Code.Core
                 //TODO здесь вызывать отрисовку таймера
             }
             
-            EventsProvider.WaveStarted?.Invoke();
+            CoreEventsProvider.WaveStarted?.Invoke();
         }
 
         private void Awake()
         {
-            EventsProvider.LevelStarted += Init;
+            CoreEventsProvider.LevelStarted += Init;
             
-            EventsProvider.AllWaveEnemiesDied += Switch;
+            CoreEventsProvider.AllWaveEnemiesDied += Switch;
         }
     }
 }

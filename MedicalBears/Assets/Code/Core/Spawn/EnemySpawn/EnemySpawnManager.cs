@@ -46,14 +46,14 @@ namespace Code.Spawn.EnemySpawn
             while (SpawnedEnemies.Any(e=>e.IsAlive()))
                 yield return new WaitForSeconds(3);
             
-            EventsProvider.AllWaveEnemiesDied?.Invoke();
+            CoreEventsProvider.AllWaveEnemiesDied?.Invoke();
         }
         
         private void Awake()
         {
-            EventsProvider.WaveStarted += BeginSpawn;
+            CoreEventsProvider.WaveStarted += BeginSpawn;
             
-            EventsProvider.AllWaveEnemiesSpawned += () =>
+            CoreEventsProvider.AllWaveEnemiesSpawned += () =>
                 StartCoroutine(TrackingRemainingEnemies());
         }
     }

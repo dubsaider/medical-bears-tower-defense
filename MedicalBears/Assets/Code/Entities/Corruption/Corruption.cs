@@ -1,28 +1,35 @@
 using System;
 using Code.Enums;
 
-// класс хранит в себе значение заражения и методы для прибавления / убавления значений
+// РєР»Р°СЃСЃ С…СЂР°РЅРёС‚ РІ СЃРµР±Рµ Р·РЅР°С‡РµРЅРёРµ Р·Р°СЂР°Р¶РµРЅРёСЏ Рё РјРµС‚РѕРґС‹ РґР»СЏ РїСЂРёР±Р°РІР»РµРЅРёСЏ / СѓР±Р°РІР»РµРЅРёСЏ Р·РЅР°С‡РµРЅРёР№
 public class Corruption
 {
     public CorruptionState CorruptionState;
+    public CorruptionState MaxCorruptionLevel => GetMaxCorruptionLevel();
 
-    // добавление значения к "CorruptionState"
+    public bool IsMaxCorrupted => CorruptionState == MaxCorruptionLevel;
+    public bool IsHealthy => CorruptionState is CorruptionState.NotCorrupted;
+
+    /// <summary>
+    /// РЈРІРµР»РёС‡РµРЅРёРµ СѓСЂРѕРІРЅСЏ Р·Р°СЂР°Р¶РµРЅРёСЏ
+    /// </summary>
     public void IncreaseCorruptionLevel(int value)
     {
         /*
-         * проверка существует ли "CorruptionState + value" в "CorruptionState"
-         * если существует, заканчиваем метод,  если не существует, ставим максимальное значение из енама
+         * РїСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё "CorruptionState + value" РІ "CorruptionState"
+         * РµСЃР»Рё СЃСѓС‰РµСЃС‚РІСѓРµС‚, Р·Р°РєР°РЅС‡РёРІР°РµРј РјРµС‚РѕРґ,  РµСЃР»Рё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, СЃС‚Р°РІРёРј РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РёР· РµРЅР°РјР°
         */
         CorruptionState += value;
 
         if (Enum.IsDefined(typeof(CorruptionState), CorruptionState)) 
             return;
         
-        var enumValues = Enum.GetValues(typeof(CorruptionState));
-        CorruptionState = (CorruptionState)enumValues.GetValue(enumValues.Length - 1);
+        CorruptionState = MaxCorruptionLevel;
     }
 
-    // убавление значения у "CorruptionState"
+    /// <summary>
+    /// РЈРјРµРЅСЊС€РµРЅРёРµ СѓСЂРѕРІРЅСЏ Р·Р°СЂР°Р¶РµРЅРёСЏ
+    /// </summary>
     public void DecreaseCorruptionLevel(int value)
     {
         CorruptionState -= value;
@@ -30,7 +37,12 @@ public class Corruption
         if (Enum.IsDefined(typeof(CorruptionState), CorruptionState)) 
             return;
         
+        CorruptionState = CorruptionState.NotCorrupted;
+    }
+
+    private CorruptionState GetMaxCorruptionLevel()
+    {
         var enumValues = Enum.GetValues(typeof(CorruptionState));
-        CorruptionState = (CorruptionState)enumValues.GetValue(0);
+        return (CorruptionState)enumValues.GetValue(enumValues.Length - 1);
     }
 }

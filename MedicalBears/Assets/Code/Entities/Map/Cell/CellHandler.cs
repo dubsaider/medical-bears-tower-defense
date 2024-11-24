@@ -12,20 +12,14 @@ namespace Code.Entities.Map
         private SpriteRenderer _spriteRenderer;
         private bool _isBorder => _cell.Type is MapCellType.Border;
         private bool _isAvailable => _isEmpty && !_isBorder;
-
-        private void Awake()
-        {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        public void SetCell(MapCell cell)
+        
+        public void Init(MapCell cell)
         {
             _cell = cell;
         }
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-
             var enteredObj = eventData.pointerDrag;
             if (enteredObj is null) 
                 return;
@@ -76,6 +70,11 @@ namespace Code.Entities.Map
             
             _isEmpty = false;
             return true;
+        }
+        
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
     }
 }
