@@ -23,5 +23,18 @@ namespace Code.Core
         /// Все враги волны поражены
         /// </summary>
         public static Action AllWaveEnemiesDied;
+        
+        /// <summary>
+        /// Изменился баланс
+        /// </summary>
+        public static Action<int> BalanceChanged; //TODO к нему подписать UI магазина
+
+
+        public static void UnsubscribeAll()
+        {
+
+        }
+
+
     }
 }

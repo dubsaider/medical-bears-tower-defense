@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 using System.Collections;
+using Code.Core;
 
 public class Enemy : Hero, IMeleeAttacker
 {
@@ -13,7 +14,6 @@ public class Enemy : Hero, IMeleeAttacker
 
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
-    private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
 
@@ -36,8 +36,6 @@ public class Enemy : Hero, IMeleeAttacker
 
         CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
         collider.isTrigger = true; 
-
-        coinManager = Object.FindAnyObjectByType<CoinManager>();
 
         InvokeRepeating("FindNearestTower", 1f, 1f);
 
@@ -120,10 +118,8 @@ public class Enemy : Hero, IMeleeAttacker
 
     public override void Die()
     {
-        if (coinManager != null)
-        {
-            coinManager.AddCoins(reward); 
-        }
+        CoreManager.Instance.BalanceMediator.AddKillReward(reward); //сомнительно, но окэй
+
         isAlive = false;
         Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);

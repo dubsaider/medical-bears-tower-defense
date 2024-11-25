@@ -11,6 +11,7 @@ namespace Code.Core
         public Level CurrentLevel => _levelsSwitcher.CurrentLevel;
         public Wave CurrentWave => _wavesSwitcher.CurrentWave;
         public Map Map => _map;
+        public BalanceMediator BalanceMediator { get; private set; }
 
         [SerializeField] private SceneRenderer _sceneRenderer;
 
@@ -45,6 +46,8 @@ namespace Code.Core
             _sceneRenderer.Render(_map);
 
             _levelsSwitcher.Switch();
+
+            BalanceMediator = new(CurrentLevel.startBalance);
 
             CoreEventsProvider.LevelStarted.Invoke();
         }

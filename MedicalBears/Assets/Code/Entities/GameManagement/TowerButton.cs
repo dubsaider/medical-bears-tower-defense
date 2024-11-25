@@ -1,49 +1,38 @@
+using Code.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
-    [SerializeField] private CoinManager coinManager; 
     [SerializeField] private GameObject towerPrefab; 
     [SerializeField] private int towerCost = 25; 
     [SerializeField] private Button button; 
     [SerializeField] private Color insufficientBalanceColor = Color.gray;
     [SerializeField] private Color sufficientBalanceColor = Color.white; 
 
-    void Start()
+    void Awake()
     {
         button.onClick.AddListener(OnButtonClick);
-        UpdateButtonColor();
+        CoreEventsProvider.BalanceChanged += UpdateButtonColor;
     }
-    void Update()
-    {
-        UpdateButtonColor();
-    }
+
 
     void OnButtonClick()
     {
-        int currentBalance = coinManager.GetCoinBalance();
-
-        if (currentBalance >= towerCost)
+        //TODO вынести эту проверку в отдельный BuyTowerHandler или подобный
+        if (CoreManager.Instance.BalanceMediator.CurrentBalance >= towerCost)
         {
             Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));
             Instantiate(towerPrefab, spawnPosition, Quaternion.identity);
-            coinManager.SubtractCoins(towerCost);
-            UpdateButtonColor();
+            
+            CoreManager.Instance.BalanceMediator.Substract(towerCost);
         }
     }
 
-    void UpdateButtonColor()
+    void UpdateButtonColor(int currentBalance)
     {
-        int currentBalance = coinManager.GetCoinBalance();
-
-        if (currentBalance >= towerCost)
-        {
-            button.image.color = sufficientBalanceColor;
-        }
-        else
-        {
-            button.image.color = insufficientBalanceColor;
-        }
+        button.image.color = currentBalance >= towerCost 
+            ? sufficientBalanceColor 
+            : insufficientBalanceColor;
     }
 }
