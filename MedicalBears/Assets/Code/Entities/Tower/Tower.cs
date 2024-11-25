@@ -46,6 +46,7 @@ public class Tower : Hero
     // Метод для повышения уровня башни
     public void UpgradeLevel()
     {
+        Level++; // Увеличиваем уровень на 1
         Debug.Log($"Tower {TowerType} upgraded to level {Level}");
     }
 
