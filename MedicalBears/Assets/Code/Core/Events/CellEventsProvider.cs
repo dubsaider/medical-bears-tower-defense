@@ -6,7 +6,7 @@ namespace Code.Core
     /// <summary>
     /// Поставщик событий клетки
     /// </summary>
-    public static class CellsEventsProvider
+    public static class CellEventsProvider
     {
         /// <summary>
         /// Событие заражения клетки
