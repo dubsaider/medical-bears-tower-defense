@@ -30,10 +30,17 @@ public class ArrowAttackComponent : ITowerAttackComponent
         {
             Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
             GameObject arrow = Object.Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+            arrow.GetComponent<Bullet>().SetTarget(nearestEnemy);
+            arrow.GetComponent<Bullet>().SetDamage(damage);
+
             Rigidbody2D rb = arrow.AddComponent<Rigidbody2D>();
             rb.velocity = direction * 10f;
-            Debug.Log($"Arrow shoots at {nearestEnemy.name}.");
+            rb.gravityScale = 0;
+            rb.freezeRotation = true;
+
+            //Debug.Log($"Arrow shoots at {nearestEnemy.name}.");
         }
     }
 }

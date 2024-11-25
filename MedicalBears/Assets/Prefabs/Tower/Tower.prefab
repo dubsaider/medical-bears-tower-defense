@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerType: 3
   Range: 4
-  Damage: 5
+  Damage: 10
   AttackSpeed: 1
   FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661
