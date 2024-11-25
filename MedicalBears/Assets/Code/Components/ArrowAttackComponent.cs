@@ -3,6 +3,8 @@ using UnityEngine;
 public class ArrowAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
     public GameObject arrowPrefab;
+    [SerializeField] private Transform firePoint;
+
 
     public void Attack(Transform firePoint, float range, float damage)
     {

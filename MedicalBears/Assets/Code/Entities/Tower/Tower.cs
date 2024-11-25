@@ -1,20 +1,17 @@
 using UnityEngine;
 using Code.Enums;
 
-public class Tower : MonoBehaviour
+public class Tower : Hero
 {
     public TowerType TowerType;
-    public float Range;
-    public float Damage;
-    public float AttackSpeed;
     public Transform FirePoint;
-
     public ITowerAttackComponent AttackComponent { get; private set; }
     public bool IsBuilded { get; private set; }
 
     private float nextTimeToAttack = 0f;
     private SpriteRenderer spriteRenderer;
 
+    public int Level { get; private set; } = 1; 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,8 +28,8 @@ public class Tower : MonoBehaviour
     {
         if (IsBuilded && Time.time >= nextTimeToAttack)
         {
-            AttackComponent?.Attack(FirePoint, Range, Damage);
-            nextTimeToAttack = Time.time + 1f / AttackSpeed;
+            AttackComponent?.Attack(FirePoint, attackRange, damage);
+            nextTimeToAttack = Time.time + 1f / attackSpeed;
         }
     }
 
@@ -46,9 +43,30 @@ public class Tower : MonoBehaviour
         }
     }
 
+    // Метод для повышения уровня башни
+    public void UpgradeLevel()
+    {
+        Debug.Log($"Tower {TowerType} upgraded to level {Level}");
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Range);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public override void Move()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override int GetAttackPriority(Hero target)
+    {
+        throw new System.NotImplementedException();
     }
 }

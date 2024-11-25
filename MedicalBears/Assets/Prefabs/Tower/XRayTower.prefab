@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8660577623743075719}
   - component: {fileID: 6291091834443516181}
   m_Layer: 7
-  m_Name: Tower
+  m_Name: XRayTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,11 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aa5f326bb7e1041add2c9ef65ea493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  speed: 0
-  damage: 50
-  attackRange: 4
-  attackSpeed: 1
   TowerType: 3
   Range: 4
   Damage: 50
@@ -215,4 +210,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 1458258281887741677, guid: 5cdb835ff89515f4b84d3e1e5920caf2, type: 3}
-  firePoint: {fileID: 0}

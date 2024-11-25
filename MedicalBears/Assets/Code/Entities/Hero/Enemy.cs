@@ -83,7 +83,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
-            Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
+            // Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
         }
     }
 
@@ -121,7 +121,7 @@ public class Enemy : Hero, IMeleeAttacker
         CoreManager.Instance.BalanceMediator.AddKillReward(reward); //сомнительно, но окэй
 
         isAlive = false;
-        Debug.Log($"Enemy {gameObject.name} dies");
+        // Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);
     }
 
@@ -150,7 +150,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             List<Vector3> newPath = new List<Vector3> { nearestTower.transform.position };
             SetPath(newPath);
-            Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
+            // Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
         }
     }
 
@@ -158,7 +158,7 @@ public class Enemy : Hero, IMeleeAttacker
     {
         // Логика нанесения заражения
 
-        Debug.Log($"Enemy {gameObject.name} deals corruption");
+        // Debug.Log($"Enemy {gameObject.name} deals corruption");
     }
 
 
