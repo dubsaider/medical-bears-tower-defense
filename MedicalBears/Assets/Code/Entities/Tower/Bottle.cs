@@ -1,13 +1,16 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Bottle : MonoBehaviour
 {
-    [SerializeField] private float aoeRadius = 2f; 
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float aoeRadius = 1.5f;  
+    [SerializeField] private LayerMask enemyLayer;   
     [SerializeField] private GameObject explosionEffect; 
 
-    private float damage; 
-    private float explosionRange;
+    private float damage;  
+    private float explosionRange; 
+    
+    private HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
 
     public void Initialize(float damageValue, float range)
     {
@@ -22,26 +25,27 @@ public class Bottle : MonoBehaviour
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, explosionRange, enemyLayer);
-        foreach (var enemy in hitEnemies)
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, explosionRange, enemyLayer);
+
+        foreach (var collider in enemiesInRange)
         {
-            enemy.GetComponent<Enemy>()?.TakeDamage(damage);
+            Enemy enemy = collider.GetComponent<Enemy>();
+            if (enemy != null && !hitEnemies.Contains(enemy))
+            {
+                enemy.TakeDamage(damage); 
+                hitEnemies.Add(enemy); 
+            }
         }
 
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.collider.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             Explode(); 
         }
-    }
-
-    private void OnDestroy()
-    {
-        // Дополнительная очистка при уничтожении объекта
     }
 
     private void OnDrawGizmosSelected()

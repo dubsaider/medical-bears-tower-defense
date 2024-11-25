@@ -55,13 +55,12 @@ public class Tower : Hero
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
-    public override void Move()
+    public override void Die()
     {
-        throw new System.NotImplementedException();
+        gameObject.SetActive(false);
     }
 
-    public override void Die()
+    public override void Move()
     {
         throw new System.NotImplementedException();
     }

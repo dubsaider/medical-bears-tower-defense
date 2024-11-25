@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 949262745}
   - component: {fileID: 949262744}
   m_Layer: 5
-  m_Name: Tower1 (3)
+  m_Name: BottleTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 1032397336}
   - component: {fileID: 1032397339}
   m_Layer: 5
-  m_Name: Tower1
+  m_Name: ArrowTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1323,7 +1323,7 @@ GameObject:
   - component: {fileID: 1308729345}
   - component: {fileID: 1308729344}
   m_Layer: 5
-  m_Name: Tower1 (2)
+  m_Name: XRayTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1619,7 +1619,7 @@ GameObject:
   - component: {fileID: 1531505280}
   - component: {fileID: 1531505279}
   m_Layer: 5
-  m_Name: Tower1 (1)
+  m_Name: LaserTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

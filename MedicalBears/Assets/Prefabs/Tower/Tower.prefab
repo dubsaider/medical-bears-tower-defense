@@ -136,13 +136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   speed: 0
-  damage: 50
+  damage: 25
   attackRange: 4
   attackSpeed: 1
   TowerType: 3
-  Range: 4
-  Damage: 50
-  AttackSpeed: 1
   FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661
 BoxCollider2D:
