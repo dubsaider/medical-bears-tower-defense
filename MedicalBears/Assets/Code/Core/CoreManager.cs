@@ -1,5 +1,5 @@
-﻿using Code.Entities;
-using Code.Spawn.EnemySpawn;
+﻿using Code.Core.RewardsAndBalance;
+using Code.Entities;
 using UnityEngine;
 
 namespace Code.Core
@@ -10,7 +10,9 @@ namespace Code.Core
 
         public Level CurrentLevel => _levelsSwitcher.CurrentLevel;
         public Wave CurrentWave => _wavesSwitcher.CurrentWave;
-        public Map Map => _map;
+        public int CurrentWaveNumber => _wavesSwitcher.CurrentWaveNumber;
+
+        public Map Map { get; private set; }
         public BalanceMediator BalanceMediator { get; private set; }
 
         [SerializeField] private SceneRenderer _sceneRenderer;
@@ -18,7 +20,6 @@ namespace Code.Core
         private LevelsSwitcher _levelsSwitcher;
         private WavesSwitcher _wavesSwitcher;
 
-        private Map _map;
         private MapGenerator _mapGenerator;
 
         public void Victory()
@@ -42,8 +43,8 @@ namespace Code.Core
 
         private void InitLevel()
         {
-            _map = _mapGenerator.Generate(0);
-            _sceneRenderer.Render(_map);
+            Map = _mapGenerator.Generate(0);
+            _sceneRenderer.Render(Map);
 
             _levelsSwitcher.Switch();
 
@@ -54,11 +55,11 @@ namespace Code.Core
 
         public int GetWidth()
         {
-            return _map.Width;
+            return Map.Width;
         }
         public int GetHeight()
         {
-            return _map.Height;
+            return Map.Height;
         }
     }
 }

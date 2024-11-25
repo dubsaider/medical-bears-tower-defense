@@ -10,6 +10,11 @@ namespace Code.Core
         public static Action LevelStarted;
         
         /// <summary>
+        /// Таймер начала волны обновлен
+        /// </summary>
+        public static Action<string> WaveTimerUpdated;
+        
+        /// <summary>
         /// Таймер перед началом волны истек (волна началась)
         /// </summary>
         public static Action WaveStarted;

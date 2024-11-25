@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Code.Entities;
 using Extensions;
 using UnityEngine;
@@ -50,9 +52,10 @@ namespace Code.Core
         {
             while (!timeToWait.IsNull)
             {
+                CoreEventsProvider.WaveTimerUpdated.Invoke(timeToWait.ToString());
+                
                 yield return new WaitForSeconds(1);
                 timeToWait.SubstractSeconds(1);
-                //TODO здесь вызывать отрисовку таймера
             }
             
             CoreEventsProvider.WaveStarted?.Invoke();
