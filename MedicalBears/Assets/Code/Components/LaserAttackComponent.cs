@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaserAttackComponent : ITowerAttackComponent
+public class LaserAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
     public void Attack(Transform firePoint, float range, float damage)
     {

@@ -1,13 +1,8 @@
 using UnityEngine;
 
-public class ArrowAttackComponent : ITowerAttackComponent
+public class ArrowAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
-    private GameObject arrowPrefab;
-
-    public ArrowAttackComponent(GameObject arrowPrefab)
-    {
-        this.arrowPrefab = arrowPrefab;
-    }
+    public GameObject arrowPrefab;
 
     public void Attack(Transform firePoint, float range, float damage)
     {
