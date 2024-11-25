@@ -71,7 +71,13 @@ namespace Code.Entities.Map
             _isEmpty = false;
             return true;
         }
-        
+
+        public MapCellType GetMapCellType()
+        {
+            return _cell.Type;
+        }
+
+
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
