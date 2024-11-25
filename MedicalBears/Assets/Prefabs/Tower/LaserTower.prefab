@@ -140,7 +140,7 @@ MonoBehaviour:
   damage: 5
   attackRange: 4
   attackSpeed: 10
-  TowerType: 3
+  TowerType: 0
   FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661
 BoxCollider2D:
