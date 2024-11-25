@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BottleAttackComponent : ITowerAttackComponent
+public class BottleAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
     public void Attack(Transform firePoint, float range, float damage)
     {
