@@ -8,11 +8,13 @@ namespace Code.Entities.Map
     public class CellHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private MapCell _cell;
-        private bool _isEmpty = true;
-        private SpriteRenderer _spriteRenderer;
-        private bool _isBorder => _cell.Type is MapCellType.Border;
-        private bool _isAvailable => _isEmpty && !_isBorder;
+        private Tower _tower;
         
+        private bool IsEmpty => !_tower;
+        private bool IsBorder => _cell.Type is MapCellType.Border;
+        
+        private SpriteRenderer _spriteRenderer;
+
         public void Init(MapCell cell)
         {
             _cell = cell;
@@ -21,24 +23,22 @@ namespace Code.Entities.Map
         public void OnPointerEnter(PointerEventData eventData)
         {
             var enteredObj = eventData.pointerDrag;
-            if (enteredObj is null) 
+            if (enteredObj is null || !enteredObj.TryGetComponent(out TowerBuildHandler towerBuildHandler)) 
                 return;
 
-            if (enteredObj.TryGetComponent(out SpriteRenderer spriteRenderer))
+            var color = Colors.lightRed;
+
+            if (!IsBorder)
             {
-                if (_isBorder)
-                {
-                    spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 0.7f);
-                    return;
-                }
-                
-                var color = Colors.ColorWithModifiedAlpha(_isAvailable
-                    ? Colors.lightGreen
-                    : Colors.lightRed, 0.7f);
-                
-                spriteRenderer.color = color;
+                if (IsEmpty)
+                    color = Colors.lightGreen;
+                else if (IsCanUpgrade(towerBuildHandler.Tower))
+                    color = Colors.lightBlue;
                 _spriteRenderer.color = color;
             }
+
+            color = Colors.ColorWithModifiedAlpha(color, 0.7f);
+            enteredObj.GetComponent<SpriteRenderer>().color = color;
         }
         
         public void OnPointerExit(PointerEventData eventData)
@@ -48,27 +48,36 @@ namespace Code.Entities.Map
         
         public void OnDrop(PointerEventData eventData)
         {
-            if (!_isAvailable)
+            if (IsBorder)
                 return;
             
-            if(TryBuildTower(eventData))
+            if(TryBuildOrMergeTower(eventData))
                 return;
             
             //Здесь можно продолжить обрабатывать дропы других объектов
         }
 
-        private bool TryBuildTower(PointerEventData eventData)
+        private bool TryBuildOrMergeTower(PointerEventData eventData)
         {
             var droppedTower = eventData.pointerDrag;
             if (droppedTower is null || !droppedTower.TryGetComponent(out TowerBuildHandler towerBuildHandler))
                 return false;
 
-            towerBuildHandler.Build();
-            towerBuildHandler.transform.position = transform.position;
+            var tower = towerBuildHandler.Tower;
+            
+            if (IsEmpty)
+            {
+                _tower = tower;
+                towerBuildHandler.Build();
+                towerBuildHandler.transform.position = transform.position;
+            }
+            else if (IsCanUpgrade(tower))
+            {
+                _tower.UpgradeLevel();
+                Destroy(droppedTower);
+            }
 
             _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 1f);
-            
-            _isEmpty = false;
             return true;
         }
 
@@ -77,6 +86,14 @@ namespace Code.Entities.Map
             return _cell.Type;
         }
 
+        /// <summary>
+        /// Проверяем, можно ли апгрейднуть уже стоящую башню
+        /// </summary>
+        /// <param name="tower">Башня, которую планируем построить</param>
+        private bool IsCanUpgrade(Tower tower)
+        {
+            return !IsEmpty && _tower.TowerType == tower.TowerType;
+        }
 
         private void Awake()
         {
