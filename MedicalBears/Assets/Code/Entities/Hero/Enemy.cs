@@ -94,7 +94,7 @@ public class Enemy : Hero, IMeleeAttacker
         if (path != null && path.Count > 0 && currentWaypointIndex < path.Count)
         {
             Vector3 targetPosition = path[currentWaypointIndex];
-            Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
+            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
 
             if (navMeshAgent.isActiveAndEnabled)
             {
@@ -109,7 +109,7 @@ public class Enemy : Hero, IMeleeAttacker
         else
         {
             Vector3 targetPosition = transform.position + Vector3.down * 10f;
-            Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
+            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
 
             if (navMeshAgent.isActiveAndEnabled)
             {
