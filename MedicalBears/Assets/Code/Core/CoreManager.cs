@@ -22,9 +22,13 @@ namespace Code.Core
 
         private MapGenerator _mapGenerator;
 
-        public void Victory()
+        public void NextLevel()
         {
-
+            
+        }
+        public void RestartLevel()
+        {
+            //todo
         }
 
         private void Awake()

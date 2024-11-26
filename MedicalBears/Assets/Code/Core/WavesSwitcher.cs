@@ -10,11 +10,21 @@ namespace Code.Core
 {
     public class WavesSwitcher : MonoBehaviour
     {
-        public Wave CurrentWave { get; private set; }
+        public Wave CurrentWave
+        {
+            get => _currentWave;
+            private set
+            {
+                _currentWave = value;
+                CoreEventsProvider.WaveSwitched.Invoke(CurrentWaveNumber);
+            }
+        }
+
         public int CurrentWaveNumber => _currentWaveIndex + 1;
         private CoreManager CoreManager => CoreManager.Instance;
         private Wave[] Waves => CoreManager.CurrentLevel.waves;
 
+        private Wave _currentWave;
         private int _currentWaveIndex;
         
         /// <summary>
@@ -35,7 +45,7 @@ namespace Code.Core
 
             if (_currentWaveIndex == Waves.Length)
             {
-                CoreManager.Victory();
+                CoreEventsProvider.LevelPassed();
                 return;
             }
 
