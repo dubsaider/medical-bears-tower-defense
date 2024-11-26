@@ -6,7 +6,7 @@ namespace Code.Entities
     public class Level : ScriptableObject
     {
         public int mapIndex;
-        public float startBalance;
+        public int startBalance;
         public Wave[] waves;
     }
 }
