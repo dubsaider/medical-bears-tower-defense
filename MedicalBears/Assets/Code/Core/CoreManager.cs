@@ -1,5 +1,4 @@
 ﻿using Code.Entities;
-using Code.Spawn.EnemySpawn;
 using UnityEngine;
 
 namespace Code.Core
@@ -7,7 +6,7 @@ namespace Code.Core
     public class CoreManager : MonoBehaviour
     {
         public static CoreManager Instance;
-
+        
         public Level CurrentLevel => _levelsSwitcher.CurrentLevel;
         public Wave CurrentWave => _wavesSwitcher.CurrentWave;
         public Map Map => _map;
