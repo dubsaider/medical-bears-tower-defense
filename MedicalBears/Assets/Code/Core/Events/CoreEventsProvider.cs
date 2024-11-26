@@ -10,6 +10,16 @@ namespace Code.Core
         public static Action LevelStarted;
         
         /// <summary>
+        /// Уровень пройден (по сути - победа)
+        /// </summary>
+        public static Action LevelPassed;
+
+        /// <summary>
+        /// Волна переключилась
+        /// </summary>
+        public static Action<int> WaveSwitched;
+        
+        /// <summary>
         /// Таймер начала волны обновлен
         /// </summary>
         public static Action<string> WaveTimerUpdated;
@@ -18,6 +28,11 @@ namespace Code.Core
         /// Таймер перед началом волны истек (волна началась)
         /// </summary>
         public static Action WaveStarted;
+        
+        /// <summary>
+        /// Обновилось значение общего заражения карты
+        /// </summary>
+        public static Action<float> TotalCorruptionValueUpdated;
 
         /// <summary>
         /// Все враги волны были заспавлены
@@ -33,6 +48,12 @@ namespace Code.Core
         /// Изменился баланс
         /// </summary>
         public static Action<int> BalanceChanged; //TODO к нему подписать UI магазина
+
+        /// <summary>
+        /// Достигнуто критическое заражение (по сути - поражение)
+        /// </summary>
+        public static Action CriticalCorruptionReached;
+
 
 
         public static void UnsubscribeAll()
