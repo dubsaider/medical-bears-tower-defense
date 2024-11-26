@@ -23,20 +23,20 @@ public class BottleAttackComponent : MonoBehaviour, ITowerAttackComponent
 
         if (nearestEnemy != null)
         {
-            Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;  
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;  
-
-            GameObject bottle = Instantiate(bottlePrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+            Vector3 targetPosition = nearestEnemy.position;
+            GameObject bottle = Instantiate(bottlePrefab, firePoint.position, Quaternion.identity);
 
             Bottle bottleScript = bottle.GetComponent<Bottle>();
             if (bottleScript != null)
             {
                 bottleScript.Initialize(damage, range);
+                bottleScript.SetTargetPosition(targetPosition);
             }
 
             Rigidbody2D rb = bottle.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
+                Vector3 direction = (targetPosition - firePoint.position).normalized;
                 rb.velocity = direction * throwForce; 
                 rb.gravityScale = 0;  
             }
