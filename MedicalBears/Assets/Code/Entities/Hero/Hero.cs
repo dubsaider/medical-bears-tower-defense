@@ -14,7 +14,6 @@ public abstract class Hero : MonoBehaviour
 
     public abstract void Move();
     public abstract void Die();
-
     public void TakeDamage(float damage)
     {
         health -= damage;

@@ -12,57 +12,62 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     [SerializeField] private int cellFoundRadius;
     [SerializeField] private int healForce;
 
-    private Vector3 HomePosition;
+    private Vector3 _homePosition;
     private GameObject _path;
 
+    private Animator _animator;
+
     // для поиска клетки
-    private float dist = 0f;
-    private float min_dist;
+    private float _dist = 0f;
+    private float _min_dist;
 
-    private int width;
-    private int height;
+    private int _width;
+    private int _height;
 
-    private bool isActive = false;
+    private bool _isActive = false;
 
-    private NavMeshAgent navMeshAgent;
+    private NavMeshAgent _navMeshAgent;
 
     public void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.speed = speed;
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.speed = speed;
+
+        _animator = GetComponent<Animator>();
 
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        width = CoreManager.Instance.GetWidth();
-        height = CoreManager.Instance.GetHeight();
+        _width = CoreManager.Instance.GetWidth();
+        _height = CoreManager.Instance.GetHeight();
 
-        HomePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        _homePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
         StartCoroutine(FindNearestCorrupCell());
+        StartCoroutine(AnimationController());
     }
 
     IEnumerator FindNearestCorrupCell()
     {
-        navMeshAgent.SetDestination(HomePosition);
+        _navMeshAgent.SetDestination(_homePosition);
         while (true)
         {
-            min_dist = float.MaxValue;
+            _min_dist = float.MaxValue;
 
-            for (int y = (int)HomePosition.y - cellFoundRadius; y <= (int)HomePosition.y + cellFoundRadius; y++)
+            for (int y = (int)_homePosition.y - cellFoundRadius; y <= (int)_homePosition.y + cellFoundRadius; y++)
             {
-                for (int x = (int)HomePosition.x - cellFoundRadius; x <= (int)HomePosition.x + cellFoundRadius; x++)
+                for (int x = (int)_homePosition.x - cellFoundRadius; x <= (int)_homePosition.x + cellFoundRadius; x++)
                 {
                     if (CoreManager.Instance.Map.TryGetCorruptedCell(new Vector2Int(x, y), out var cell))
                     {
-                        dist = Vector3.Distance(HomePosition, new Vector3(x, y));
+                        _dist = Vector3.Distance(_homePosition, new Vector3(x, y));
 
-                        if (dist < min_dist)
+                        if (_dist < _min_dist)
                         {
-                            min_dist = dist;
+                            _min_dist = _dist;
 
-                            yield return new WaitUntil(() => isActive == false);
+                            yield return new WaitUntil(() => _isActive == false);
 
                             SetPath(cell.CorruptionHandler.gameObject);
                         }
@@ -73,6 +78,17 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         }
     }
 
+    private void SetPath(GameObject newPath)
+    {
+        _path = newPath;
+        _isActive = true;
+
+        _navMeshAgent.SetDestination(newPath.transform.position);
+
+        StartCoroutine("HealCorrup");
+
+    }
+
     IEnumerator HealCorrup()
     {
 
@@ -81,18 +97,20 @@ public class FriendlyUnit : Hero, ICorruptionHealer
 
             if (_path.GetComponent<CellCorruptionHandler>().GetCorruptionLevel() == 0)
             {
-                isActive = false;
-
-                if (navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(HomePosition);
+                _isActive = false;
+                _animator.SetBool("isClean", false);
+                if (_navMeshAgent.isActiveAndEnabled) _navMeshAgent.SetDestination(_homePosition);
                 StopCoroutine("HealCorrup");
 
             }
             else
             {
+
                 float dist = Vector3.Distance(transform.position, _path.transform.position);
 
                 if (dist <= attackRange)
                 {
+                    _animator.SetBool("isClean", true);
                     _path.GetComponent<CellCorruptionHandler>().DecreaseCorruptionLevel(healForce);
                 }
             }
@@ -101,31 +119,36 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         }
     }
 
-    private void SetPath(GameObject newPath)
+    IEnumerator AnimationController()
     {
-        _path = newPath;
-        isActive = true;
+        while (true)
+        {
+            if (_navMeshAgent.velocity.magnitude > 0.5f)
+            {
+                _animator.SetBool("isRun", true);
+            }
+            else
+            {
+                _animator.SetBool("isRun", false);
+            }
 
-        navMeshAgent.SetDestination(newPath.transform.position);
-
-
-        StartCoroutine("HealCorrup");
-
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     public override void Die()
     {
         // Логика смерти
         isAlive = false;
+        _animator.SetBool("isDie", true);
         Debug.Log($"Enemy {gameObject.name} dies");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public override void Move() { }
 
     public void HealCorruption(Corruption corruption) { }
     public override int GetAttackPriority(Hero target) {return 0;}
-
 
     private void OnDisable()
     {
