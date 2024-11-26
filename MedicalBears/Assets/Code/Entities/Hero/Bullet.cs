@@ -1,3 +1,4 @@
+using Code.Entities.Map;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -17,6 +18,15 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.TryGetComponent(out CellHandler cellHandler) )
+        {
+            MapCellType type = cellHandler.GetMapCellType();
+            if (type == MapCellType.Border)
+            {
+                Destroy(gameObject);
+            }
+        }
+
         if (other.transform == target)
         {
             if (other.TryGetComponent(out Hero hero))

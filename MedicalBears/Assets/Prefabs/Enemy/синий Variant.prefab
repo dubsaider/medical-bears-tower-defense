@@ -240,6 +240,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.0250006
       objectReference: {fileID: 0}
+    - target: {fileID: 2787290381571189734, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: m_Radius
+      value: 1.3000346
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787290381571189734, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.11613354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787290381571189734, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.63228536
+      objectReference: {fileID: 0}
     - target: {fileID: 3082604578009144903, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2542

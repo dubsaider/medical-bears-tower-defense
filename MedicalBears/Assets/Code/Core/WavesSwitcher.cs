@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Code.Entities;
 using Extensions;
 using UnityEngine;
@@ -8,11 +10,21 @@ namespace Code.Core
 {
     public class WavesSwitcher : MonoBehaviour
     {
-        public Wave CurrentWave { get; private set; }
+        public Wave CurrentWave
+        {
+            get => _currentWave;
+            private set
+            {
+                _currentWave = value;
+                CoreEventsProvider.WaveSwitched.Invoke(CurrentWaveNumber);
+            }
+        }
+
         public int CurrentWaveNumber => _currentWaveIndex + 1;
         private CoreManager CoreManager => CoreManager.Instance;
         private Wave[] Waves => CoreManager.CurrentLevel.waves;
 
+        private Wave _currentWave;
         private int _currentWaveIndex;
         
         /// <summary>
@@ -33,7 +45,7 @@ namespace Code.Core
 
             if (_currentWaveIndex == Waves.Length)
             {
-                CoreManager.Victory();
+                CoreEventsProvider.LevelPassed();
                 return;
             }
 
@@ -50,9 +62,10 @@ namespace Code.Core
         {
             while (!timeToWait.IsNull)
             {
+                CoreEventsProvider.WaveTimerUpdated.Invoke(timeToWait.ToString());
+                
                 yield return new WaitForSeconds(1);
                 timeToWait.SubstractSeconds(1);
-                //TODO здесь вызывать отрисовку таймера
             }
             
             CoreEventsProvider.WaveStarted?.Invoke();

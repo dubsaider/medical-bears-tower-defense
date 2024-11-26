@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 using System.Collections;
+using Code.Core;
 
 public class Enemy : Hero, IMeleeAttacker
 {
@@ -13,7 +14,6 @@ public class Enemy : Hero, IMeleeAttacker
 
     private List<Vector3> path;
     private int currentWaypointIndex = 0;
-    private CoinManager coinManager;
     [SerializeField] private int reward;
     public Animator anim;
 
@@ -36,8 +36,6 @@ public class Enemy : Hero, IMeleeAttacker
 
         CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
         collider.isTrigger = true; 
-
-        coinManager = Object.FindAnyObjectByType<CoinManager>();
 
         InvokeRepeating("FindNearestTower", 1f, 1f);
 
@@ -85,7 +83,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             // Логика ближнего боя
             nearestTower.GetComponent<Hero>().TakeDamage(Damage);
-            Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
+            // Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
         }
     }
 
@@ -94,7 +92,7 @@ public class Enemy : Hero, IMeleeAttacker
         if (path != null && path.Count > 0 && currentWaypointIndex < path.Count)
         {
             Vector3 targetPosition = path[currentWaypointIndex];
-            Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
+            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
 
             if (navMeshAgent.isActiveAndEnabled)
             {
@@ -109,7 +107,7 @@ public class Enemy : Hero, IMeleeAttacker
         else
         {
             Vector3 targetPosition = transform.position + Vector3.down * 10f;
-            Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
+            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
 
             if (navMeshAgent.isActiveAndEnabled)
             {
@@ -120,12 +118,10 @@ public class Enemy : Hero, IMeleeAttacker
 
     public override void Die()
     {
-        if (coinManager != null)
-        {
-            coinManager.AddCoins(reward); 
-        }
+        CoreManager.Instance.BalanceMediator.AddKillReward(reward); //сомнительно, но окэй
+
         isAlive = false;
-        Debug.Log($"Enemy {gameObject.name} dies");
+        // Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);
     }
 
@@ -154,7 +150,7 @@ public class Enemy : Hero, IMeleeAttacker
         {
             List<Vector3> newPath = new List<Vector3> { nearestTower.transform.position };
             SetPath(newPath);
-            Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
+            // Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
         }
     }
 
@@ -162,7 +158,7 @@ public class Enemy : Hero, IMeleeAttacker
     {
         // Логика нанесения заражения
 
-        Debug.Log($"Enemy {gameObject.name} deals corruption");
+        // Debug.Log($"Enemy {gameObject.name} deals corruption");
     }
 
 

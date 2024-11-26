@@ -6,15 +6,11 @@ namespace Code.Core.BuildMode
 {
     public class TowerBuildHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        public Tower Tower => _tower;
+        
         private Tower _tower;
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider;
-        private void Awake()
-        {
-            _tower = GetComponent<Tower>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _boxCollider = GetComponent<BoxCollider2D>();
-        }
 
         public void Build()
         {
@@ -36,13 +32,22 @@ namespace Code.Core.BuildMode
             if(_tower.IsBuilded) return;
 
             _boxCollider.enabled = false;
+            _spriteRenderer.sortingOrder = 100;
         }
         
         public void OnEndDrag(PointerEventData eventData)
         {
-            if(_tower.IsBuilded) return;
-
-            _boxCollider.enabled = true;
+            _spriteRenderer.sortingOrder = 30;
+            
+            if(!_tower.IsBuilded) 
+                _boxCollider.enabled = true;
+        }
+        
+        private void Awake()
+        {
+            _tower = GetComponent<Tower>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _boxCollider = GetComponent<BoxCollider2D>();
         }
     }
 }

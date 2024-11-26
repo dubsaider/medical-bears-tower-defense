@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7490579731593163344}
   - component: {fileID: -1813695260829234661}
   - component: {fileID: 8660577623743075719}
+  - component: {fileID: 6291091834443516181}
   m_Layer: 7
   m_Name: Tower
   m_TagString: Untagged
@@ -130,16 +131,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8514306237930157611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a31ce7b4985c3542898e2f3918bf1c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 03aa5f326bb7e1041add2c9ef65ea493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 50
   speed: 0
-  damage: 50
-  attackRange: 3
+  damage: 25
+  attackRange: 4
   attackSpeed: 1
-  arrowPrefab: {fileID: 1458258281887741677, guid: 5cdb835ff89515f4b84d3e1e5920caf2, type: 3}
-  firePoint: {fileID: 4710102085287675373}
+  TowerType: 3
+  FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -198,3 +199,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89de888353ee41d3a99410b882dab540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6291091834443516181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514306237930157611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1b18d8638facc42a84c7621934385e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 1458258281887741677, guid: 5cdb835ff89515f4b84d3e1e5920caf2, type: 3}
+  firePoint: {fileID: 0}
