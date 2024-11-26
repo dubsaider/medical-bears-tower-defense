@@ -3,14 +3,19 @@ using UnityEngine;
 public class DialogueInitializer : MonoBehaviour
 {
     public TextAnimator textAnimator;
-    public string dialoguesText = "Бу испугался не бойся. Я друг. \r\nЯ тебя не обижу. Иди сюда, иди ко мне, сядь рядом со мной. \r\nПосмотри мне в глаза. Ты видишь меня? Я тоже тебя вижу. \r\nДавай смотреть друг на друга до тех пор, пока наши глаза не устанут. \r\nТы не хочешь? Почему? Что-то не так?.";
+    public string[][] dialogues = new string[][]
+    {
+        new string[] { "Персонаж 1: Привет!", "Персонаж 1: Как дела?" },
+        new string[] { "Персонаж 2: Привет!", "Персонаж 2: Всё хорошо, спасибо!" }
+    };
+
+    public Sprite[] characterSprites; // Спрайты для каждого персонажа
 
     void Start()
     {
         if (textAnimator != null)
         {
-            string[] dialogues = dialoguesText.Split('\n');
-            textAnimator.SetDialogues(dialogues);
+            textAnimator.SetDialoguesAndSprites(dialogues, characterSprites);
         }
         else
         {

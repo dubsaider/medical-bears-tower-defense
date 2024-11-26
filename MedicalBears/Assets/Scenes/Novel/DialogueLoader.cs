@@ -3,14 +3,19 @@ using UnityEngine;
 public class DialogueLoader : MonoBehaviour
 {
     public TextAnimator textAnimator;
-    public string fileName = "dialogue";
+    public string[] fileNames = { "dialogue_character1", "dialogue_character2" };
+    public Sprite[] characterSprites; // Спрайты для каждого персонажа
 
     void Start()
     {
         if (textAnimator != null)
         {
-            string[] dialogues = LoadDialogues(fileName);
-            textAnimator.SetDialogues(dialogues);
+            string[][] dialogues = new string[fileNames.Length][];
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                dialogues[i] = LoadDialogues(fileNames[i]);
+            }
+            textAnimator.SetDialoguesAndSprites(dialogues, characterSprites);
         }
         else
         {
