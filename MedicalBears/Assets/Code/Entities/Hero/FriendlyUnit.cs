@@ -21,7 +21,7 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     private float _dist = 0f;
     private float _min_dist;
 
-    private bool isActive = false;
+    private bool _isActive = false;
 
     private NavMeshAgent _navMeshAgent;
 
@@ -36,7 +36,7 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         rb.gravityScale = 0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        HomePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        _homePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
         StartCoroutine(FindNearestCorrupCell());
         StartCoroutine(AnimationController());

@@ -1,5 +1,5 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 
 [CustomEditor(typeof(DialogueManager))]
@@ -9,14 +9,14 @@ public class DialogueManagerEditor : Editor
     {
         DialogueManager dialogueManager = (DialogueManager)target;
 
-        // Отображение полей dialogueText, leftCharacterImage, rightCharacterImage, backgroundImage и canvas
+        // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРѕР»РµР№ dialogueText, leftCharacterImage, rightCharacterImage, backgroundImage Рё canvas
         dialogueManager.dialogueText = (TMPro.TextMeshProUGUI)EditorGUILayout.ObjectField("Dialogue Text", dialogueManager.dialogueText, typeof(TMPro.TextMeshProUGUI), true);
         dialogueManager.leftCharacterImage = (Image)EditorGUILayout.ObjectField("Left Character Image", dialogueManager.leftCharacterImage, typeof(Image), true);
         dialogueManager.rightCharacterImage = (Image)EditorGUILayout.ObjectField("Right Character Image", dialogueManager.rightCharacterImage, typeof(Image), true);
         dialogueManager.backgroundImage = (Image)EditorGUILayout.ObjectField("Background Image", dialogueManager.backgroundImage, typeof(Image), true);
         dialogueManager.canvas = (Canvas)EditorGUILayout.ObjectField("Canvas", dialogueManager.canvas, typeof(Canvas), true);
 
-        // Отображение списка персонажей
+        // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° РїРµСЂСЃРѕРЅР°Р¶РµР№
         EditorGUILayout.LabelField("Characters", EditorStyles.boldLabel);
         for (int i = 0; i < dialogueManager.characters.Count; i++)
         {
@@ -27,13 +27,13 @@ public class DialogueManagerEditor : Editor
             EditorGUILayout.EndVertical();
         }
 
-        // Добавление нового персонажа
+        // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
         if (GUILayout.Button("Add Character"))
         {
             dialogueManager.characters.Add(new Character());
         }
 
-        // Отображение списка диалоговых реплик
+        // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° РґРёР°Р»РѕРіРѕРІС‹С… СЂРµРїР»РёРє
         EditorGUILayout.LabelField("Dialogue Lines", EditorStyles.boldLabel);
         for (int i = 0; i < dialogueManager.dialogueLines.Count; i++)
         {
@@ -42,7 +42,7 @@ public class DialogueManagerEditor : Editor
             dialogueManager.dialogueLines[i].characterNumber = EditorGUILayout.IntField("Character Number", dialogueManager.dialogueLines[i].characterNumber);
             dialogueManager.dialogueLines[i].dialogueText = EditorGUILayout.TextField("Dialogue Text", dialogueManager.dialogueLines[i].dialogueText);
 
-            // Кнопка для удаления Dialogue Line
+            // РљРЅРѕРїРєР° РґР»СЏ СѓРґР°Р»РµРЅРёСЏ Dialogue Line
             if (GUILayout.Button("Remove"))
             {
                 dialogueManager.dialogueLines.RemoveAt(i);
@@ -52,13 +52,13 @@ public class DialogueManagerEditor : Editor
             EditorGUILayout.EndVertical();
         }
 
-        // Добавление новой реплики
+        // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕР№ СЂРµРїР»РёРєРё
         if (GUILayout.Button("Add Dialogue Line"))
         {
             dialogueManager.dialogueLines.Add(new DialogueLine());
         }
 
-        // Сохранение изменений
+        // РЎРѕС…СЂР°РЅРµРЅРёРµ РёР·РјРµРЅРµРЅРёР№
         if (GUI.changed)
         {
             EditorUtility.SetDirty(dialogueManager);
