@@ -138,7 +138,7 @@ MonoBehaviour:
   speed: 0
   damage: 30
   attackRange: 6
-  attackSpeed: 0.5
+  attackSpeed: 0.2
   TowerType: 2
   FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661

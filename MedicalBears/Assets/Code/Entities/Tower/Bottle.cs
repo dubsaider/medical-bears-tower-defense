@@ -9,6 +9,7 @@ public class Bottle : MonoBehaviour
 
     private float damage;  
     private float explosionRange; 
+    private Vector3 targetPosition;
     
     private HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
 
@@ -16,6 +17,19 @@ public class Bottle : MonoBehaviour
     {
         damage = damageValue;
         explosionRange = range > 0 ? range : aoeRadius; 
+    }
+
+    public void SetTargetPosition(Vector3 position)
+    {
+        targetPosition = position;
+    }
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, targetPosition) < 1f)
+        {
+            Explode();
+        }
     }
 
     private void Explode()
@@ -39,7 +53,6 @@ public class Bottle : MonoBehaviour
 
         Destroy(gameObject);
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
