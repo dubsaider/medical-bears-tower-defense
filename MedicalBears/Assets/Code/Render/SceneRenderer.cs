@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Code.Core;
+﻿using Code.Core;
 using Code.Render;
 using UnityEngine;
 
@@ -20,8 +19,6 @@ public class SceneRenderer : MonoBehaviour
 
     private MapRenderer _mapRenderer;
     private CorruptionRenderer _corruptionRenderer;
-
-   
 
     public void Render(Map map)
     {

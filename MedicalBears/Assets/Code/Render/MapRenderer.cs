@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using Code.Core;
 using Code.Entities.Map;
 using Extensions;
 using NavMeshPlus.Components;
@@ -68,6 +68,8 @@ namespace Code.Render
                 cell.CorruptionHandler.enabled = false;
 
             SetupNavMesh(cell, cellObj);
+            
+            DestroyObjectsHandler.Add(cellObj);
         }
 
         private void SetupNavMesh(MapCell cell, GameObject cellObj)

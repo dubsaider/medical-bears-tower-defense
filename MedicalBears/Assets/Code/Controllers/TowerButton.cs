@@ -1,4 +1,6 @@
 using Code.Core;
+using Code.Core.BuildMode;
+using Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +25,9 @@ public class TowerButton : MonoBehaviour
         if (CoreManager.Instance.BalanceMediator.CurrentBalance >= towerCost)
         {
             Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));
-            Instantiate(towerPrefab, spawnPosition, Quaternion.identity);
+            var tower = ObjectsManager.CreateObject(towerPrefab, spawnPosition);
+            
+            DestroyObjectsHandler.Add(tower);
             
             CoreManager.Instance.BalanceMediator.Substract(towerCost);
         }
