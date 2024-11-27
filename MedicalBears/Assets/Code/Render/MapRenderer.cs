@@ -30,7 +30,7 @@ namespace Code.Render
             foreach (var cell in map.Field)
             {
                 if (cell.Type is MapCellType.Wall)
-                    RenderCell(cell, tiles.GetRandomItem(), "Wall"); //TODO доделать в будущем (красиво формировать большие фигуры тайлами)
+                    RenderCell(cell, tiles.GetRandomItem(), "Wall", RotationRandomizer.GetRandom90DegreesRotation());
             }
         }
         
@@ -48,24 +48,24 @@ namespace Code.Render
             foreach (var cell in map.Field)
             {
                 if (cell.Type is MapCellType.Border)
-                    RenderCell(cell, tiles.GetRandomItem(), "Wall");
+                    RenderCell(cell, tiles.GetRandomItem(), "Wall", RotationRandomizer.GetRandom90DegreesRotation());
             }
         }
 
-        private void RenderCell(MapCell cell, Sprite sprite, string layerName)
+        private void RenderCell(MapCell cell, Sprite sprite, string layerName, Quaternion rotation = default)
         {
-            var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, (Vector3Int)cell.Position);
+            var cellObj = ObjectsManager.CreateObject(_cellPrefab, _parentObject, (Vector3Int)cell.Position, rotation);
             cellObj.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
             cellObj.layer = LayerMask.NameToLayer(layerName);
 
-            if (cell.Type is MapCellType.Floor or MapCellType.Wall)
-            {
-                cell.CorruptionHandler = cellObj.AddComponent<CellCorruptionHandler>();
-                cell.CorruptionHandler.Init(cell);
-            }
+            cell.CorruptionHandler = cellObj.GetComponent<CellCorruptionHandler>();
+            cell.CorruptionHandler.Init(cell);
             
-            cell.CellHandler = cellObj.AddComponent<CellHandler>();
+            cell.CellHandler = cellObj.GetComponent<CellHandler>();
             cell.CellHandler.Init(cell);
+            
+            if (cell.Type is MapCellType.Border)
+                cell.CorruptionHandler.enabled = false;
 
             SetupNavMesh(cell, cellObj);
         }

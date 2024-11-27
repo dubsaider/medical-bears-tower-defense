@@ -668,7 +668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40.51999, y: -34.0001}
+  m_AnchoredPosition: {x: 40.51999, y: -34.000122}
   m_SizeDelta: {x: -81.04, y: -78.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292812291
@@ -4488,23 +4488,29 @@ MonoBehaviour:
   mapObject: {fileID: 343449421}
   cellPrefab: {fileID: 2094030980572634377, guid: bb8a4d99b54597745a2bb16333c2c97a, type: 3}
   wallTiles:
-  - {fileID: -8377130690987618698, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: 7223950226953391895, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  - {fileID: -537749870668139058, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  - {fileID: 1561205615984820651, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  floorTiles:
+  - {fileID: -8377130690987618698, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: -4684333735789482159, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: -5062486230716756072, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  - {fileID: 4099902767569298868, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  - {fileID: -6833445872158455971, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  floorTiles:
   - {fileID: 857779327251732012, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: 3825752689756085014, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: 7477827516038983822, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: 3930821917377472818, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: -47299315171432025, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: 9045646400296435942, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: -6765242926017629268, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   borderTiles:
-  - {fileID: -8377130690987618698, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
-  - {fileID: 7223950226953391895, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: 4099902767569298868, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  - {fileID: -6833445872158455971, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: -537749870668139058, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
   - {fileID: 1561205615984820651, guid: 4862362d447454a4ba974f4baaa5fdaa, type: 3}
+  corruptionTiles:
+  - {fileID: 1567561773137940438, guid: 6575049de97cfa941bbdddd3021f4e46, type: 3}
+  - {fileID: -1920094207, guid: 6575049de97cfa941bbdddd3021f4e46, type: 3}
+  - {fileID: -1016296770, guid: 6575049de97cfa941bbdddd3021f4e46, type: 3}
+  - {fileID: -484859368, guid: 6575049de97cfa941bbdddd3021f4e46, type: 3}
+  - {fileID: -1073345903, guid: 6575049de97cfa941bbdddd3021f4e46, type: 3}
 --- !u!1 &1975307095
 GameObject:
   m_ObjectHideFlags: 0

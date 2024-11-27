@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Entities;
+﻿using Code.Entities;
 using UnityEngine;
 
 namespace Code.Core
