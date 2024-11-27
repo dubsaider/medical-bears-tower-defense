@@ -1,8 +1,11 @@
 using Code.Core;
+using System;
 using UnityEngine;
 
 public class CorruptionObserver : MonoBehaviour
 {
+    [SerializeField] int MaxCorruptionProcents;   
+
     public static int MaxCorruptedCells {  get; private set; }
     public static int CurrentCorruptedCells {  get; private set; }
 
@@ -13,6 +16,8 @@ public class CorruptionObserver : MonoBehaviour
 
     void Start()
     {
+        CellEventsProvider.AddValueToCorruptionLevel += CorruptionEventHandler;
+;
         map = CoreManager.Instance.Map;
 
         _width = map.Width;
@@ -25,14 +30,46 @@ public class CorruptionObserver : MonoBehaviour
         }
     }
 
-    private void CorruptionEventHandler()
+    private void CorruptionEventHandler(int val)
     {
 
+        if (IsCorrectCorrupLevel(val, out int refVal, out int procValue))
+        {
+            CurrentCorruptedCells = refVal;
+        }
+        
+        CurrentCorruptedCellslUpdate(procValue);
     }
 
-    private void CurrentCorruptedCellslUpdate()
+    private bool IsCorrectCorrupLevel(int val, out int refVal, out int procValue)
     {
+        float curVal = CurrentCorruptedCells + val;
 
+        int res = (int)(curVal / MaxCorruptionProcents * 100);
+
+        if (res > 0 && res < 100)
+        {
+            refVal = (int)curVal;
+            procValue = res;
+        }
+        else if (res <= 0)
+        {
+            refVal = (int)curVal;
+            procValue = 0;
+        }
+        else
+        {
+            refVal = 100;
+            procValue = 100;
+            CoreEventsProvider.CriticalCorruptionReached.Invoke();
+        }
+
+        return true;
+    }
+
+    private void CurrentCorruptedCellslUpdate(int procValue)
+    {
+        CoreEventsProvider.TotalCorruptionValueUpdated.Invoke(procValue);
     }
 
     private bool FindCells(out int val)
@@ -66,5 +103,9 @@ public class CorruptionObserver : MonoBehaviour
         }
 
     }
-    
+
+    private void OnDestroy()
+    {
+        CellEventsProvider.AddValueToCorruptionLevel -= CorruptionEventHandler;
+    }
 }

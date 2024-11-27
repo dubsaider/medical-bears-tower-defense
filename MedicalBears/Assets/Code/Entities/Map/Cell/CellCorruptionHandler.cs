@@ -24,7 +24,7 @@ namespace Code.Entities.Map
         {
             Corruption?.IncreaseCorruptionLevel(value);
             RefreshCorruptionView();
-            
+
             CellEventsProvider.CellWasCorrupted(_cell);
         }
 
