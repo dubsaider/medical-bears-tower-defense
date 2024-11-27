@@ -45,7 +45,7 @@ public class CorruptionObserver : MonoBehaviour
     {
         float curVal = CurrentCorruptedCells + val;
 
-        int res = (int)(curVal / MaxCorruptionProcents * 100);
+        int res = (int)(curVal / MaxCorruptedCells * 100);
 
         if (res > 0 && res < 100)
         {
@@ -90,7 +90,7 @@ public class CorruptionObserver : MonoBehaviour
             }
         }
 
-        val = cnt;
+        val = cnt*5;
 
         if (cnt > 0)
 
