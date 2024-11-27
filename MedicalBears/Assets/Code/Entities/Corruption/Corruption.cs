@@ -1,4 +1,5 @@
 using System;
+using Code.Core;
 using Code.Enums;
 
 // класс хранит в себе значение заражения и методы для прибавления / убавления значений
@@ -21,8 +22,11 @@ public class Corruption
         */
         CorruptionState += value;
 
-        if (Enum.IsDefined(typeof(CorruptionState), CorruptionState)) 
+        if (Enum.IsDefined(typeof(CorruptionState), CorruptionState))
+        {
+            CellEventsProvider.AddValueToCorruptionLevel.Invoke(value);
             return;
+        }
         
         CorruptionState = MaxCorruptionLevel;
     }
@@ -33,9 +37,12 @@ public class Corruption
     public void DecreaseCorruptionLevel(int value)
     {
         CorruptionState -= value;
-     
-        if (Enum.IsDefined(typeof(CorruptionState), CorruptionState)) 
+
+        if (Enum.IsDefined(typeof(CorruptionState), CorruptionState))
+        {
+            CellEventsProvider.AddValueToCorruptionLevel.Invoke(-value);
             return;
+        }
         
         CorruptionState = CorruptionState.NotCorrupted;
     }

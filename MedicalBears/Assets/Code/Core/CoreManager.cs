@@ -1,4 +1,5 @@
-﻿using Code.Core.RewardsAndBalance;
+﻿using System;
+using Code.Core.RewardsAndBalance;
 using Code.Entities;
 using UnityEngine;
 
@@ -22,15 +23,46 @@ namespace Code.Core
 
         private MapGenerator _mapGenerator;
 
-        public void NextLevel()
+        private void Start()
         {
-            
-        }
-        public void RestartLevel()
-        {
-            //todo
+            StartNewGame(); //TODO ВРЕМЕННО
         }
 
+        public void StartNewGame()
+        {
+            SaveLoadHandler.ClearSaves();
+            _levelsSwitcher.Init(0);
+            StartCurrentLevel();
+        }
+        
+        public void ContinueGame()
+        {
+            var index = SaveLoadHandler.GetLastPassedLevelIndex();
+            _levelsSwitcher.Init(index);
+            StartCurrentLevel();
+        }
+        
+        public void NextLevel()
+        {
+            _levelsSwitcher.Switch();
+            StartCurrentLevel();
+        }
+        
+        public void RestartLevel()
+        {
+            StartCurrentLevel();
+        }
+
+        private void StartCurrentLevel()
+        {
+            Map = _mapGenerator.Generate(CurrentLevel.mapIndex);
+            _sceneRenderer.Render(Map);
+
+            BalanceMediator = new(CurrentLevel.startBalance);
+
+            CoreEventsProvider.LevelStarted.Invoke();
+        }
+        
         private void Awake()
         {
             Instance = this;
@@ -38,32 +70,6 @@ namespace Code.Core
 
             _levelsSwitcher = GetComponent<LevelsSwitcher>();
             _wavesSwitcher = GetComponent<WavesSwitcher>();
-        }
-
-        private void Start()
-        {
-            InitLevel();
-        }
-
-        private void InitLevel()
-        {
-            Map = _mapGenerator.Generate(0);
-            _sceneRenderer.Render(Map);
-
-            _levelsSwitcher.Switch();
-
-            BalanceMediator = new(CurrentLevel.startBalance);
-
-            CoreEventsProvider.LevelStarted.Invoke();
-        }
-
-        public int GetWidth()
-        {
-            return Map.Width;
-        }
-        public int GetHeight()
-        {
-            return Map.Height;
         }
     }
 }

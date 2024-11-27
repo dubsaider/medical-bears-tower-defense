@@ -13,7 +13,5 @@ namespace Code.Interfaces
         public void IncreaseCorruptionLevel(int value);
 
         public void DecreaseCorruptionLevel(int value);
-
-        public void RefreshCorruptionView();
     }
 }

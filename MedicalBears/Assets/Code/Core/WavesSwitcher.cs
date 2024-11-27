@@ -45,7 +45,7 @@ namespace Code.Core
 
             if (_currentWaveIndex == Waves.Length)
             {
-                CoreEventsProvider.LevelPassed();
+                CoreEventsProvider.LevelPassed.Invoke();
                 return;
             }
 

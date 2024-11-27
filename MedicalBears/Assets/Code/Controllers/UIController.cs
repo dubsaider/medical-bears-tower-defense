@@ -29,12 +29,26 @@ namespace Code.Controllers
 
         public void NextLevel()
         {
+            _uiRenderer.HideVictoryMenu();
             CoreManager.Instance.NextLevel();
         }
 
         public void RestartLevel()
         {
+            _uiRenderer.HideDefeatMenu();
             CoreManager.Instance.RestartLevel();
+        }
+
+        public void StartNewGame()
+        {
+            _uiRenderer.HidePauseMenu();
+            CoreManager.Instance.StartNewGame();
+        }
+        
+        public void ContinueGame()
+        {
+            _uiRenderer.HidePauseMenu();
+            CoreManager.Instance.ContinueGame();
         }
 
         private void OnVictory()
