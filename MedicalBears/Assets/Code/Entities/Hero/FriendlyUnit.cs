@@ -19,9 +19,6 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     private float dist = 0f;
     private float min_dist;
 
-    private int width;
-    private int height;
-
     private bool isActive = false;
 
     private NavMeshAgent navMeshAgent;
@@ -34,9 +31,6 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        width = CoreManager.Instance.GetWidth();
-        height = CoreManager.Instance.GetHeight();
 
         HomePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 

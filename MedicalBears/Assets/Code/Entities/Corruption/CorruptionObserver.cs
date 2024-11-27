@@ -25,6 +25,16 @@ public class CorruptionObserver : MonoBehaviour
         }
     }
 
+    private void CorruptionEventHandler()
+    {
+
+    }
+
+    private void CurrentCorruptedCellslUpdate()
+    {
+
+    }
+
     private bool FindCells(out int val)
     {
         int cnt=0;

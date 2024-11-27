@@ -13,8 +13,8 @@ public class Map
     {
         _corruptedCells = new();
 
-        CellsEventsProvider.CellWasCorrupted += AddCorruptedCell;
-        CellsEventsProvider.CellWasHealed += RemoveCorruptedCell;
+        CellEventsProvider.CellWasCorrupted += AddCorruptedCell;
+        CellEventsProvider.CellWasHealed += RemoveCorruptedCell;
     }
  
     public bool TryGetCell(int x, int y, out MapCell cell)

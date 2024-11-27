@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnProcess()
     {
-        Debug.Log("SpawnProcess started");
+        // Debug.Log("SpawnProcess started");
 
         while (true)
         {
@@ -56,7 +56,7 @@ public class EnemySpawner : MonoBehaviour
 
                 spawnInfo.Count -= count;
 
-                Debug.Log($"Spawning {count} enemies of type {spawnInfo.EnemyPrefab.name}");
+                // Debug.Log($"Spawning {count} enemies of type {spawnInfo.EnemyPrefab.name}");
 
                 for (var i = 0; i < count; i++)
                 {
@@ -64,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
                     spawnedEnemies.Add(ObjectsManager.CreateObject(spawnInfo.EnemyPrefab, spawnPosition)
                         .GetComponent<Enemy>());
 
-                    Debug.Log($"Enemy spawned at position: {spawnPosition}");
+                    // Debug.Log($"Enemy spawned at position: {spawnPosition}");
 
                     yield return new WaitForSeconds(spawnInterval);
                 }
@@ -72,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (IsAllEnemiesSpawned())
             {
-                Debug.Log("All enemies spawned");
+                // Debug.Log("All enemies spawned");
                 CoreEventsProvider.AllWaveEnemiesSpawned?.Invoke();
                 break;
             }
@@ -80,13 +80,8 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(partitionInterval);
         }
 
-        Debug.Log("SpawnProcess finished");
+        // Debug.Log("SpawnProcess finished");
 
-        // Проверка координат спавненных врагов
-        foreach (var enemy in spawnedEnemies)
-        {
-            Debug.Log($"Enemy at position: {enemy.transform.position}");
-        }
     }
 
     private bool IsAllEnemiesSpawned()
