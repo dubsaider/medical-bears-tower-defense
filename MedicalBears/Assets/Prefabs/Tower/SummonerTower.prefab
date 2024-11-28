@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89de888353ee41d3a99410b882dab540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerCost: 0
 --- !u!114 &-5826516225951252743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxUnitCount: 3
-  SpawnRange: 2
+  SpawnRange: 1
   SpawnUnitTime: 3
   CanRespawnNewUnit: 1
   UnitPrefab: {fileID: 3777439441434559175, guid: d78515fbeffdde942a9d29723edf9e85, type: 3}

@@ -48,7 +48,7 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
             Cells[ind].id = -1;
             Cells[ind].mapCell = null;
             Cells[ind].canUse = true;
-            //Cells[ind].mapCell.CellHandler.IsEmpty = true;
+            Cells[ind].mapCell.CellHandler.IsUnitStayOnCell = false;
         }
 
         StartCoroutine(SpawnUnitsTimer());
@@ -67,7 +67,7 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         {
             dictInd = Random.Range(0, Cells.Count);
         }
-        while (!Cells[dictInd].canUse);
+        while (!Cells[dictInd].mapCell.CellHandler.IsEmpty);
 
         //защита от повторных индексов
         do
@@ -83,6 +83,8 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         Cells[dictInd].id = ID;
         Cells[dictInd].canUse = false;
 
+        Cells[dictInd].mapCell.CellHandler.IsUnitStayOnCell = true;
+
         _currentUnitCnt++;
     }
 
@@ -97,9 +99,9 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         {
             for (int y = -SpawnRange; y <= SpawnRange; y++)
             {
-                if (CoreManager.Instance.Map.TryGetCell(Mx - x, My - y, out MapCell cell )
+                if (CoreManager.Instance.Map.TryGetCell(Mx + x, My + y, out MapCell cell )
                     && (x != Mx && y != My)
-                    && CoreManager.Instance.Map.Field[x,y].CellHandler.IsEmpty)
+                    && CoreManager.Instance.Map.Field[Mx + x, My + y].CellHandler.IsEmpty)
                 {
                     if (cell.Type == MapCellType.Floor)
                     {
@@ -107,10 +109,10 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
                         {
                             id = -1,
                             mapCell = cell,
-                            canUse = true
+                            canUse = true,
                         });
 
-                        //cell.CellHandler.IsEmpty = false;
+                        cell.CellHandler.IsUnitStayOnCell = false;
                     }
                 }
             }

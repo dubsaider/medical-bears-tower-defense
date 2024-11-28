@@ -11,7 +11,8 @@ namespace Code.Entities.Map
         private MapCell _cell;
         private Tower _tower;
         
-        public bool IsEmpty => !_tower;
+        public bool IsEmpty => !_tower && !IsUnitStayOnCell;
+        public bool IsUnitStayOnCell = false;
         private bool IsBorder => _cell.Type is MapCellType.Border;
         
         private SpriteRenderer _spriteRenderer;
