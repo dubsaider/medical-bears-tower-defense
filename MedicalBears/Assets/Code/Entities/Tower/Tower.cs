@@ -57,7 +57,6 @@ public class Tower : Hero
     }
     public override void Die()
     {
-        gameObject.SetActive(false);
     }
 
     public override void Move()
