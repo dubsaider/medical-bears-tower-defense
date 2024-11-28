@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 77e91a19b15e5f34f990afc8d10d126d
+guid: 937e264e00871b14a8d5b5295fec9b29
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5874026915922232450
-    second: "\u0441\u043E\u0442\u0430_0"
+      213: 772810046289266921
+    second: Honeycomb_0
   - first:
-      213: -6408255377769179769
-    second: "\u0441\u043E\u0442\u0430_1"
+      213: -717798690170239806
+    second: Honeycomb_1
   - first:
-      213: 6283724223160216456
-    second: "\u0441\u043E\u0442\u0430_2"
+      213: -1054754438747494297
+    second: Honeycomb_2
   - first:
-      213: 3355974023735557499
-    second: "\u0441\u043E\u0442\u0430_3"
+      213: -4840305739199544861
+    second: Honeycomb_3
   - first:
-      213: 4602090339270253822
-    second: "\u0441\u043E\u0442\u0430_4"
+      213: -2997428072618748483
+    second: Honeycomb_4
   - first:
-      213: 957112809370357964
-    second: "\u0441\u043E\u0442\u0430_5"
+      213: 6064370224870421467
+    second: Honeycomb_5
   - first:
-      213: 5082452584511726282
-    second: "\u0441\u043E\u0442\u0430_6"
+      213: -542374738353004837
+    second: Honeycomb_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -69,8 +69,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 2048
-  spriteBorder: {x: 920, y: 1836, z: 1347, w: 1500}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -131,22 +131,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: honeycomb_0
+      name: Honeycomb_0
       rect:
         serializedVersion: 2
-        x: 920
-        y: 1839
-        width: 2235
-        height: 2172
+        x: 927
+        y: 2514
+        width: 695
+        height: 817
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 284c0acab5cb48150800000000000000
-      internalID: 5874026915922232450
+      spriteID: 9e8ccef74a299ba00800000000000000
+      internalID: 772810046289266921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_1
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 3181
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c48924f4edd906f0800000000000000
+      internalID: -717798690170239806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_2
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 2507
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76860312d62cc51f0800000000000000
+      internalID: -1054754438747494297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_3
+      rect:
+        serializedVersion: 2
+        x: 2098
+        y: 3174
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e10ab24397c3dcb0800000000000000
+      internalID: -4840305739199544861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_4
+      rect:
+        serializedVersion: 2
+        x: 2453
+        y: 2494
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db596cb8c0ff666d0800000000000000
+      internalID: -2997428072618748483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_5
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1846
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd37bdfc698f82450800000000000000
+      internalID: 6064370224870421467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Honeycomb_6
+      rect:
+        serializedVersion: 2
+        x: 2075
+        y: 1850
+        width: 695
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bded2519c091978f0800000000000000
+      internalID: -542374738353004837
       vertices: []
       indices: 
       edges: []
@@ -154,21 +280,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      honeycomb_0: 5874026915922232450
-      "\u0441\u043E\u0442\u0430_1": -6408255377769179769
-      "\u0441\u043E\u0442\u0430_2": 6283724223160216456
-      "\u0441\u043E\u0442\u0430_3": 3355974023735557499
-      "\u0441\u043E\u0442\u0430_4": 4602090339270253822
-      "\u0441\u043E\u0442\u0430_5": 957112809370357964
-      "\u0441\u043E\u0442\u0430_6": 5082452584511726282
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

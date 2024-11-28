@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6575049de97cfa941bbdddd3021f4e46
+guid: babb38386f5069048aca286c0385723d
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -75,7 +75,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -140,12 +140,33 @@ TextureImporter:
       name: CorruptionTiles_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1551
-        width: 497
-        height: 497
+        x: 20
+        y: 1792
+        width: 91
+        height: 122
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdd6812a69b4ac5b0800000000000000
+      internalID: -5347378497212355109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorruptionTiles_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1550
+        width: 445
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,43 +179,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CorruptionTiles_1
-      rect:
-        serializedVersion: 2
-        x: 628
-        y: 1540
-        width: 497
-        height: 497
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4cb1057319053d74a9cc713ae718afa4
-      internalID: -1920094207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: CorruptionTiles_2
       rect:
         serializedVersion: 2
-        x: 1265
-        y: 1536
-        width: 497
-        height: 499
+        x: 631
+        y: 1790
+        width: 78
+        height: 127
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0636db339d6290b46b0b9ea698e97a66
-      internalID: -1016296770
+      spriteID: d42bda97b9b21c710800000000000000
+      internalID: 1711697280138850893
       vertices: []
       indices: 
       edges: []
@@ -203,19 +203,19 @@ TextureImporter:
       name: CorruptionTiles_3
       rect:
         serializedVersion: 2
-        x: 27
-        y: 850
-        width: 497
-        height: 497
+        x: 638
+        y: 1539
+        width: 462
+        height: 496
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f831dfb740d8ffd48b607e96f5bc77fe
-      internalID: -484859368
+      spriteID: 4d7ef2ddb04102380800000000000000
+      internalID: -8998170014298150956
       vertices: []
       indices: 
       edges: []
@@ -224,19 +224,103 @@ TextureImporter:
       name: CorruptionTiles_4
       rect:
         serializedVersion: 2
-        x: 680
-        y: 865
-        width: 497
-        height: 497
+        x: 1267
+        y: 1730
+        width: 141
+        height: 131
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 2a3585d39fcef324db1ede1d389ec86a
-      internalID: -1073345903
+      spriteID: ba853f2c8ba4f6e20800000000000000
+      internalID: 3345975205564733611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorruptionTiles_5
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 1535
+        width: 454
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4890b72b1ec69b0800000000000000
+      internalID: -5085441722523482882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorruptionTiles_6
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 1045
+        width: 152
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef31f422eb0b277f0800000000000000
+      internalID: -616235868330454018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorruptionTiles_7
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 851
+        width: 468
+        height: 496
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad7e5e2295bc550d0800000000000000
+      internalID: -3434615557102114854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorruptionTiles_8
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 865
+        width: 494
+        height: 497
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67400c529c27fd290800000000000000
+      internalID: -7863440216118262666
       vertices: []
       indices: 
       edges: []
@@ -244,19 +328,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f36f2cc9f4db8b046bea3c603613f23b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      CorruptionTiles_0: 1567561773137940438
-      CorruptionTiles_1: -1920094207
-      CorruptionTiles_2: -1016296770
-      CorruptionTiles_3: -484859368
-      CorruptionTiles_4: -1073345903
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
