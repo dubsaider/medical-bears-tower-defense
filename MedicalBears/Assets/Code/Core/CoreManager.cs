@@ -41,6 +41,12 @@ namespace Code.Core
             _levelsSwitcher.Init(index);
             StartCurrentLevel();
         }
+
+        public void StartSelectedLevel(int selectedLevelIndex)
+        {
+            _levelsSwitcher.Init(selectedLevelIndex);
+            StartCurrentLevel();
+        }
         
         public void NextLevel()
         {
