@@ -65,8 +65,9 @@ namespace Code.Core
             _sceneRenderer.Render(Map);
 
             BalanceMediator = new(CurrentLevel.startBalance);
-
             CoreEventsProvider.LevelStarted.Invoke();
+            
+            GameModeManager.SetDefaultMode();
         }
         
         private void Awake()

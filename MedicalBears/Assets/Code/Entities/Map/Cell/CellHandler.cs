@@ -1,4 +1,5 @@
-﻿using Code.Core.BuildMode;
+﻿using Code.Core;
+using Code.Core.BuildMode;
 using Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +19,11 @@ namespace Code.Entities.Map
         public void Init(MapCell cell)
         {
             _cell = cell;
+        }
+
+        public void OnTowerSell()
+        {
+            _tower = null;
         }
         
         public void OnPointerEnter(PointerEventData eventData)
@@ -68,16 +74,17 @@ namespace Code.Entities.Map
             if (IsEmpty)
             {
                 _tower = tower;
-                towerBuildHandler.Build();
+                towerBuildHandler.Build(this);
                 towerBuildHandler.transform.position = transform.position;
             }
             else if (IsCanUpgrade(tower))
             {
-                _tower.UpgradeLevel();
+                towerBuildHandler.Upgrade();
                 Destroy(droppedTower);
             }
 
             _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 1f);
+            GameModeManager.SetDefaultMode();
             return true;
         }
 

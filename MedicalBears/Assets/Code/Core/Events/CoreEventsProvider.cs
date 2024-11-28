@@ -47,7 +47,7 @@ namespace Code.Core
         /// <summary>
         /// Изменился баланс
         /// </summary>
-        public static Action<int> BalanceChanged; //TODO к нему подписать UI магазина
+        public static Action<int> BalanceChanged;
 
         /// <summary>
         /// Достигнуто критическое заражение (по сути - поражение)
