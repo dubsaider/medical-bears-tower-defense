@@ -9,8 +9,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Image leftCharacterImage;
     public Image rightCharacterImage;
-    public Image backgroundImage; // Фоновое изображение
-    public Canvas canvas; // Канвас
+    public Image backgroundImage; // Р¤РѕРЅРѕРІРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+    public Canvas canvas; // РљР°РЅРІР°СЃ
 
     [SerializeField]
     public List<Character> characters = new List<Character>();
@@ -21,8 +21,8 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private string currentDialogue;
     private int currentCharIndex = 0;
-    private float typeSpeed = 0.05f; // Скорость анимации текста (в секундах на символ)
-    private float backgroundMoveSpeed = 2f; // Скорость смещения фона
+    private float typeSpeed = 0.05f; // РЎРєРѕСЂРѕСЃС‚СЊ Р°РЅРёРјР°С†РёРё С‚РµРєСЃС‚Р° (РІ СЃРµРєСѓРЅРґР°С… РЅР° СЃРёРјРІРѕР»)
+    private float backgroundMoveSpeed = 2f; // РЎРєРѕСЂРѕСЃС‚СЊ СЃРјРµС‰РµРЅРёСЏ С„РѕРЅР°
 
     void Start()
     {
@@ -35,10 +35,10 @@ public class DialogueManager : MonoBehaviour
         {
             currentDialogue = dialogueLines[currentDialogueIndex].dialogueText;
             currentCharIndex = 0;
-            StopAllCoroutines(); // Останавливаем предыдущие корутины
+            StopAllCoroutines(); // РћСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїСЂРµРґС‹РґСѓС‰РёРµ РєРѕСЂСѓС‚РёРЅС‹
             StartCoroutine(TypeText());
 
-            // Установка спрайта персонажа
+            // РЈСЃС‚Р°РЅРѕРІРєР° СЃРїСЂР°Р№С‚Р° РїРµСЂСЃРѕРЅР°Р¶Р°
             int characterNumber = dialogueLines[currentDialogueIndex].characterNumber;
             Character character = characters.Find(c => c.characterNumber == characterNumber);
             if (character != null && character.characterSprite != null)
@@ -46,24 +46,24 @@ public class DialogueManager : MonoBehaviour
                 if (characterNumber % 2 == 0)
                 {
                     leftCharacterImage.sprite = character.characterSprite;
-                    leftCharacterImage.color = Color.white; // Возвращаем полную непрозрачность
+                    leftCharacterImage.color = Color.white; // Р’РѕР·РІСЂР°С‰Р°РµРј РїРѕР»РЅСѓСЋ РЅРµРїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ
                     rightCharacterImage.sprite = null;
-                    rightCharacterImage.color = new Color(1, 1, 1, 0); // Делаем полностью прозрачным
-                    StartCoroutine(MoveBackground(true)); // Смещаем фон влево
+                    rightCharacterImage.color = new Color(1, 1, 1, 0); // Р”РµР»Р°РµРј РїРѕР»РЅРѕСЃС‚СЊСЋ РїСЂРѕР·СЂР°С‡РЅС‹Рј
+                    StartCoroutine(MoveBackground(true)); // РЎРјРµС‰Р°РµРј С„РѕРЅ РІР»РµРІРѕ
                 }
                 else
                 {
                     rightCharacterImage.sprite = character.characterSprite;
-                    rightCharacterImage.color = Color.white; // Возвращаем полную непрозрачность
+                    rightCharacterImage.color = Color.white; // Р’РѕР·РІСЂР°С‰Р°РµРј РїРѕР»РЅСѓСЋ РЅРµРїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ
                     leftCharacterImage.sprite = null;
-                    leftCharacterImage.color = new Color(1, 1, 1, 0); // Делаем полностью прозрачным
-                    StartCoroutine(MoveBackground(false)); // Смещаем фон вправо
+                    leftCharacterImage.color = new Color(1, 1, 1, 0); // Р”РµР»Р°РµРј РїРѕР»РЅРѕСЃС‚СЊСЋ РїСЂРѕР·СЂР°С‡РЅС‹Рј
+                    StartCoroutine(MoveBackground(false)); // РЎРјРµС‰Р°РµРј С„РѕРЅ РІРїСЂР°РІРѕ
                 }
             }
         }
         else
         {
-            Debug.Log("Диалог завершен");
+            Debug.Log("Р”РёР°Р»РѕРі Р·Р°РІРµСЂС€РµРЅ");
         }
     }
 
@@ -92,13 +92,13 @@ public class DialogueManager : MonoBehaviour
         backgroundRect.anchoredPosition = targetPosition;
     }
 
-    // Метод для вызова следующей части диалога через кнопку или событие
+    // РњРµС‚РѕРґ РґР»СЏ РІС‹Р·РѕРІР° СЃР»РµРґСѓСЋС‰РµР№ С‡Р°СЃС‚Рё РґРёР°Р»РѕРіР° С‡РµСЂРµР· РєРЅРѕРїРєСѓ РёР»Рё СЃРѕР±С‹С‚РёРµ
     public void OnClick_NextPart()
     {
         if (currentCharIndex < currentDialogue.Length)
         {
-            currentCharIndex = currentDialogue.Length; // Быстро вывести оставшуюся часть текста
-            dialogueText.text = currentDialogue; // Установить полный текст диалога
+            currentCharIndex = currentDialogue.Length; // Р‘С‹СЃС‚СЂРѕ РІС‹РІРµСЃС‚Рё РѕСЃС‚Р°РІС€СѓСЋСЃСЏ С‡Р°СЃС‚СЊ С‚РµРєСЃС‚Р°
+            dialogueText.text = currentDialogue; // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РїРѕР»РЅС‹Р№ С‚РµРєСЃС‚ РґРёР°Р»РѕРіР°
         }
         else if (currentDialogueIndex < dialogueLines.Count - 1)
         {
@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Диалог завершен");
+            Debug.Log("Р”РёР°Р»РѕРі Р·Р°РІРµСЂС€РµРЅ");
         }
     }
 }
