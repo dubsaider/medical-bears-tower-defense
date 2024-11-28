@@ -54,7 +54,10 @@ namespace Code.Core
         /// </summary>
         public static Action CriticalCorruptionReached;
 
-
+        /// <summary>
+        /// смерть пилюли
+        /// </summary>
+        public static Action<int> HealerUnitHasDie;
 
         public static void UnsubscribeAll()
         {

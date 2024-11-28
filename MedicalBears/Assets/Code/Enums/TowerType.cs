@@ -8,6 +8,7 @@ namespace Code.Enums
         LaserTower,
         XRayTower,
         BottleTower,
-        TestTower
+        TestTower,
+        SummonerTower
     }
 }

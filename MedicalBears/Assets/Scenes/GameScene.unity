@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dda21d2bcd345b4797e654a397acfb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 8514306237930157611, guid: 800bd25a409ddbc4485ed5441acc0b81, type: 3}
+  towerPrefab: {fileID: 8514306237930157611, guid: 5922a8668ec21604b81b6dfedb4dd59f, type: 3}
   towerCost: 2
   button: {fileID: 18662328}
   insufficientBalanceColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -804,7 +804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40.51999, y: -34.0002}
+  m_AnchoredPosition: {x: 40.51999, y: -34.000336}
   m_SizeDelta: {x: -81.04, y: -78.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292812291

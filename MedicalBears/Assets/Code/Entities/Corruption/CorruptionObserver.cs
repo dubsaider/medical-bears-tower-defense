@@ -11,7 +11,6 @@ public class CorruptionObserver : MonoBehaviour
 
     private Map map;
 
-    private int _CellsCnt = 0;
     private int _width,_height;
 
     void Start()
