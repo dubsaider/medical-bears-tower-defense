@@ -28,21 +28,21 @@ namespace Code.Entities.Map
         
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (!IsEmpty)
+                return;
+            
             var enteredObj = eventData.pointerDrag;
             if (enteredObj is null || !enteredObj.TryGetComponent(out TowerBuildHandler towerBuildHandler)) 
                 return;
+            
+            if(towerBuildHandler.Tower.IsBuilded)
+                return;
 
-            var color = Colors.lightRed;
+            var color = IsBorder 
+                ? Colors.lightRed
+                : Colors.lightGreen;
 
-            if (!IsBorder)
-            {
-                if (IsEmpty)
-                    color = Colors.lightGreen;
-                else if (IsCanUpgrade(towerBuildHandler.Tower))
-                    color = Colors.lightBlue;
-                _spriteRenderer.color = color;
-            }
-
+            _spriteRenderer.color = color;
             color = Colors.ColorWithModifiedAlpha(color, 0.7f);
             enteredObj.GetComponent<SpriteRenderer>().color = color;
         }
@@ -54,33 +54,30 @@ namespace Code.Entities.Map
         
         public void OnDrop(PointerEventData eventData)
         {
-            if (IsBorder)
+            if (IsBorder || !IsEmpty)
                 return;
             
-            if(TryBuildOrMergeTower(eventData))
+            if(TryBuildTower(eventData))
                 return;
             
             //Здесь можно продолжить обрабатывать дропы других объектов
         }
 
-        private bool TryBuildOrMergeTower(PointerEventData eventData)
+        private bool TryBuildTower(PointerEventData eventData)
         {
             var droppedTower = eventData.pointerDrag;
             if (droppedTower is null || !droppedTower.TryGetComponent(out TowerBuildHandler towerBuildHandler))
                 return false;
-
+            
             var tower = towerBuildHandler.Tower;
+            if(tower.IsBuilded)
+                return false;
             
             if (IsEmpty)
             {
                 _tower = tower;
                 towerBuildHandler.Build(this);
                 towerBuildHandler.transform.position = transform.position;
-            }
-            else if (IsCanUpgrade(tower))
-            {
-                towerBuildHandler.Upgrade();
-                Destroy(droppedTower);
             }
 
             _spriteRenderer.color = Colors.ColorWithModifiedAlpha(Colors.white, 1f);
@@ -93,14 +90,7 @@ namespace Code.Entities.Map
             return _cell.Type;
         }
 
-        /// <summary>
-        /// Проверяем, можно ли апгрейднуть уже стоящую башню
-        /// </summary>
-        /// <param name="tower">Башня, которую планируем построить</param>
-        private bool IsCanUpgrade(Tower tower)
-        {
-            return !IsEmpty && _tower.TowerType == tower.TowerType;
-        }
+        
 
         private void Awake()
         {
