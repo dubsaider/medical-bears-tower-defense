@@ -11,8 +11,11 @@ public class Tower : Hero
     private float nextTimeToAttack = 0f;
     private SpriteRenderer spriteRenderer;
 
-    public int Level { get; private set; } = 1; 
-    void Awake()
+    public bool IsMaxLevel => Level == MaxLevel;
+    public int Level { get; private set; } = 1;
+    private const int MaxLevel = 3;
+
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.green;
@@ -24,7 +27,7 @@ public class Tower : Hero
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (IsBuilded && Time.time >= nextTimeToAttack)
         {
@@ -43,21 +46,33 @@ public class Tower : Hero
         }
     }
 
-    // Метод для повышения уровня башни
+    /// <summary>
+    /// Метод для повышения уровня башни
+    /// </summary>
     public void UpgradeLevel()
     {
-        Level++; // Увеличиваем уровень на 1
-        Debug.Log($"Tower {TowerType} upgraded to level {Level}");
+        if (IsMaxLevel) 
+            return;
+        
+        Level++;
+        UpdateView();
     }
 
-    void OnDrawGizmosSelected()
+    /// <summary>
+    /// Метод обновления визуала башни (после улучшения)
+    /// </summary>
+    private void UpdateView()
+    {
+        //TODO сделать смену спрайта
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
     public override void Die()
     {
-        gameObject.SetActive(false);
     }
 
     public override void Move()

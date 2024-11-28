@@ -41,6 +41,12 @@ namespace Code.Core
             _levelsSwitcher.Init(index);
             StartCurrentLevel();
         }
+
+        public void StartSelectedLevel(int selectedLevelIndex)
+        {
+            _levelsSwitcher.Init(selectedLevelIndex);
+            StartCurrentLevel();
+        }
         
         public void NextLevel()
         {
@@ -59,8 +65,9 @@ namespace Code.Core
             _sceneRenderer.Render(Map);
 
             BalanceMediator = new(CurrentLevel.startBalance);
-
             CoreEventsProvider.LevelStarted.Invoke();
+            
+            GameModeManager.SetDefaultMode();
         }
         
         private void Awake()

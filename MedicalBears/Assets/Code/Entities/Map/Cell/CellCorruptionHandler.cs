@@ -1,8 +1,6 @@
 ﻿using Code.Core;
-using Code.Enums;
 using Code.Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Entities.Map
 {
