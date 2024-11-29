@@ -36,7 +36,12 @@ public class Bottle : MonoBehaviour
     {
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            GameObject explore = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            
+            if (explore.TryGetComponent<BottleExploreEffect>(out BottleExploreEffect item))
+            {
+                item.Init(radius: explosionRange);
+            }
         }
 
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, explosionRange, enemyLayer);

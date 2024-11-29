@@ -52,6 +52,12 @@ namespace Code.Core
         /// <summary>
         /// Уровень проигран (вручную или критическое заражение)
         /// </summary>
+        public static Action CriticalCorruptionReached;
+
+        /// <summary>
+        /// смерть пилюли
+        /// </summary>
+        public static Action<int> HealerUnitHasDie;
         public static Action LevelNotPassed;
 
         public static void UnsubscribeAll()
