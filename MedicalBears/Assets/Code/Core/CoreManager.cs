@@ -25,7 +25,7 @@ namespace Code.Core
 
         private void Start()
         {
-            StartNewGame(); //TODO ВРЕМЕННО
+            //StartNewGame(); //TODO ВРЕМЕННО
         }
 
         public void StartNewGame()
