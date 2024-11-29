@@ -12,14 +12,14 @@ public class Enemy : Hero, IMeleeAttacker
     [Range(0, 1)]
     [SerializeField] protected int corrupForce;
 
-    private List<Vector3> path;
-    private int currentWaypointIndex = 0;
-    [SerializeField] private int reward;
+    protected List<Vector3> path;
+    protected int currentWaypointIndex = 0;
+    [SerializeField] protected int reward;
     public Animator anim;
 
-    private CorruptionAttack corruptionAttack;
+    protected CorruptionAttack corruptionAttack;
 
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] protected NavMeshAgent navMeshAgent;
     
     public float Range { get { return attackRange; } }
     public float Damage { get { return damage; } }
