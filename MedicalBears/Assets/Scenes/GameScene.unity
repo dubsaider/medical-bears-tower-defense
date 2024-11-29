@@ -1726,7 +1726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40.51999, y: -34.000328}
+  m_AnchoredPosition: {x: 40.51999, y: -34.000343}
   m_SizeDelta: {x: -81.04, y: -78.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292812291
@@ -8838,7 +8838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b0233ff490a844dae7d1a23e33859e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 340233846}
   parallaxEffect: 0.3
   swayAmplitude: 1.5
   swayFrequency: 1
