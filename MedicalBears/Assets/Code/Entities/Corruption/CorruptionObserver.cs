@@ -1,51 +1,26 @@
 using Code.Core;
-using System;
 using UnityEngine;
 
 public class CorruptionObserver : MonoBehaviour
 {
-    [SerializeField] int MaxCorruptionProcents;   
+    [SerializeField] int MaxCorruptionProcents;
 
-    public static int MaxCorruptedCells {  get; private set; }
-    public static int CurrentCorruptedCells {  get; private set; }
+    private static int _maxCorruption;
+    private static int _currentCorruption;
 
-    private Map map;
-
-    private int _CellsCnt = 0;
-    private int _width,_height;
-
-    void Start()
+    private void CorruptionEventHandler(int value)
     {
-        CellEventsProvider.AddValueToCorruptionLevel += CorruptionEventHandler;
-;
-        map = CoreManager.Instance.Map;
-
-        _width = map.Width;
-        _height = map.Height;
-
-        if (FindCells(out int val))
-        {
-            MaxCorruptedCells = val;
-            Debug.Log(val);
-        }
-    }
-
-    private void CorruptionEventHandler(int val)
-    {
-
-        if (IsCorrectCorrupLevel(val, out int refVal, out int procValue))
-        {
-            CurrentCorruptedCells = refVal;
-        }
+        if (IsCorrectCorrupLevel(value, out int refVal, out int procValue))
+            _currentCorruption = refVal;
         
-        CurrentCorruptedCellslUpdate(procValue);
+        CoreEventsProvider.TotalCorruptionValueUpdated.Invoke(procValue);
     }
 
-    private bool IsCorrectCorrupLevel(int val, out int refVal, out int procValue)
+    private bool IsCorrectCorrupLevel(int value, out int refVal, out int procValue)
     {
-        float curVal = CurrentCorruptedCells + val;
+        float curVal = _currentCorruption + value;
 
-        int res = (int)(curVal / MaxCorruptedCells * 100);
+        int res = (int)(curVal / _maxCorruption * 100);
 
         if (res > 0 && res < 100)
         {
@@ -61,24 +36,24 @@ public class CorruptionObserver : MonoBehaviour
         {
             refVal = 100;
             procValue = 100;
-            CoreEventsProvider.CriticalCorruptionReached.Invoke();
+            CoreEventsProvider.LevelNotPassed.Invoke();
         }
 
         return true;
     }
 
-    private void CurrentCorruptedCellslUpdate(int procValue)
-    {
-        CoreEventsProvider.TotalCorruptionValueUpdated.Invoke(procValue);
-    }
-
     private bool FindCells(out int val)
     {
+        var map = CoreManager.Instance.Map;
+
+        var width = map.Width;
+        var height = map.Height;
+        
         int cnt=0;
 
-        for (int y = 0; y < _height; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < _width; x++)
+            for (int x = 0; x < width; x++)
             {
                 if (map.TryGetCell(x,y, out MapCell mapcell))
                 {
@@ -90,18 +65,23 @@ public class CorruptionObserver : MonoBehaviour
             }
         }
 
-        val = cnt*5;
-
-        if (cnt > 0)
-
+        val = cnt * 5;
+        return cnt > 0;
+    }
+    
+    private void Init()
+    {
+        if (FindCells(out int val))
         {
-            return true;
+            _maxCorruption = val;
+            Debug.Log(val);
         }
-        else
-        {
-            return false;
-        }
-
+    }
+    
+    private void Awake()
+    {
+        CoreEventsProvider.LevelStarted += Init;
+        CellEventsProvider.AddValueToCorruptionLevel += CorruptionEventHandler;
     }
 
     private void OnDestroy()

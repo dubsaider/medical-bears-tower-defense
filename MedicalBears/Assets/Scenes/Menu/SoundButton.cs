@@ -5,7 +5,6 @@ public class ToggleSoundButton : MonoBehaviour
 {
     public Sprite soundOnSprite;
     public Sprite soundOffSprite;
-    public AudioSource audioSource;
 
     private Button button;
     private Image buttonImage;
@@ -16,27 +15,16 @@ public class ToggleSoundButton : MonoBehaviour
         button = GetComponent<Button>();
         buttonImage = GetComponent<Image>();
 
-        if (buttonImage == null)
-        {
-            Debug.LogError("Image component not found on the button!");
-        }
-
-        buttonImage.sprite = soundOnSprite; // Устанавливаем начальный спрайт
+        buttonImage.sprite = soundOnSprite; // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅР°С‡Р°Р»СЊРЅС‹Р№ СЃРїСЂР°Р№С‚
+        button.onClick.AddListener(ToggleSound);
     }
 
-    public void ToggleSound()
+    private void ToggleSound()
     {
         isSoundOn = !isSoundOn;
 
-        if (isSoundOn)
-        {
-            audioSource.enabled = true; // Включаем звук
-            buttonImage.sprite = soundOnSprite; // Меняем спрайт на "SoundOn"
-        }
-        else
-        {
-            audioSource.enabled = false; // Выключаем звук
-            buttonImage.sprite = soundOffSprite; // Меняем спрайт на "SoundOff"
-        }
+        buttonImage.sprite = isSoundOn 
+            ? soundOnSprite 
+            : soundOffSprite; 
     }
 }

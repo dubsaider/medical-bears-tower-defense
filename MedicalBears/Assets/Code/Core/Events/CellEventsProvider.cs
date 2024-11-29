@@ -12,6 +12,7 @@ namespace Code.Core
         /// Событие убрать из счётчику заражения карты
         /// </summary>
         public static Action<int> AddValueToCorruptionLevel;
+        
         /// <summary>
         /// Событие заражения клетки
         /// </summary>

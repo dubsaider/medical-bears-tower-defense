@@ -20,13 +20,7 @@ namespace Code.Core
 
         private LevelsSwitcher _levelsSwitcher;
         private WavesSwitcher _wavesSwitcher;
-
         private MapGenerator _mapGenerator;
-
-        private void Start()
-        {
-            //StartNewGame(); //TODO ВРЕМЕННО
-        }
 
         public void StartNewGame()
         {
@@ -38,6 +32,9 @@ namespace Code.Core
         public void ContinueGame()
         {
             var index = SaveLoadHandler.GetLastPassedLevelIndex();
+            if (index < 0)
+                index++;
+            
             _levelsSwitcher.Init(index);
             StartCurrentLevel();
         }
@@ -57,6 +54,11 @@ namespace Code.Core
         public void RestartLevel()
         {
             StartCurrentLevel();
+        }
+
+        public void FinishLevelManually()
+        {
+            CoreEventsProvider.LevelNotPassed.Invoke();
         }
 
         private void StartCurrentLevel()

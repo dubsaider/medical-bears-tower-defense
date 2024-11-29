@@ -9,7 +9,7 @@ namespace Code.Core
         static SaveLoadHandler()
         {
             if (!PlayerPrefs.HasKey(LevelIndexKey))
-                Save(0);
+                Save(-1);
         }
 
         public static int GetLastPassedLevelIndex()
@@ -25,7 +25,7 @@ namespace Code.Core
 
         public static void ClearSaves()
         {
-            PlayerPrefs.SetInt(LevelIndexKey, 0);
+            PlayerPrefs.SetInt(LevelIndexKey, -1);
             Save();
         }
         

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Code.Controllers
 {
@@ -38,6 +39,11 @@ namespace Code.Controllers
         private void Awake()
         {
             _uiRenderer = GetComponent<UIMainMenuRenderer>();
+        }
+
+        private void OnEnable()
+        {
+            OpenMainPanel();
         }
     }
 }

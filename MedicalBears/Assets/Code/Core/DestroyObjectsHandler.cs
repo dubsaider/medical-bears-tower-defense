@@ -20,7 +20,7 @@ namespace Code.Core
         static DestroyObjectsHandler()
         {
             CoreEventsProvider.LevelPassed += Destroy;
-            CoreEventsProvider.CriticalCorruptionReached += Destroy;
+            CoreEventsProvider.LevelNotPassed += Destroy;
         }
     }
 }

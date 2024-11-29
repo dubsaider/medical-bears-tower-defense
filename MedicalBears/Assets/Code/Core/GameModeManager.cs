@@ -23,7 +23,7 @@ namespace Code.Core
             CoreEventsProvider.LevelStarted += SetDefaultMode;
 
             CoreEventsProvider.LevelPassed += SetNullMode;
-            CoreEventsProvider.CriticalCorruptionReached += SetNullMode;
+            CoreEventsProvider.LevelNotPassed += SetNullMode;
         }
     }
 }

@@ -50,17 +50,13 @@ namespace Code.Core
         public static Action<int> BalanceChanged;
 
         /// <summary>
-        /// Достигнуто критическое заражение (по сути - поражение)
+        /// Уровень проигран (вручную или критическое заражение)
         /// </summary>
-        public static Action CriticalCorruptionReached;
-
-
+        public static Action LevelNotPassed;
 
         public static void UnsubscribeAll()
         {
 
         }
-
-
     }
 }
