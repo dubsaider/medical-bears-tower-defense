@@ -13,10 +13,9 @@ public class SnakeEnemy : Enemy
 
     void Start()
     {
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        //navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 
         InvokeRepeating("FindNearestTower", 1f, 1f);
-        DealCorruption();
         InitializeBodyParts();
 
         // Инициализация целевых позиций

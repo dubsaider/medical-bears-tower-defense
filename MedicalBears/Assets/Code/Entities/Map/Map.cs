@@ -17,7 +17,7 @@ public class Map
         CellEventsProvider.CellWasHealed += RemoveCorruptedCell;
     }
 
-    public MapCell GetRandomFreeCell()
+    public MapCell GetRandomFreeFloorCell()
     {
         do
         {
@@ -27,8 +27,7 @@ public class Map
             if (!TryGetCell(randX, randY, out var cell)) 
                 continue;
 
-            if (cell.Type is MapCellType.Floor or MapCellType.Wall 
-                && cell.CellHandler.IsEmpty)
+            if (cell.Type is MapCellType.Floor && cell.CellHandler.IsEmpty)
                 return cell;
 
         } while (true);

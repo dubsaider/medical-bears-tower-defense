@@ -62,14 +62,14 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         int dictInd;
         int ID;
 
-        //защита от взятия уже использрванной ячейки
+        //Р·Р°С‰РёС‚Р° РѕС‚ РІР·СЏС‚РёСЏ СѓР¶Рµ РёСЃРїРѕР»СЊР·СЂРІР°РЅРЅРѕР№ СЏС‡РµР№РєРё
         do
         {
             dictInd = Random.Range(0, Cells.Count);
         }
         while (!Cells[dictInd].mapCell.CellHandler.IsEmpty);
 
-        //защита от повторных индексов
+        //Р·Р°С‰РёС‚Р° РѕС‚ РїРѕРІС‚РѕСЂРЅС‹С… РёРЅРґРµРєСЃРѕРІ
         do
         {
             ID = Random.Range(1, int.MaxValue);
@@ -93,7 +93,7 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         var Mx = Mathf.RoundToInt(transform.position.x);
         var My = Mathf.RoundToInt(transform.position.y);
 
-        //сначала проверяем на каких клетках можно ставить юнита
+        //СЃРЅР°С‡Р°Р»Р° РїСЂРѕРІРµСЂСЏРµРј РЅР° РєР°РєРёС… РєР»РµС‚РєР°С… РјРѕР¶РЅРѕ СЃС‚Р°РІРёС‚СЊ СЋРЅРёС‚Р°
 
         for (int x = -SpawnRange; x <= SpawnRange; x++)
         {
@@ -159,7 +159,7 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
                 return true;
             }
         }
-
+        
         return false;
     }
 

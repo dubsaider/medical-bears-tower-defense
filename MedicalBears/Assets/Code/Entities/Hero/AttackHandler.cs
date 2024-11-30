@@ -34,7 +34,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (attackQueue.Count > 0)
         {
-            if (hero is IMeleeAttacker meleeAttacker)
+            if (hero is IEnemyAttackComponent meleeAttacker)
             {
                 meleeAttacker.Attack();
             }

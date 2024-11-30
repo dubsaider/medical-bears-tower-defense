@@ -1,119 +1,55 @@
-using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.AI;
-using Unity.VisualScripting;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.AI;
 using Code.Core;
+using Extensions;
 
-public class Enemy : Hero, IMeleeAttacker
+public class Enemy : Hero
 {
-    [Header("Уровень заражения")]
-    [Range(0, 1)]
-    [SerializeField] protected int corrupForce;
-
-    protected List<Vector3> path;
-    protected int currentWaypointIndex = 0;
     [SerializeField] protected int reward;
-    public Animator anim;
-
-    protected CorruptionAttack corruptionAttack;
-
-    [SerializeField] protected NavMeshAgent navMeshAgent;
     
-    public float Range { get { return attackRange; } }
-    public float Damage { get { return damage; } }
+    private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
 
-    void Start()
+    private Vector3 _targetCellPosition;
+    private WaitForSeconds PatrollingDelay => WaitFor.Seconds1;
+    private bool IsTargetCellReached => Vector3.Distance(transform.position, _targetCellPosition) < 1f;
+    private bool IsNavMeshAgentHasPath => _navMeshAgent.hasPath;
+    private bool IsNavMeshAgentUnderControl =>
+        IsNavMeshAgentHasPath && _navMeshAgent.destination == _targetCellPosition 
+        || !IsNavMeshAgentHasPath;
+    
+    private void Start()
     {
-
-	    Animator animator = GetComponent<Animator>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0f; 
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
-
-        CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
-        collider.isTrigger = true; 
-
-        InvokeRepeating("FindNearestTower", 1f, 1f);
-
-        DealCorruption();
+        StartCoroutine(Patrolling());
     }
-
-    public void SetPath(List<Vector3> newPath)
+    
+    private IEnumerator Patrolling()
     {
-        path = newPath;
-        currentWaypointIndex = 0;
+        while (isAlive)
+        {
+            if (!IsNavMeshAgentUnderControl) 
+                yield return PatrollingDelay;
         
-        if (navMeshAgent.isActiveAndEnabled)
-        {
-            navMeshAgent.SetDestination(newPath.Last());
+            if (IsTargetCellReached || !IsNavMeshAgentHasPath)
+                MoveToRandomCell();
+            
+            yield return PatrollingDelay;
         }
     }
-
-    private void Update()
+    
+    private void MoveToRandomCell()
     {
-        if (isAlive)
-        {
-            Move();
-            Attack();
-        }
+        _targetCellPosition = (Vector3Int)CoreManager.Instance.Map.GetRandomFreeFloorCell().Position;
+        Move();
     }
-
-    public void Attack()
-    {
-        // Логика атаки врага
-        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
-        GameObject nearestTower = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (GameObject tower in towers)
-        {
-            float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
-            if (distanceToTower < shortestDistance)
-            {
-                shortestDistance = distanceToTower;
-                nearestTower = tower;
-            }
-        }
-
-        if (nearestTower != null && Vector3.Distance(transform.position, nearestTower.transform.position) <= attackRange)
-        {
-            // Логика ближнего боя
-            nearestTower.GetComponent<Hero>().TakeDamage(Damage);
-            // Debug.Log($"Enemy {gameObject.name} attacks {nearestTower.name} at distance {shortestDistance}");
-        }
-    }
-
+    
     public override void Move()
     {
-        if (path != null && path.Count > 0 && currentWaypointIndex < path.Count)
-        {
-            Vector3 targetPosition = path[currentWaypointIndex];
-            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
-
-            if (navMeshAgent.isActiveAndEnabled)
-            {
-                navMeshAgent.SetDestination(targetPosition);
-            }
-
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                currentWaypointIndex++;
-            }
-        }
-        else
-        {
-            Vector3 targetPosition = transform.position + Vector3.down * 10f;
-            // Debug.Log($"Enemy Moves from {transform.position} to {targetPosition}");
-
-            if (navMeshAgent.isActiveAndEnabled)
-            {
-                navMeshAgent.SetDestination(targetPosition);
-            }
-        }
+        _navMeshAgent.SetDestination(_targetCellPosition);
     }
 
     public override void Die()
@@ -121,7 +57,6 @@ public class Enemy : Hero, IMeleeAttacker
         CoreManager.Instance.BalanceMediator.AddKillReward(reward); //сомнительно, но окэй
 
         isAlive = false;
-        // Debug.Log($"Enemy {gameObject.name} dies");
         gameObject.SetActive(false);
     }
 
@@ -130,36 +65,5 @@ public class Enemy : Hero, IMeleeAttacker
         return 1;
     }
 
-    private void FindNearestTower()
-    {
-        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
-        GameObject nearestTower = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (GameObject tower in towers)
-        {
-            float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
-            if (distanceToTower < shortestDistance)
-            {
-                shortestDistance = distanceToTower;
-                nearestTower = tower;
-            }
-        }
-
-        if (nearestTower != null)
-        {
-            List<Vector3> newPath = new List<Vector3> { nearestTower.transform.position };
-            SetPath(newPath);
-            // Debug.Log($"Enemy {gameObject.name} finds nearest tower {nearestTower.name}");
-        }
-    }
-
-    public void DealCorruption()
-    {
-        // Логика нанесения заражения
-
-        // Debug.Log($"Enemy {gameObject.name} deals corruption");
-    }
-
-
+    
 }
