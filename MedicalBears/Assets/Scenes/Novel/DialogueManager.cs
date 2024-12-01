@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Code.Controllers;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -49,7 +50,7 @@ public class DialogueManager : MonoBehaviour
                     leftCharacterImage.color = Color.white; // Возвращаем полную непрозрачность
                     rightCharacterImage.sprite = null;
                     rightCharacterImage.color = new Color(1, 1, 1, 0); // Делаем полностью прозрачным
-                    StartCoroutine(MoveBackground(true)); // Смещаем фон влево
+                    //StartCoroutine(MoveBackground(true)); // Смещаем фон влево
                 }
                 else
                 {
@@ -57,7 +58,7 @@ public class DialogueManager : MonoBehaviour
                     rightCharacterImage.color = Color.white; // Возвращаем полную непрозрачность
                     leftCharacterImage.sprite = null;
                     leftCharacterImage.color = new Color(1, 1, 1, 0); // Делаем полностью прозрачным
-                    StartCoroutine(MoveBackground(false)); // Смещаем фон вправо
+                    //StartCoroutine(MoveBackground(false)); // Смещаем фон вправо
                 }
             }
         }
@@ -76,21 +77,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
     }
-
-    IEnumerator MoveBackground(bool moveLeft)
-    {
-        RectTransform backgroundRect = backgroundImage.GetComponent<RectTransform>();
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
-        Vector2 targetPosition = moveLeft ? new Vector2(-canvasRect.rect.width / 2, backgroundRect.anchoredPosition.y) : new Vector2(canvasRect.rect.width / 2, backgroundRect.anchoredPosition.y);
-
-        while (Vector2.Distance(backgroundRect.anchoredPosition, targetPosition) > 0.1f)
-        {
-            backgroundRect.anchoredPosition = Vector2.Lerp(backgroundRect.anchoredPosition, targetPosition, backgroundMoveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        backgroundRect.anchoredPosition = targetPosition;
-    }
+    
 
     // Метод для вызова следующей части диалога через кнопку или событие
     public void OnClick_NextPart()
@@ -107,7 +94,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Диалог завершен");
+            UIController.Instance.StartNewGame();
         }
     }
 }
