@@ -6,6 +6,7 @@ namespace Code.Render
     {
         [SerializeField] private GameObject MainMenuUI;
         [SerializeField] private GameObject GameUI;
+        [SerializeField] private GameObject NovelUI;
 
         [SerializeField] private GameObject PauseMenu;
         [SerializeField] private GameObject VictoryMenu;
@@ -34,6 +35,10 @@ namespace Code.Render
             HideDefeatMenu();
             HideVictoryMenu();
         }
+
+        public void ShowNovelUI() => NovelUI.SetActive(true);
+        public void HideNovelUI() => NovelUI.SetActive(false);
+        
         
         public void ShowPauseMenu()
         {

@@ -52,9 +52,15 @@ namespace Code.Controllers
             CoreManager.Instance.RestartLevel();
         }
 
-        public void StartNewGame()
+        public void StartNovel()
         {
             _uiRenderer.HideMainMenuUI();
+            _uiRenderer.ShowNovelUI();
+        }
+
+        public void StartNewGame()
+        {
+            _uiRenderer.HideNovelUI();
             _uiRenderer.ShowGameUI();
             CoreManager.Instance.StartNewGame();
         }
