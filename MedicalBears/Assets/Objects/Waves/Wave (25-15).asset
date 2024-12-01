@@ -20,3 +20,5 @@ MonoBehaviour:
     Count: 25
   - EnemyPrefab: {fileID: 6020202873501895291, guid: 63891707bb7f44f4f8913ee9714cb43c, type: 3}
     Count: 15
+  - EnemyPrefab: {fileID: 2960901629007806146, guid: 484e6ec471906a54e9d34979b97ac08a, type: 3}
+    Count: 10
