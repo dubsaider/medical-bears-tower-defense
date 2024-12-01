@@ -140,8 +140,10 @@ MonoBehaviour:
   attackRange: 0
   attackSpeed: 0
   TowerType: 4
-  FirePoint: {fileID: 4710102085287675373}
+  FirePoint: {fileID: 245893767784171034}
+  RotationOffset: 0
   MaxLevel: 1
+  levelSprites: []
 --- !u!61 &-1813695260829234661
 BoxCollider2D:
   m_ObjectHideFlags: 0

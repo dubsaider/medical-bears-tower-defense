@@ -140,7 +140,10 @@ MonoBehaviour:
   attackRange: 6
   attackSpeed: 0.2
   TowerType: 2
-  FirePoint: {fileID: 4710102085287675373}
+  FirePoint: {fileID: 245893767784171034}
+  RotationOffset: 0
+  MaxLevel: 3
+  levelSprites: []
 --- !u!61 &-1813695260829234661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -199,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89de888353ee41d3a99410b882dab540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerCost: 0
 --- !u!114 &7296417919794834750
 MonoBehaviour:
   m_ObjectHideFlags: 0
