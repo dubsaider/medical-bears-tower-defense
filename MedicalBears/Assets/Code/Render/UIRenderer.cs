@@ -29,6 +29,10 @@ namespace Code.Render
         public void HideGameUI()
         {
             GameUI.SetActive(false);
+            
+            HidePauseMenu();
+            HideDefeatMenu();
+            HideVictoryMenu();
         }
         
         public void ShowPauseMenu()

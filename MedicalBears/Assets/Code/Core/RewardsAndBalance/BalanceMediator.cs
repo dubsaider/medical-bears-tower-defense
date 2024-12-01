@@ -1,4 +1,6 @@
-﻿namespace Code.Core.RewardsAndBalance
+﻿using Unity.VisualScripting;
+
+namespace Code.Core.RewardsAndBalance
 {
     public class BalanceMediator
     {
@@ -22,9 +24,7 @@
             _balance.Add(RewardCalculationUtility.CalculateWaveReward(waveReward, 1, WaveNumber)); //todo
         }
 
-        public void Substract(int value)
-        {
-            _balance.Subtract(value);
-        }
+        public void Add(int value) => _balance.Add(value);
+        public void Substract(int value) => _balance.Subtract(value);
     }
 }

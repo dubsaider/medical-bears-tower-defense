@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7490579731593163344}
   - component: {fileID: -1813695260829234661}
   - component: {fileID: 8660577623743075719}
-  - component: {fileID: 6291091834443516181}
+  - component: {fileID: 4095736570494074089}
   m_Layer: 7
   m_Name: XRayTower
   m_TagString: Untagged
@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aa5f326bb7e1041add2c9ef65ea493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 50
   speed: 0
-  damage: 0
-  attackRange: 0
-  attackSpeed: 0
+  damage: 10
+  attackRange: 6
+  attackSpeed: 0.4
   TowerType: 1
   FirePoint: {fileID: 4710102085287675373}
 --- !u!61 &-1813695260829234661
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89de888353ee41d3a99410b882dab540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6291091834443516181
+--- !u!114 &4095736570494074089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,8 +208,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8514306237930157611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1b18d8638facc42a84c7621934385e, type: 3}
+  m_Script: {fileID: 11500000, guid: 107dc3a08a3d8414d851af6fd7cd0640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 1458258281887741677, guid: 5cdb835ff89515f4b84d3e1e5920caf2, type: 3}
-  firePoint: {fileID: 0}
+  wavePrefab: {fileID: 4960890121945981783, guid: a5a6e1de97888bf4ca17765df2888d59, type: 3}
+  waveDamage: 10
+  range: 5
+  angle: 60
+  pullForce: 0.2

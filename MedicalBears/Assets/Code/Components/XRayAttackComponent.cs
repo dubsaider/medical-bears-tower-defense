@@ -2,80 +2,51 @@ using UnityEngine;
 
 public class XRayAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
-    private ParticleSystem pulseEffect;  // Эффект пульса
-    [SerializeField] private float pulseRadius = 5f;  // Радиус волны
-    [SerializeField] private float waveSpeed = 2f;    // Скорость распространения волны
-    [SerializeField] private float waveAngle = 60f;   // Угол сектора волны (например, 60 градусов)
-    [SerializeField] private float teleportDistance = 4f; // Расстояние притягивания врагов
-    [SerializeField] private Transform firePoint;     // Точка откуда идет волна
+    public GameObject wavePrefab; // Префаб волны
+    [SerializeField] private float waveDamage = 10f; // Урон волны
+    [SerializeField] private float range = 5f; // Радиус действия волны
+    [SerializeField] private float angle = 60f; // Угол сектора действия волны
+    [SerializeField] private float pullForce = 1f; // Угол сектора действия волны
 
-    private float currentRadius = 0f; // Текущий радиус волны
-
-    void Awake()
-    {
-        // Попытка найти компонент ParticleSystem на том же объекте
-        pulseEffect = GetComponent<ParticleSystem>();
-
-        if (pulseEffect == null)
-        {
-            Debug.LogError("Не найден компонент ParticleSystem на объекте " + gameObject.name);
-        }
-    }
 
     public void Attack(Transform firePoint, float range, float damage)
     {
-        // Расширяем радиус волны
-        currentRadius += waveSpeed * Time.deltaTime;
-        if (currentRadius > pulseRadius)
-        {
-            currentRadius = pulseRadius;  // Останавливаем расширение волны, когда она достигнет максимального радиуса
-        }
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, range, LayerMask.GetMask("Enemy"));
+        Transform nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
 
-        // Запускаем эффект пульса, если он есть
-        if (pulseEffect != null)
+        foreach (var enemy in enemies)
         {
-            pulseEffect.transform.position = firePoint.position;
-            pulseEffect.Play();
-        }
-
-        // Находим врагов в радиусе действия волны
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, currentRadius, LayerMask.GetMask("Enemy"));
-        foreach (var enemy in hitEnemies)
-        {
-            if (enemy.CompareTag("Enemy"))
+            float distance = Vector3.Distance(firePoint.position, enemy.transform.position);
+            if (distance < shortestDistance)
             {
-                // Получаем направление к врагу
-                Vector3 directionToTower = (firePoint.position - enemy.transform.position).normalized;
-
-                // Проверяем, попадает ли враг в угол волны
-                float angleToEnemy = Vector2.Angle(firePoint.right, directionToTower);
-
-                if (angleToEnemy <= waveAngle / 2)  // Если враг находится в пределах сектора волны
-                {
-                    // Притягиваем врага на заданное расстояние
-                    enemy.transform.position += directionToTower * teleportDistance;
-
-                    // Отладочная информация
-                    Debug.Log($"Enemy {enemy.name} is pulled towards the tower.");
-                }
+                shortestDistance = distance;
+                nearestEnemy = enemy.transform;
             }
         }
+
+        if (nearestEnemy != null)
+        {
+            Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;  
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;  
+            GameObject wave = Instantiate(wavePrefab, firePoint.position, Quaternion.Euler(0, 0, angle - 90));
+            WaveProjectile waveComponent = wave.GetComponent<WaveProjectile>();
+            if (waveComponent != null)
+            {
+                waveComponent.maxRadius = range;
+                waveComponent.pullForce = pullForce;
+                waveComponent.towerPosition = firePoint.position;
+                waveComponent.damage = waveDamage;
+            }
+            Rigidbody2D rb = wave.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = direction * 10f;
+                rb.gravityScale = 0;
+                rb.freezeRotation = true;
+            }
+            
+        }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Отображаем радиус волны и угол в редакторе
-        Gizmos.color = Color.blue;
-
-        // Рисуем круг для радиуса
-        Gizmos.DrawWireSphere(transform.position, currentRadius);
-
-        // Рисуем сектор
-        Vector3 angleStart = Quaternion.Euler(0, 0, -waveAngle / 2) * firePoint.right * currentRadius;
-        Vector3 angleEnd = Quaternion.Euler(0, 0, waveAngle / 2) * firePoint.right * currentRadius;
-
-        Gizmos.DrawLine(firePoint.position, firePoint.position + angleStart);
-        Gizmos.DrawLine(firePoint.position, firePoint.position + angleEnd);
-        Gizmos.DrawLine(firePoint.position + angleStart, firePoint.position + angleEnd);
-    }
 }

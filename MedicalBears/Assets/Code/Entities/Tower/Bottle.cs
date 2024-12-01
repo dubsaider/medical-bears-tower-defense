@@ -9,6 +9,7 @@ public class Bottle : MonoBehaviour
 
     private float damage;  
     private float explosionRange; 
+    private Vector3 targetPosition;
     
     private HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
 
@@ -18,11 +19,29 @@ public class Bottle : MonoBehaviour
         explosionRange = range > 0 ? range : aoeRadius; 
     }
 
+    public void SetTargetPosition(Vector3 position)
+    {
+        targetPosition = position;
+    }
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, targetPosition) < 1f)
+        {
+            Explode();
+        }
+    }
+
     private void Explode()
     {
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            GameObject explore = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            
+            if (explore.TryGetComponent<BottleExploreEffect>(out BottleExploreEffect item))
+            {
+                item.Init(radius: explosionRange);
+            }
         }
 
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, explosionRange, enemyLayer);
@@ -39,7 +58,6 @@ public class Bottle : MonoBehaviour
 
         Destroy(gameObject);
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))

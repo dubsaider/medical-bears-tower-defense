@@ -147,11 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07699cdbd8b34fc479bc9e33cd917e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aoeRadius: 2
+  aoeRadius: 4
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 7982830950364157588, guid: c635966c11421b049b5f686938995d6c, type: 3}
 --- !u!50 &3297616677913459806
 Rigidbody2D:
   serializedVersion: 4

@@ -13,20 +13,20 @@ public class FriendlyUnit : Hero, ICorruptionHealer
     [SerializeField] private int healForce;
 
     private Vector3 _homePosition;
+
+    private NavMeshAgent _navMeshAgent;
+
     private GameObject _path;
 
     private Animator _animator;
+
+    public int ID { get; private set; }
 
     // для поиска клетки
     private float _dist = 0f;
     private float _min_dist;
 
-    private int _width;
-    private int _height;
-
     private bool _isActive = false;
-
-    private NavMeshAgent _navMeshAgent;
 
     public void Start()
     {
@@ -34,13 +34,6 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         _navMeshAgent.speed = speed;
 
         _animator = GetComponent<Animator>();
-
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        _width = CoreManager.Instance.GetWidth();
-        _height = CoreManager.Instance.GetHeight();
 
         _homePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
@@ -142,10 +135,16 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         isAlive = false;
         _animator.SetBool("isDie", true);
         Debug.Log($"Enemy {gameObject.name} dies");
+        CoreEventsProvider.HealerUnitHasDie.Invoke(ID);
         //gameObject.SetActive(false);
     }
 
     public override void Move() { }
+
+    public void SetID(int val)
+    {
+        ID = val;
+    }
 
     public void HealCorruption(Corruption corruption) { }
     public override int GetAttackPriority(Hero target) {return 0;}

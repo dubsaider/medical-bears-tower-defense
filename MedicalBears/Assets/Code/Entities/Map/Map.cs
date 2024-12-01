@@ -16,6 +16,22 @@ public class Map
         CellEventsProvider.CellWasCorrupted += AddCorruptedCell;
         CellEventsProvider.CellWasHealed += RemoveCorruptedCell;
     }
+
+    public MapCell GetRandomFreeFloorCell()
+    {
+        do
+        {
+            var randX = Random.Range(0, Width);
+            var randY = Random.Range(0, Height);
+
+            if (!TryGetCell(randX, randY, out var cell)) 
+                continue;
+
+            if (cell.Type is MapCellType.Floor && cell.CellHandler.IsEmpty)
+                return cell;
+
+        } while (true);
+    }
  
     public bool TryGetCell(int x, int y, out MapCell cell)
     {

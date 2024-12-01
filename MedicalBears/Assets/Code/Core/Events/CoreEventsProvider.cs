@@ -47,20 +47,21 @@ namespace Code.Core
         /// <summary>
         /// Изменился баланс
         /// </summary>
-        public static Action<int> BalanceChanged; //TODO к нему подписать UI магазина
+        public static Action<int> BalanceChanged;
 
         /// <summary>
-        /// Достигнуто критическое заражение (по сути - поражение)
+        /// Уровень проигран (вручную или критическое заражение)
         /// </summary>
-        public static Action CriticalCorruptionReached;
+        public static Action LevelNotPassed;
 
-
+        /// <summary>
+        /// смерть пилюли
+        /// </summary>
+        public static Action<int> HealerUnitHasDie;
 
         public static void UnsubscribeAll()
         {
 
         }
-
-
     }
 }

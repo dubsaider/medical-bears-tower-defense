@@ -14,6 +14,11 @@ namespace Extensions
             return Object.Instantiate(obj, transform, Quaternion.identity);
         }
         
+        public static GameObject CreateObject(GameObject obj, Vector3 transform, Quaternion rotation)
+        {
+            return Object.Instantiate(obj, transform, rotation);
+        }
+        
         public static GameObject CreateObject(GameObject obj, GameObject parent)
         {
             var newObj = Object.Instantiate(obj);
@@ -24,6 +29,13 @@ namespace Extensions
         public static GameObject CreateObject(GameObject obj, GameObject parent, Vector3 transform)
         {
             var newObj = CreateObject(obj, transform);
+            SetParent(newObj, parent);
+            return newObj;
+        }
+        
+        public static GameObject CreateObject(GameObject obj, GameObject parent, Vector3 transform, Quaternion rotation)
+        {
+            var newObj = CreateObject(obj, transform, rotation);
             SetParent(newObj, parent);
             return newObj;
         }
