@@ -32,8 +32,8 @@ namespace Code.Entities.Map
         {
             Corruption?.DecreaseCorruptionLevel(value);
 
-            if (Corruption is { IsHealthy: true })
-                CellEventsProvider.CellWasHealed(_cell);
+            CellEventsProvider.CellWasHealed(_cell);
+           
         }
 
         public int GetCorruptionLevel()
