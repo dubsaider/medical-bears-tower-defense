@@ -3,6 +3,7 @@ using UnityEngine;
 public class LaserAttackComponent : MonoBehaviour, ITowerAttackComponent
 {
     [SerializeField] private LineRenderer lineRenderer;
+    private float laserAttackRange;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class LaserAttackComponent : MonoBehaviour, ITowerAttackComponent
             lineRenderer.SetPosition(0, firePoint.position);
             lineRenderer.SetPosition(1, laserEndPoint);
         }
-
+        laserAttackRange = range;
         lineRenderer.enabled = true;
     }
 
@@ -63,7 +64,7 @@ public class LaserAttackComponent : MonoBehaviour, ITowerAttackComponent
 
     private bool IsEnemyInRange()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 4f, LayerMask.GetMask("Enemy"));
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, laserAttackRange, LayerMask.GetMask("Enemy"));
         return enemies.Length > 0;
     }
 }

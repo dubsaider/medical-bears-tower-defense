@@ -7,23 +7,27 @@ public class Tower : Hero
     public Transform FirePoint;
     public ITowerAttackComponent AttackComponent { get; private set; }
     public bool IsBuilded { get; private set; }
+    private Animator _animator;
+
 
     private float nextTimeToAttack = 0f;
     private SpriteRenderer spriteRenderer;
 
     public bool IsMaxLevel => Level == MaxLevel;
     public int Level { get; private set; } = 1;
-    private const int MaxLevel = 3;
+    [SerializeField] private int MaxLevel = 3;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.green;
 
+        _animator = GetComponent<Animator>();
+
         AttackComponent = GetComponent<ITowerAttackComponent>();
         if (AttackComponent == null)
         {
-            Debug.LogError($"No attack component found implementing ITowerAttackComponent on Tower: {TowerType}", gameObject);
+            // Debug.LogError($"No attack component found implementing ITowerAttackComponent on Tower: {TowerType}", gameObject);
         }
     }
 
@@ -55,6 +59,10 @@ public class Tower : Hero
             return;
         
         Level++;
+            // Увеличиваем характеристики на 20%
+        attackRange *= 1.2f;
+        damage *= 1.2f;
+        attackSpeed *= 1.2f;
         UpdateView();
     }
 

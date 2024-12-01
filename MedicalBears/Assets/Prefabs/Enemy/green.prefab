@@ -139,6 +139,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 961fbe05ce084f64cba79e8dd3f29f8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8432394007714370302}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 961fbe05ce084f64cba79e8dd3f29f8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1758219512801761266}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 961fbe05ce084f64cba79e8dd3f29f8b, type: 3}
 --- !u!1 &2960901629007806146 stripped
 GameObject:
@@ -157,15 +160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac72c941fd7224aba14354291e1cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 300
   speed: 0
   damage: 0
   attackRange: 0
   attackSpeed: 0
-  corrupForce: 1
-  reward: 0
-  anim: {fileID: 0}
-  navMeshAgent: {fileID: 0}
+  reward: 7
 --- !u!114 &692959940939288976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,3 +235,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   corrupForce: 2
+--- !u!58 &1758219512801761266
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960901629007806146}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.16363779, y: -0.019955635}
+  m_Radius: 1.6574366
