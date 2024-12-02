@@ -19,6 +19,7 @@ namespace Code.Controllers
             
             _uiRenderer.ShowMainMenuUI();
             _uiRenderer.HideGameUI();
+            Time.timeScale = 1;
         }
         
         public void OpenPauseMenu()
