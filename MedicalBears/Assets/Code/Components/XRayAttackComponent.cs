@@ -9,25 +9,11 @@ public class XRayAttackComponent : MonoBehaviour, ITowerAttackComponent
     [SerializeField] private float pullForce = 1f; // Угол сектора действия волны
 
 
-    public void Attack(Transform firePoint, float range, float damage)
+    public void Attack(Transform firePoint, float range, float damage, Transform target)
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, range, LayerMask.GetMask("Enemy"));
-        Transform nearestEnemy = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (var enemy in enemies)
+        if (target != null)
         {
-            float distance = Vector3.Distance(firePoint.position, enemy.transform.position);
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                nearestEnemy = enemy.transform;
-            }
-        }
-
-        if (nearestEnemy != null)
-        {
-            Vector3 direction = (nearestEnemy.position - firePoint.position).normalized;  
+            Vector3 direction = (target.position - firePoint.position).normalized;  
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;  
             GameObject wave = Instantiate(wavePrefab, firePoint.position, Quaternion.Euler(0, 0, angle - 90));
             WaveProjectile waveComponent = wave.GetComponent<WaveProjectile>();
@@ -45,8 +31,8 @@ public class XRayAttackComponent : MonoBehaviour, ITowerAttackComponent
                 rb.gravityScale = 0;
                 rb.freezeRotation = true;
             }
-            
         }
+        
     }
 
 }
