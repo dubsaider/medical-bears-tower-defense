@@ -7,6 +7,8 @@ public abstract class Hero : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float attackSpeed;
+    [SerializeField] protected ParticleSystem ParticleTakeDamage;
+    [SerializeField] protected ParticleSystem ParticleDeath;
 
 
     protected bool isAlive = true;
@@ -19,9 +21,11 @@ public abstract class Hero : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        if (ParticleTakeDamage != null) { ParticleTakeDamage.Play(); }
         if (health <= 0 && isAlive)
         {
             Die();
+            if (ParticleDeath != null) { ParticleDeath.Play(); }
             isAlive = false;
         }
     }
