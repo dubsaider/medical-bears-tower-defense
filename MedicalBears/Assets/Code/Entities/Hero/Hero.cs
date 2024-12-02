@@ -12,8 +12,6 @@ public abstract class Hero : MonoBehaviour
     protected bool isAlive = true;
     protected bool isAttacking = false;
 
-    public int pursuitCnt = 0;
-
     public abstract void Move();
     public abstract void Die();
     public void TakeDamage(float damage)

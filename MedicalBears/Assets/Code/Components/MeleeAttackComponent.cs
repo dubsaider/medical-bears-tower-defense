@@ -19,7 +19,6 @@ namespace Code.Components
         [SerializeField] private float range;
         [SerializeField] private float damage;
         [SerializeField] private float attackCooldown;
-        [SerializeField] private float maxTargetPursuit;
 
         private WaitForSeconds FindTargetDelay => WaitFor.Seconds1;
         private WaitForSeconds FollowTargetDelay => WaitFor.Seconds01;
@@ -66,20 +65,13 @@ namespace Code.Components
             if (units.Length == 0)
                 return;
 
-            
-            foreach (var unit in units)
-            {
-                if (unit.TryGetComponent(out Hero hero) && hero.IsAlive() && hero.pursuitCnt < maxTargetPursuit)
-                {
-                    Target = hero;
-                    hero.pursuitCnt++;
-                }
-            }
+            var randIndex = Random.Range(0, units.Length - 1);
+            if (units[randIndex].TryGetComponent(out Hero hero) && hero.IsAlive())
+                Target = hero;
         }
 
         private void DropTarget()
         {
-            Target.pursuitCnt--;
             Target = null;
             _navMeshAgent.ResetPath();
         }

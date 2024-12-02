@@ -86,7 +86,6 @@ public class CorruptionObserver : MonoBehaviour
 
     private void OnDestroy()
     {
-        CoreEventsProvider.LevelStarted -= Init;
         CellEventsProvider.AddValueToCorruptionLevel -= CorruptionEventHandler;
     }
 }

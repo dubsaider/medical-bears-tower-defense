@@ -46,42 +46,28 @@ public class HeallerUnitSummonner : MonoBehaviour
         if (TryGetID(id, out int ind))
         {
             Cells[ind].id = -1;
+            Cells[ind].mapCell = null;
             Cells[ind].canUse = true;
             Cells[ind].mapCell.CellHandler.IsUnitStayOnCell = false;
         }
 
-    }
+        StartCoroutine(SpawnUnitsTimer());
 
-    private bool HasFreeCells(out int val)
-    {
-        for (int i = 0; i < Cells.Count; i++)
-        {
-            if (Cells[i].canUse) 
-            {
-                val = i;
-                return true;
-            }
-        }
-        val = 0;
-        return false;
     }
 
     private void SummonUnits()
     {
-        int dictInd = 0;
+        CheckNearCells();
+
+        int dictInd;
         int ID;
 
         //защита от взятия уже использрванной ячейки
-
-        if (HasFreeCells(out int val))
+        do
         {
-            dictInd = val;
+            dictInd = Random.Range(0, Cells.Count);
         }
-        else
-        {
-            return;
-        }
-        
+        while (!Cells[dictInd].mapCell.CellHandler.IsEmpty);
 
         //защита от повторных индексов
         do
@@ -98,6 +84,8 @@ public class HeallerUnitSummonner : MonoBehaviour
         Cells[dictInd].canUse = false;
 
         Cells[dictInd].mapCell.CellHandler.IsUnitStayOnCell = true;
+
+        _currentUnitCnt++;
     }
 
     private void CheckNearCells()
@@ -135,25 +123,29 @@ public class HeallerUnitSummonner : MonoBehaviour
 
     IEnumerator SpawnUnitsTimer()
     {
-        while (true)
+        _currentUnitCnt++;
+        if (_currentUnitCnt <= MaxUnitCount && CanRespawnNewUnit)
         {
-            if (_currentUnitCnt < Cells.Count && _currentUnitCnt < MaxUnitCount && CanRespawnNewUnit)
-            {
-                yield return new WaitForSeconds(SpawnUnitTime);
-                SummonUnits();
-                _currentUnitCnt++;
-
-            }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(SpawnUnitTime);
+            _currentUnitCnt--;
+            SummonUnits();
+            StartCoroutine(SpawnUnitsTimer());
         }
     }
 
     IEnumerator StartCourutine()
     {
-
-        yield return new WaitUntil(() => gameObject.CompareTag("Tower"));
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (gameObject.CompareTag("Tower")) { break; }
+        }
 
         CheckNearCells();
+
+        yield return new WaitUntil(() => CellsIsDone);
+
+        SummonUnits();
 
         StartCoroutine(SpawnUnitsTimer());
     }
@@ -169,8 +161,8 @@ public class HeallerUnitSummonner : MonoBehaviour
         }
         
         return false;
-
     }
+
     private bool TryGetID(int id, out int ind)
     {
         for (int i = 0; i < Cells.Count; i++)

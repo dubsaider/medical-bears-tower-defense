@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Code.Core;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Map
@@ -61,10 +60,4 @@ public class Map
         _corruptedCells.Remove(cell.Position);
     }
     
-    void OnDestroy()
-    {
-        CellEventsProvider.CellWasCorrupted -= AddCorruptedCell;
-        CellEventsProvider.CellWasHealed -= RemoveCorruptedCell;
-    }
-
 }

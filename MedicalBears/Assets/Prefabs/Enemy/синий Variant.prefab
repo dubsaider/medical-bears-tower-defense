@@ -640,7 +640,6 @@ MonoBehaviour:
   range: 1
   damage: 20
   attackCooldown: 1
-  maxTargetPursuit: 1
 --- !u!95 &5598784236204607950 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7110382431344339979, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
