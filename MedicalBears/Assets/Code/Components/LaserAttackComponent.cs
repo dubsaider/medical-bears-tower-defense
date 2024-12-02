@@ -14,11 +14,25 @@ public class LaserAttackComponent : MonoBehaviour, ITowerAttackComponent
         }
     }
 
-    public void Attack(Transform firePoint, float range, float damage, Transform target)
+    public void Attack(Transform firePoint, float range, float damage)
     {
-        if (target != null)
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, range, LayerMask.GetMask("Enemy"));
+        Transform nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (var enemy in enemies)
         {
-            Vector2 direction = (target.position - firePoint.position).normalized;
+            float distance = Vector3.Distance(firePoint.position, enemy.transform.position);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestEnemy = enemy.transform;
+            }
+        }
+
+        if (nearestEnemy != null)
+        {
+            Vector2 direction = (nearestEnemy.position - firePoint.position).normalized;
 
             RaycastHit2D hit = Physics2D.Raycast(firePoint.position, direction, range, LayerMask.GetMask("Enemy"));
 
