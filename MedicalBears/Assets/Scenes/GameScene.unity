@@ -4618,7 +4618,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1101103377}
         m_TargetAssemblyTypeName: Code.Controllers.UIMainMenuController, Assembly-CSharp
         m_MethodName: CloseBearPedia
         m_Mode: 1
