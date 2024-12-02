@@ -63,6 +63,8 @@ namespace Code.Core
 
         private void StartCurrentLevel()
         {
+            Time.timeScale = 1;
+            
             Map = _mapGenerator.Generate(CurrentLevel.mapIndex);
             _sceneRenderer.Render(Map);
 
