@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3402e3c40e6771649878aa6bb54112d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxUnitCount: 3
+  MaxUnitCount: 8
   SpawnRange: 1
   SpawnUnitTime: 3
   CanRespawnNewUnit: 1

@@ -37,6 +37,8 @@ public class FriendlyUnit : Hero, ICorruptionHealer
 
         _homePosition = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
+        DestroyObjectsHandler.Add(gameObject);
+
         StartCoroutine(FindNearestCorrupCell());
         StartCoroutine(AnimationController());
     }
@@ -134,6 +136,10 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         // Логика смерти
         isAlive = false;
         _animator.SetBool("isDie", true);
+
+        StopAllCoroutines();
+        _navMeshAgent.Stop();
+
         Debug.Log($"Enemy {gameObject.name} dies");
         CoreEventsProvider.HealerUnitHasDie.Invoke(ID);
         //gameObject.SetActive(false);
