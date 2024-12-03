@@ -27,7 +27,7 @@ namespace Code.Core
         /// <summary>
         /// Волна переключилась
         /// </summary>
-        public static Action<int> WaveSwitched;
+        public static Action<int, int> WaveSwitched;
         
         /// <summary>
         /// Таймер начала волны обновлен
