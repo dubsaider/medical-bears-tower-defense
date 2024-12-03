@@ -8,6 +8,6 @@ namespace Code.Entities
     {
         public List<Character> characters = new List<Character>();
         public List<DialogueLine> dialogueLines = new List<DialogueLine>();
-        public Sprite background; // Добавляем поле для фона
+        public Sprite background; // Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ РґР»СЏ С„РѕРЅР°
     }
 }
