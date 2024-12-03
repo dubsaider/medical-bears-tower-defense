@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class TowerPurchaseButton : MonoBehaviour
 {
+    [SerializeField] private int levelAfterWhichAvailable;
     [SerializeField] private GameObject towerPrefab; 
     [SerializeField] private int towerCost = 25; 
     [SerializeField] private TextMeshProUGUI costText;
@@ -21,8 +22,10 @@ public class TowerPurchaseButton : MonoBehaviour
         
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnButtonClick);
-        
+
+        CoreEventsProvider.LevelSwitched += ChangeAvailability;
         CoreEventsProvider.BalanceChanged += UpdatePurchaseAbility;
+        
         GameModeManager.GameModeChanged += OnChangeGameMode;
     }
 
@@ -61,6 +64,10 @@ public class TowerPurchaseButton : MonoBehaviour
     {
         _button.interactable = isInteractable;
     }
-    
+
+    private void ChangeAvailability(int levelIndex)
+    {
+        gameObject.SetActive(levelIndex >= levelAfterWhichAvailable);
+    }
     
 }
