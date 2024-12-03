@@ -5,11 +5,6 @@ namespace Code.Core
     public static class CoreEventsProvider
     {
         /// <summary>
-        /// Новелла перед уровнем закончилась
-        /// </summary>
-        public static Action NovelFinished;
-        
-        /// <summary>
         /// Уровень запущен (инициализирован)
         /// </summary>
         public static Action LevelStarted;

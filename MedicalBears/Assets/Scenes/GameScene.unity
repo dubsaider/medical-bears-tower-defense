@@ -859,7 +859,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 917234277}
         m_TargetAssemblyTypeName: Code.Controllers.UIController, Assembly-CSharp
-        m_MethodName: StartNewGame
+        m_MethodName: StartNovel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4555,7 +4555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfcb07b649243198cad46b2d2a1e2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueManager: {fileID: 2019887826}
 --- !u!1 &948444321
 GameObject:
   m_ObjectHideFlags: 0
@@ -10279,6 +10278,7 @@ MonoBehaviour:
   rightCharacterImage: {fileID: 455250827}
   backgroundImage: {fileID: 0}
   canvas: {fileID: 0}
+  currentDialogueSession: {fileID: 0}
 --- !u!1 &2048335302
 GameObject:
   m_ObjectHideFlags: 0
