@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Core;
+using Code.Entities;
 using Code.Enums;
 using Code.Render;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Code.Controllers
     {
         public static UIController Instance;
         
+        [SerializeField] private DialogueManager _dialogueManager;
+
         private UIRenderer _uiRenderer;
 
         public void OpenMainMenu()
@@ -53,15 +56,9 @@ namespace Code.Controllers
             CoreManager.Instance.RestartLevel();
         }
 
-        public void StartNovel()
-        {
-            _uiRenderer.HideMainMenuUI();
-            _uiRenderer.ShowNovelUI();
-        }
-
         public void StartNewGame()
         {
-            _uiRenderer.HideNovelUI();
+            _uiRenderer.HideMainMenuUI();
             _uiRenderer.ShowGameUI();
             CoreManager.Instance.StartNewGame();
         }
@@ -71,6 +68,17 @@ namespace Code.Controllers
             _uiRenderer.HideMainMenuUI();
             _uiRenderer.ShowGameUI();
             CoreManager.Instance.ContinueGame();
+        }
+        
+        public void StartNovel(DialogueSession dialogueSession)
+        {
+            _uiRenderer.ShowNovelUI();
+            _dialogueManager.Init(dialogueSession);
+        }
+
+        private void EndNovel()
+        {
+            _uiRenderer.HideNovelUI();
         }
 
         private void OnVictory()
@@ -90,6 +98,8 @@ namespace Code.Controllers
 
             CoreEventsProvider.LevelPassed += OnVictory;
             CoreEventsProvider.LevelNotPassed += OnDefeat;
+
+            CoreEventsProvider.NovelFinished += EndNovel;
         }
     }
 }
