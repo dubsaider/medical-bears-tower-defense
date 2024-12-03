@@ -22,4 +22,4 @@ MonoBehaviour:
     dialogueText: Hello
   - characterNumber: 0
     dialogueText: Andrei
-  background: {fileID: 4706166934590593007, guid: b2d116e69db4f7d429d866d263fea1f2, type: 3}
+  background: {fileID: 21300000, guid: b2d116e69db4f7d429d866d263fea1f2, type: 3}
