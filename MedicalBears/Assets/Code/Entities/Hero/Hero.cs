@@ -25,7 +25,6 @@ public abstract class Hero : MonoBehaviour
         if (health <= 0 && isAlive)
         {
             Die();
-            if (ParticleDeath != null) { ParticleDeath.Play(); }
             isAlive = false;
         }
     }

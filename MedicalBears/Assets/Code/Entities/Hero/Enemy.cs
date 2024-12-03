@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Code.Core;
 using Extensions;
+using Unity.VisualScripting;
 
 public class Enemy : Hero
 {
@@ -57,6 +58,25 @@ public class Enemy : Hero
         CoreManager.Instance.BalanceMediator.AddKillReward(reward); //сомнительно, но окэй
 
         isAlive = false;
+
+        _navMeshAgent.isStopped = true;
+
+        StartCoroutine(DieProcess());
+    }
+
+    IEnumerator DieProcess()
+    {
+        if (ParticleDeath != null)  { ParticleDeath.Play(); }
+
+        var sprites = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (var sprite in sprites)
+        {
+            sprite.color *= 0.7f;  
+        }
+
+        if (ParticleDeath != null) { yield return new WaitUntil(() => ParticleDeath.isStopped); }
+
         gameObject.SetActive(false);
     }
 
