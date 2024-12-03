@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Controllers;
 using Code.Core.RewardsAndBalance;
 using Code.Entities;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Code.Core
         {
             SaveLoadHandler.ClearSaves();
             _levelsSwitcher.Init(0);
-            StartCurrentLevel();
+            InitCurrentLevel();
         }
         
         public void ContinueGame()
@@ -36,24 +37,24 @@ namespace Code.Core
                 index++;
             
             _levelsSwitcher.Init(index);
-            StartCurrentLevel();
+            InitCurrentLevel();
         }
 
         public void StartSelectedLevel(int selectedLevelIndex)
         {
             _levelsSwitcher.Init(selectedLevelIndex);
-            StartCurrentLevel();
+            InitCurrentLevel();
         }
         
         public void NextLevel()
         {
             _levelsSwitcher.Switch();
-            StartCurrentLevel();
+            InitCurrentLevel();
         }
         
         public void RestartLevel()
         {
-            StartCurrentLevel();
+            InitCurrentLevel(true);
         }
 
         public void FinishLevelManually()
@@ -61,16 +62,25 @@ namespace Code.Core
             CoreEventsProvider.LevelNotPassed.Invoke();
         }
 
-        private void StartCurrentLevel()
+        private void InitCurrentLevel(bool skipNovel = false)
         {
-            Time.timeScale = 1;
-            
             Map = _mapGenerator.Generate(CurrentLevel.mapIndex);
             _sceneRenderer.Render(Map);
 
             BalanceMediator = new(CurrentLevel.startBalance);
-            CoreEventsProvider.LevelStarted.Invoke();
             
+            if (!skipNovel && CurrentLevel.dialogueSession)
+            {
+                UIController.Instance.StartNovel(CurrentLevel.dialogueSession);
+                return;
+            }
+            
+            StartCurrentLevel();
+        }
+
+        private void StartCurrentLevel()
+        {
+            CoreEventsProvider.LevelStarted.Invoke();
             GameModeManager.SetDefaultMode();
         }
         
@@ -81,6 +91,8 @@ namespace Code.Core
 
             _levelsSwitcher = GetComponent<LevelsSwitcher>();
             _wavesSwitcher = GetComponent<WavesSwitcher>();
+
+            CoreEventsProvider.NovelFinished += StartCurrentLevel;
         }
     }
 }
