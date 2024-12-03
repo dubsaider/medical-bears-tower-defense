@@ -13,7 +13,7 @@ namespace Code.Core
             private set
             {
                 _currentWave = value;
-                CoreEventsProvider.WaveSwitched.Invoke(CurrentWaveNumber);
+                CoreEventsProvider.WaveSwitched.Invoke(CurrentWaveNumber, Waves.Length);
             }
         }
 

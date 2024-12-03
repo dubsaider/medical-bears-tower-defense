@@ -23,9 +23,9 @@ namespace Code.Render
             _timerText.text = text;
         }
         
-        private void UpdateWaveText(int waveNumber)
+        private void UpdateWaveText(int waveNumber, int wavesCount)
         {
-            _waveText.text = $"ВОЛНА {waveNumber}";
+            _waveText.text = $"ВОЛНА {waveNumber}/{wavesCount}";
         }
 
         private void UpdateCorruptionSlider(float value)
