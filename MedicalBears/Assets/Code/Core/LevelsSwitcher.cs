@@ -5,9 +5,19 @@ namespace Code.Core
 {
     public class LevelsSwitcher : MonoBehaviour
     {
-        public Level CurrentLevel { get; private set; }
+        public Level CurrentLevel
+        {
+            get => _currentLevel;
+            private set
+            {
+                _currentLevel = value;
+                CoreEventsProvider.LevelSwitched.Invoke(_currentLevelIndex);
+            }
+        }
 
         [SerializeField] private Level[] levels;
+
+        private Level _currentLevel;
         private int _currentLevelIndex;
 
         public void Init(int levelIndex)

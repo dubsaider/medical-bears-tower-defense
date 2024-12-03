@@ -10,6 +10,11 @@ namespace Code.Core
         public static Action NovelFinished;
         
         /// <summary>
+        /// Уровень переключен
+        /// </summary>
+        public static Action<int> LevelSwitched;
+        
+        /// <summary>
         /// Уровень запущен (инициализирован)
         /// </summary>
         public static Action LevelStarted;
