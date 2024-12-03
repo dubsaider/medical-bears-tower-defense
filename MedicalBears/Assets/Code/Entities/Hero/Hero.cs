@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
@@ -24,8 +25,8 @@ public abstract class Hero : MonoBehaviour
         if (ParticleTakeDamage != null) { ParticleTakeDamage.Play(); }
         if (health <= 0 && isAlive)
         {
-            Die();
             isAlive = false;
+            Die();
         }
     }
 

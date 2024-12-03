@@ -76,7 +76,7 @@ public class Enemy : Hero
         }
 
         if (ParticleDeath != null) { yield return new WaitUntil(() => ParticleDeath.isStopped); }
-
+        StopAllCoroutines();
         gameObject.SetActive(false);
     }
 

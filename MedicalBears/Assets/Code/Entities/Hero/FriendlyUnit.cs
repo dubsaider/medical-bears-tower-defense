@@ -137,12 +137,30 @@ public class FriendlyUnit : Hero, ICorruptionHealer
         isAlive = false;
         _animator.SetBool("isDie", true);
 
-        StopAllCoroutines();
         _navMeshAgent.Stop();
 
-        Debug.Log($"Enemy {gameObject.name} dies");
+        StartCoroutine(DieProcess());
+
+        //Debug.Log($"Enemy {gameObject.name} dies");
         CoreEventsProvider.HealerUnitHasDie.Invoke(ID);
         //gameObject.SetActive(false);
+    }
+
+    IEnumerator DieProcess()
+    {
+        if (ParticleDeath != null) { ParticleDeath.Play(); }
+
+        var sprites = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (var sprite in sprites)
+        {
+            sprite.color *= 0.8f;
+        }
+
+        if (ParticleDeath != null) { yield return new WaitUntil(() => ParticleDeath.isStopped); }
+
+        gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 
     public override void Move() { }

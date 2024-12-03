@@ -20,7 +20,7 @@ public class Tower : Hero
     [SerializeField] private int MaxLevel = 3;
     [SerializeField] private List<Sprite> levelSprites; // Список спрайтов для уровней
 
-    private Transform currentTarget;
+    private Transform currentTargetTransform;
 
     private void Awake()
     {
@@ -54,16 +54,17 @@ public class Tower : Hero
     {
         if (!IsBuilded) return;
 
-        currentTarget = FindNearestEnemy(FirePointTransform, attackRange);
-        isAttacking = currentTarget != null;
+        currentTargetTransform = FindNearestEnemy(FirePointTransform, attackRange)?.transform;
+        isAttacking = currentTargetTransform != null;
+        var isActiveTarget = FindNearestEnemy(FirePointTransform, attackRange)?.GetComponent<Hero>().IsAlive();
 
-        if (isAttacking)
+        if (isAttacking && isActiveTarget == true )
         {
             RotateFirePointTowardsTarget();
 
             if (Time.time >= nextTimeToAttack)
             {
-                AttackComponent?.Attack(FirePointTransform, attackRange, damage, currentTarget);
+                AttackComponent?.Attack(FirePointTransform, attackRange, damage, currentTargetTransform);
                 nextTimeToAttack = Time.time + 1f / attackSpeed;
             }
         }
@@ -71,9 +72,9 @@ public class Tower : Hero
 
     private void RotateFirePointTowardsTarget()
     {
-        if (currentTarget == null) return;
+        if (currentTargetTransform == null) return;
 
-        Vector3 direction = currentTarget.position - FirePointTransform.position;
+        Vector3 direction = currentTargetTransform.position - FirePointTransform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         FirePointTransform.rotation = Quaternion.Euler(0, 0, angle-RotationOffset);
     }
@@ -129,10 +130,10 @@ public class Tower : Hero
     }
 
 
-    public Transform FindNearestEnemy(Transform firePoint, float range)
+    public Collider2D FindNearestEnemy(Transform firePoint, float range)
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, range, LayerMask.GetMask("Enemy"));
-        Transform nearestEnemy = null;
+        Collider2D nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
 
         foreach (var enemy in enemies)
@@ -141,7 +142,7 @@ public class Tower : Hero
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
-                nearestEnemy = enemy.transform;
+                nearestEnemy = enemy;
             }
         }
 
