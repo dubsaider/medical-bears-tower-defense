@@ -80,6 +80,8 @@ namespace Code.Components
 
         private void DropTarget()
         {
+            if(!HasTarget) return;
+            
             Target.pursuitCnt--;
             Target = null;
             _navMeshAgent.ResetPath();
