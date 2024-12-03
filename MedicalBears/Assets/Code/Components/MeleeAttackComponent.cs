@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Extensions;
 using UnityEngine;
 using UnityEngine.AI;
@@ -92,6 +93,11 @@ namespace Code.Components
 
             StartCoroutine(FindAndFollowTarget());
             StartCoroutine(Attack());
+        }
+
+        private void OnDisable()
+        {
+            DropTarget();
         }
     }
 }
