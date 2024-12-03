@@ -6,6 +6,7 @@ public class SceneRenderer : MonoBehaviour
 {
     [Header("Объекты сцены")]
     [SerializeField] private GameObject mapObject;
+    [SerializeField] private GameObject spawnAreaObject;
     
     [Header("Префабы")]
     [SerializeField] private GameObject cellPrefab;
@@ -22,6 +23,11 @@ public class SceneRenderer : MonoBehaviour
 
     public void Render(Map map)
     {
+        spawnAreaObject.transform.position = new Vector3(
+            (float)map.Width / 2 - 0.5f, 
+            map.Height + 5f, 
+            spawnAreaObject.transform.position.z);
+        
         _mapRenderer.Render(map, wallTiles, floorTiles, borderTiles);
     }
 

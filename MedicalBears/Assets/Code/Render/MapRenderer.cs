@@ -21,8 +21,6 @@ namespace Code.Render
             RenderWalls(map, wallTiles);
             RenderFloors(map, floorTiles);
             RenderBorders(map, borderTiles);
-            
-            NavMeshBaker.Instance.Bake();
         }
 
         private void RenderWalls(Map map, Sprite[] tiles)
