@@ -19,6 +19,7 @@ namespace Code.Controllers
             
             _uiRenderer.ShowMainMenuUI();
             _uiRenderer.HideGameUI();
+            Time.timeScale = 1;
         }
         
         public void OpenPauseMenu()
@@ -52,9 +53,15 @@ namespace Code.Controllers
             CoreManager.Instance.RestartLevel();
         }
 
-        public void StartNewGame()
+        public void StartNovel()
         {
             _uiRenderer.HideMainMenuUI();
+            _uiRenderer.ShowNovelUI();
+        }
+
+        public void StartNewGame()
+        {
+            _uiRenderer.HideNovelUI();
             _uiRenderer.ShowGameUI();
             CoreManager.Instance.StartNewGame();
         }

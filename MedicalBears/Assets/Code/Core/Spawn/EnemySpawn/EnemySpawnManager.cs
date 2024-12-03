@@ -41,6 +41,12 @@ namespace Code.Spawn.EnemySpawn
             }
         }
 
+        private void EndSpawn()
+        {
+            StopAllCoroutines();
+            _enemySpawner.StopAllCoroutines();
+        }
+
         private IEnumerator TrackingRemainingEnemies()
         {
             while (SpawnedEnemies.Any(e=>e.IsAlive()))
@@ -52,6 +58,9 @@ namespace Code.Spawn.EnemySpawn
         private void Awake()
         {
             CoreEventsProvider.WaveStarted += BeginSpawn;
+
+            CoreEventsProvider.LevelPassed += EndSpawn;
+            CoreEventsProvider.LevelNotPassed += EndSpawn;
             
             CoreEventsProvider.AllWaveEnemiesSpawned += () =>
                 StartCoroutine(TrackingRemainingEnemies());

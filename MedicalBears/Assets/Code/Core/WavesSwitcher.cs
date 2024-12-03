@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using Code.Entities;
 using Extensions;
 using UnityEngine;
@@ -57,6 +54,11 @@ namespace Code.Core
         {
             StartCoroutine(Timer(timeToWait));
         }
+
+        private void StopTimer()
+        {
+            StopAllCoroutines();
+        }
         
         private IEnumerator Timer(TimeStruct timeToWait)
         {
@@ -74,6 +76,9 @@ namespace Code.Core
         private void Awake()
         {
             CoreEventsProvider.LevelStarted += Init;
+
+            CoreEventsProvider.LevelPassed += StopTimer;
+            CoreEventsProvider.LevelNotPassed += StopTimer;
             
             CoreEventsProvider.AllWaveEnemiesDied += Switch;
         }

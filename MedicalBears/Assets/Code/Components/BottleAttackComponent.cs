@@ -5,25 +5,11 @@ public class BottleAttackComponent : MonoBehaviour, ITowerAttackComponent
     [SerializeField] private GameObject bottlePrefab; 
     [SerializeField] private float throwForce = 8f;    
 
-    public void Attack(Transform firePoint, float range, float damage)
+    public void Attack(Transform firePoint, float range, float damage, Transform target)
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, range, LayerMask.GetMask("Enemy"));
-        Transform nearestEnemy = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (var enemy in enemies)
+        if (target != null)
         {
-            float distance = Vector3.Distance(firePoint.position, enemy.transform.position);
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                nearestEnemy = enemy.transform;
-            }
-        }
-
-        if (nearestEnemy != null)
-        {
-            Vector3 targetPosition = nearestEnemy.position;
+            Vector3 targetPosition = target.position;
             GameObject bottle = Instantiate(bottlePrefab, firePoint.position, Quaternion.identity);
 
             Bottle bottleScript = bottle.GetComponent<Bottle>();
@@ -37,8 +23,8 @@ public class BottleAttackComponent : MonoBehaviour, ITowerAttackComponent
             if (rb != null)
             {
                 Vector3 direction = (targetPosition - firePoint.position).normalized;
-                rb.velocity = direction * throwForce; 
-                rb.gravityScale = 0;  
+                rb.velocity = direction * throwForce;
+                rb.gravityScale = 0;
             }
         }
     }

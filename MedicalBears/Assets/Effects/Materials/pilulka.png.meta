@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pilulka_0: -7503804270329365282
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

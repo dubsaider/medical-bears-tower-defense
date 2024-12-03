@@ -76,6 +76,8 @@ public class CorruptionObserver : MonoBehaviour
             _maxCorruption = val;
             Debug.Log(val);
         }
+
+        _currentCorruption = 0;
     }
     
     private void Awake()

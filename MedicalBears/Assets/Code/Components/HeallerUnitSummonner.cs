@@ -13,7 +13,7 @@ class MyCell
     public bool canUse;
 }
 
-public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
+public class HeallerUnitSummonner : MonoBehaviour
 {
     [SerializeField] int MaxUnitCount;
     [SerializeField] int SpawnRange;
@@ -191,9 +191,4 @@ public class HeallerUnitSummonner : MonoBehaviour, ITowerAttackComponent
         StopAllCoroutines();
     }
 
-    public void Attack(Transform firePoint, float range, float damage)
-    {
-        return;
-        //throw new System.NotImplementedException();
-    }
 }
