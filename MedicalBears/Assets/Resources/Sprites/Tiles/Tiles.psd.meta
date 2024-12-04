@@ -79,7 +79,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -95,7 +95,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -114,10 +114,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -140,9 +140,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 47
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -158,12 +158,12 @@ TextureImporter:
       name: Tiles_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 3548
-        width: 516
-        height: 516
+        x: 0
+        y: 3583
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -179,12 +179,12 @@ TextureImporter:
       name: Tiles_1
       rect:
         serializedVersion: 2
-        x: 634
-        y: 3550
-        width: 514
-        height: 513
+        x: 512
+        y: 3583
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -200,12 +200,12 @@ TextureImporter:
       name: Tiles_2
       rect:
         serializedVersion: 2
-        x: 28
-        y: 2980
-        width: 511
-        height: 516
+        x: 0
+        y: 3071
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -221,12 +221,12 @@ TextureImporter:
       name: Tiles_3
       rect:
         serializedVersion: 2
-        x: 638
-        y: 2985
-        width: 515
-        height: 516
+        x: 512
+        y: 3071
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -242,12 +242,12 @@ TextureImporter:
       name: Tiles_4
       rect:
         serializedVersion: 2
-        x: 42
-        y: 2260
-        width: 515
-        height: 515
+        x: 0
+        y: 2269
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -263,12 +263,12 @@ TextureImporter:
       name: Tiles_5
       rect:
         serializedVersion: 2
-        x: 648
-        y: 2258
-        width: 517
-        height: 515
+        x: 516
+        y: 2269
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -284,12 +284,12 @@ TextureImporter:
       name: Tiles_6
       rect:
         serializedVersion: 2
-        x: 49
-        y: 1685
-        width: 515
-        height: 515
+        x: 0
+        y: 1757
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -305,12 +305,12 @@ TextureImporter:
       name: Tiles_7
       rect:
         serializedVersion: 2
-        x: 649
-        y: 1682
-        width: 515
-        height: 519
+        x: 512
+        y: 1757
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -326,12 +326,12 @@ TextureImporter:
       name: Tiles_8
       rect:
         serializedVersion: 2
-        x: 49
-        y: 958
-        width: 514
-        height: 514
+        x: 0
+        y: 971
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -347,12 +347,12 @@ TextureImporter:
       name: Tiles_9
       rect:
         serializedVersion: 2
-        x: 651
-        y: 965
-        width: 514
-        height: 514
+        x: 512
+        y: 971
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -368,12 +368,12 @@ TextureImporter:
       name: Tiles_10
       rect:
         serializedVersion: 2
-        x: 1255
-        y: 963
-        width: 516
-        height: 514
+        x: 1024
+        y: 971
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -389,12 +389,12 @@ TextureImporter:
       name: Tiles_11
       rect:
         serializedVersion: 2
-        x: 1839
-        y: 962
-        width: 524
-        height: 514
+        x: 1536
+        y: 971
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -410,12 +410,12 @@ TextureImporter:
       name: Tiles_12
       rect:
         serializedVersion: 2
-        x: 55
-        y: 396
-        width: 514
-        height: 514
+        x: 0
+        y: 459
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -431,12 +431,12 @@ TextureImporter:
       name: Tiles_13
       rect:
         serializedVersion: 2
-        x: 654
-        y: 397
-        width: 514
-        height: 514
+        x: 512
+        y: 459
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -452,12 +452,12 @@ TextureImporter:
       name: Tiles_14
       rect:
         serializedVersion: 2
-        x: 1257
-        y: 399
-        width: 514
-        height: 513
+        x: 1024
+        y: 459
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -472,7 +472,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ebd0469adb1196548a5430a1d50f12cd
     internalID: 0
     vertices: []
     indices: 
