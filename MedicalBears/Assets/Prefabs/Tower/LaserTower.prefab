@@ -195,6 +195,9 @@ MonoBehaviour:
   damage: 3
   attackRange: 6
   attackSpeed: 10
+  ParticleTakeDamage: {fileID: 0}
+  ParticleDeath: {fileID: 0}
+  pursuitCnt: 0
   TowerType: 0
   FirePoint: {fileID: 245893767784171034}
   RotationOffset: 39
