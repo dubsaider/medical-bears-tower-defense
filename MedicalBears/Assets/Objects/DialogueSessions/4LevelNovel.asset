@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characters:
   - characterNumber: 1
-    characterSprite: {fileID: 5765668779450868055, guid: 4f3a7014437525c45b2d6f136facd717, type: 3}
+    characterSprite: {fileID: 8181132431652489390, guid: 4e5f1d349e38ede4e8be304c614ac8e6, type: 3}
   - characterNumber: 0
-    characterSprite: {fileID: 6123120788520746012, guid: ee2d9fe85702a1649b4be9146fc24ad9, type: 3}
+    characterSprite: {fileID: 7183725241784595171, guid: 85588f68a7f52b84da880b5535a65dae, type: 3}
   dialogueLines:
   - characterNumber: 0
     dialogueText: "\u041C\u0438\u0448\u0430, \u0443 \u043C\u0435\u043D\u044F \u043F\u0440\u0435\u043A\u0440\u0430\u0441\u043D\u0430\u044F
