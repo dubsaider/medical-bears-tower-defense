@@ -433,6 +433,10 @@ PrefabInstance:
       value: 54106
       objectReference: {fileID: 0}
     - target: {fileID: 5333646848345697977, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
+      propertyPath: reward
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333646848345697977, guid: fc08e1f930de80e498a905883bf23fe4, type: 3}
       propertyPath: attackRange
       value: 0.5
       objectReference: {fileID: 0}

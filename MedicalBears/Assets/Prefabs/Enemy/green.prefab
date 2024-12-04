@@ -165,7 +165,10 @@ MonoBehaviour:
   damage: 0
   attackRange: 0
   attackSpeed: 0
-  reward: 7
+  ParticleTakeDamage: {fileID: 0}
+  ParticleDeath: {fileID: 0}
+  pursuitCnt: 0
+  reward: 30
 --- !u!114 &692959940939288976
 MonoBehaviour:
   m_ObjectHideFlags: 0

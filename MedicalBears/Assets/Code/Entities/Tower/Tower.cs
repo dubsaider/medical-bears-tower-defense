@@ -100,7 +100,7 @@ public class Tower : Hero
             return;
 
         Level++;
-        attackRange *= 1.2f;
+        attackRange *= 1.05f;
         damage *= 1.2f;
         attackSpeed *= 1.2f;
         UpdateView();

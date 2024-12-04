@@ -93,4 +93,20 @@ public class DialogueManager : MonoBehaviour
             CoreEventsProvider.NovelFinished.Invoke();
         }
     }
+
+    // Метод для сброса счетчика диалогов
+    private void ResetDialogueIndex()
+    {
+        currentDialogueIndex = 0;
+    }
+
+    private void OnEnable()
+    {
+        CoreEventsProvider.NovelFinished += ResetDialogueIndex;
+    }
+
+    private void OnDisable()
+    {
+        CoreEventsProvider.NovelFinished -= ResetDialogueIndex;
+    }
 }

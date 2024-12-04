@@ -187,7 +187,7 @@ MonoBehaviour:
   ParticleTakeDamage: {fileID: 7274116525678551197}
   ParticleDeath: {fileID: 1837454327012966779}
   pursuitCnt: 0
-  reward: 5
+  reward: 25
 --- !u!114 &1992522586161128357
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -192,9 +192,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   speed: 0
-  damage: 3
-  attackRange: 6
+  damage: 1.5
+  attackRange: 4
   attackSpeed: 10
+  ParticleTakeDamage: {fileID: 0}
+  ParticleDeath: {fileID: 0}
+  pursuitCnt: 0
   TowerType: 0
   FirePoint: {fileID: 245893767784171034}
   RotationOffset: 39

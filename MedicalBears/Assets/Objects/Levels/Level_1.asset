@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSession: {fileID: 11400000, guid: ec0eef0f7e876cf429204234ecd9bef9, type: 2}
   mapIndex: 0
-  startBalance: 200
+  startBalance: 50
   waves:
-  - {fileID: 11400000, guid: 98c50cc4cca333f4898dcc7a457ed92b, type: 2}
-  - {fileID: 11400000, guid: d1d58c6f0e61e42488ea4b7acfc03149, type: 2}
+  - {fileID: 11400000, guid: d3825313ffd408b43a3f79be29429dc3, type: 2}

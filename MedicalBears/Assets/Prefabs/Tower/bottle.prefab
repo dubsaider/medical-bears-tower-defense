@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07699cdbd8b34fc479bc9e33cd917e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aoeRadius: 4
+  aoeRadius: 2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256

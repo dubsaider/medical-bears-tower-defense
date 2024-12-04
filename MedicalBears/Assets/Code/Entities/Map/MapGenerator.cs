@@ -26,9 +26,42 @@ public class MapGenerator
     //     return GenerateMap();
     // }
 
-     public Map Generate(int matrixIndex)
+    public Map Generate(int matrixIndex)
     {
-        int[,] selectedMatrix = matrixIndex == 0 ? MapMatrices.Matrix1 : MapMatrices.Matrix2;
+        int[,] selectedMatrix;
+
+        switch (matrixIndex)
+        {
+            case 0:
+                selectedMatrix = MapMatrices.Matrix1;
+                break;
+            case 1:
+                selectedMatrix = MapMatrices.Matrix2;
+                break;
+            case 2:
+                selectedMatrix = MapMatrices.Matrix3;
+                break;
+            case 3:
+                selectedMatrix = MapMatrices.Matrix4;
+                break;
+            case 4:
+                selectedMatrix = MapMatrices.Matrix5;
+                break;
+            case 5:
+                selectedMatrix = MapMatrices.Matrix6;
+                break;
+            case 6:
+                selectedMatrix = MapMatrices.Matrix7;
+                break;
+            case 7:
+                selectedMatrix = MapMatrices.Matrix8;
+                break;
+            default:
+                selectedMatrix = MapMatrices.Matrix1;
+                Debug.LogWarning("Invalid Map Index");
+                break;
+        }
+
         return ConvertMatrixToMap(selectedMatrix);
     }
 

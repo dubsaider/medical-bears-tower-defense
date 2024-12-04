@@ -139,6 +139,9 @@ MonoBehaviour:
   damage: 30
   attackRange: 6
   attackSpeed: 0.2
+  ParticleTakeDamage: {fileID: 0}
+  ParticleDeath: {fileID: 0}
+  pursuitCnt: 0
   TowerType: 2
   FirePoint: {fileID: 245893767784171034}
   RotationOffset: 0
@@ -184,7 +187,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.7047949}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.49120343, y: 0.14643371}
+    pivot: {x: 0.49706802, y: 0.21353379}
     oldSize: {x: 2.66, y: 4.5333333}
     newSize: {x: 2.1, y: 4.86}
     adaptiveTilingThreshold: 0.5
