@@ -167,10 +167,10 @@ TextureImporter:
       name: UI2_2
       rect:
         serializedVersion: 2
-        x: 2745
-        y: 1723
-        width: 676
-        height: 714
+        x: 2760
+        y: 1731
+        width: 696
+        height: 680
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,6 +247,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI2_6
+      rect:
+        serializedVersion: 2
+        x: 3503
+        y: 1691
+        width: 738
+        height: 719
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 335a72c818fc59048b793044f0bac385
+      internalID: 164969953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -264,6 +285,7 @@ TextureImporter:
       UI2_3: -2479488561180824256
       UI2_4: 1416653197
       UI2_5: 857392206
+      UI2_6: 164969953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
