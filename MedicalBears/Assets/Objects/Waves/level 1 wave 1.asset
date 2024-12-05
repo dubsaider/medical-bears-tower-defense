@@ -17,4 +17,4 @@ MonoBehaviour:
     _seconds: 5
   enemySpawnInfos:
   - EnemyPrefab: {fileID: 3495153728514475845, guid: 26498564f0ce2924abcccc15c1d09abc, type: 3}
-    Count: 20
+    Count: 10
